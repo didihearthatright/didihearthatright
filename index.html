@@ -5,68 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Did I Hear That Right - DIHTR Vocal Verification</title>
     <style>
-        /* Styling for the Hover Tooltip Window */
-        .tooltip-container {
-            position: relative;
-            display: inline-block;
-            cursor: help;
-            border-bottom: 2px dotted #00adb5;
-        }
-        .tooltip-window {
-            visibility: hidden;
-            width: 320px;
-            background-color: #1e1e1e;
-            color: #ffffff;
-            text-align: left;
-            border: 1px solid #00adb5;
-            border-radius: 6px;
-            padding: 15px;
-            position: absolute;
-            z-index: 10;
-            bottom: 125%; 
-            left: 50%;
-            margin-left: -160px; 
-            opacity: 0;
-            transition: opacity 0.3s;
-            box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
-            font-size: 0.9rem;
-            font-weight: normal;
-            line-height: 1.4;
-        }
-        .tooltip-container:hover .tooltip-window {
-            visibility: visible;
-            opacity: 1;
-        }
-        /* Premium Dashboard Styling */
-        .premium-container {
-            margin: 50px auto;
-            max-width: 600px;
-            border: 1px solid #333;
-            background-color: #1a1a1a;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-            padding: 20px;
-        }
-        .blurred-content {
-            filter: blur(5px);
-            user-select: none;
-            pointer-events: none;
-            opacity: 0.4;
-            text-align: left;
-        }
-        .paywall-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: rgba(26, 26, 26, 0.4);
-        }
+        .tooltip-container { position: relative; display: inline-block; cursor: help; border-bottom: 2px dotted #00adb5; }
+        .tooltip-window { visibility: hidden; width: 320px; background-color: #1e1e1e; color: #ffffff; text-align: left; border: 1px solid #00adb5; border-radius: 6px; padding: 15px; position: absolute; z-index: 10; bottom: 125%; left: 50%; margin-left: -160px; opacity: 0; transition: opacity 0.3s; box-shadow: 0px 4px 15px rgba(0,0,0,0.5); font-size: 0.9rem; font-weight: normal; line-height: 1.4; }
+        .tooltip-container:hover .tooltip-window { visibility: visible; opacity: 1; }
+        .premium-container { margin: 50px auto; max-width: 600px; border: 1px solid #333; background-color: #1a1a1a; border-radius: 8px; padding: 25px; box-sizing: border-box; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body style="font-family: sans-serif; background-color: #121212; color: #ffffff; text-align: center; padding: 20px;">
@@ -80,6 +22,8 @@
     <div style="margin: 20px auto; max-width: 800px; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.5);">
         <img src="banner.png" alt="DIHTR - Did I Hear That Right" style="width: 100%; height: auto; display: block; background-color: #121212;">
     </div>
+    
+    <!-- BRAND PITCH -->
     <p style="color: #aaa; font-size: 1.1rem; margin: 35px auto 40px auto; max-width: 650px; line-height: 1.6;">
         Preserving authentic vocal ability in a world of digital manipulation. When you listen to a track and ask yourself, <span style="color: #ffffff; font-style: italic;">"Did I hear that right?"</span>, our software steps in. We completely isolate the background music to analyze <span style="color: #00adb5; font-weight: bold; border-bottom: 1px dashed #00adb5;">strictly the vocal performance</span>, measuring exactly where human expression ends and software begins.
     </p>
@@ -103,10 +47,11 @@
             <div class="tooltip-container">
                 Biological Artistry Score <span style="font-size: 0.85em; opacity: 0.8;">ⓘ</span>
                 <div class="tooltip-window">
-                    <strong style="color: #00adb5; display: block; margin-bottom: 8px; font-size: 1rem;">Evaluation Pillars:</strong>
-                    • <strong>Grid Snapping Velocity:</strong> Measures the millisecond speed of software pitch forcing.<br>
-                    • <strong>Micro-Tonal Drift:</strong> Audits the removal of natural human pitch fluctuations.<br>
-                    • <strong>Frequency Steps:</strong> Traces note-to-note transitions for un-natural instantaneous jumps.
+                    <strong style="color: #00adb5; display: block; margin-bottom: 8px; font-size: 1rem; font-family: sans-serif;">DIHTR Studio Evaluation Pillars:</strong>
+                    • <strong>Retune Clamp Velocity:</strong> Measures the millisecond speed of pitch forcing.<br>
+                    • <strong>Micro-Tonal Drift Index:</strong> Audits the removal of natural human pitch tremors.<br>
+                    • <strong>Transition Trajectory:</strong> Traces note changes for artificial box-step patterns.<br>
+                    • <strong>Tracking Consistency:</strong> Detects micro-second phase shifts from vocal splicing.
                 </div>
             </div>: 
             <span id="scoreDisplay" style="color: #00adb5;">-- %</span>
@@ -114,8 +59,8 @@
         <p id="statusText" style="color: #aaa; font-style: italic;">Awaiting track input to extract and evaluate human vocal tracking integrity...</p>
     </div>
 
-    <!-- PREMIUM PAID BLOCK -->
-    <div class="premium-container" style="margin: 50px auto; max-width: 600px; border: 1px solid #333; background-color: #1a1a1a; border-radius: 8px; padding: 25px; box-sizing: border-box; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+    <!-- PREMIUM STUDIO VALUE OVERVIEW -->
+    <div class="premium-container">
         <h3 style="color: #00adb5; margin-top: 0; font-size: 1.25rem; font-weight: bold; border-bottom: 1px solid #2d3238; padding-bottom: 10px;">🔬 The Granular Studio Report Includes:</h3>
         <ul style="list-style: none; padding: 0; margin: 20px 0; font-size: 0.95rem; line-height: 1.8; color: #ddd;">
             <li style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px;"><span style="color: #00adb5; font-weight: bold;">✔</span><div><strong>Retune Clamp Velocity Map:</strong> Tracks millisecond tuning snap speed.</div></li>
@@ -123,22 +68,14 @@
             <li style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px;"><span style="color: #00adb5; font-weight: bold;">✔</span><div><strong>Transition Trajectory Chart:</strong> Charts box-step snaps from organic curves.</div></li>
             <li style="margin-bottom: 20px; display: flex; align-items: flex-start; gap: 10px;"><span style="color: #00adb5; font-weight: bold;">✔</span><div><strong>Phase Splicing/Comping Index:</strong> Spots studio word stitching boundary edits.</div></li>
         </ul>
+        
+        <!-- RED CALL TO ACTION BLOCK -->
         <div style="background-color: #222; padding: 25px; border-radius: 6px; border: 1px solid #ff4a4a; box-shadow: 0 4px 20px rgba(0,0,0,0.7); text-align: center;">
             <h4 style="margin: 0 0 10px 0; color: #fff; font-size: 1.2rem; font-weight: bold;">Unlock the Full Forensic Breakdown</h4>
             <p style="margin: 0 0 20px 0; color: #ccc; font-size: 0.9rem;">Expose exactly where human artistry ends and software calibration takes over.</p>
             <button style="background-color: #ff4a4a; color: #fff; border: none; padding: 14px 25px; font-size: 15px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px;">
                 Unlock Studio Report for $1.99
             </button>
-        </div>
-    </div>
-        <div class="paywall-overlay">
-            <div style="background-color: #222; padding: 25px; border-radius: 6px; border: 1px solid #ff4a4a; box-shadow: 0 4px 20px rgba(0,0,0,0.7); max-width: 80%;">
-                <h4 style="margin: 0 0 10px 0; color: #fff; font-size: 1.2rem;">Unlock the Full Studio Breakdown</h4>
-                <p style="margin: 0 0 20px 0; color: #ccc; font-size: 0.9rem;">See exactly how much software manipulation was used behind the scenes on this track.</p>
-                <button style="background-color: #ff4a4a; color: #fff; border: none; padding: 12px 25px; font-size: 15px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%;">
-                    Unlock Studio Report for \$1.99
-                </button>
-            </div>
         </div>
     </div>
 
@@ -154,13 +91,11 @@
             var status = document.getElementById("statusText");
             var score = document.getElementById("scoreDisplay");
             var linkInput = document.getElementById("ytLink").value.toLowerCase();
-
             btn.innerHTML = "ISOLATING VOCAL FREQUENCIES... RUNNING BIOMETRIC AUDIT...";
             btn.style.backgroundColor = "#555";
             btn.disabled = true;
             status.innerHTML = "Analyzing vocal track wave patterns against the calibration scale...";
             score.innerHTML = "-- %";
-
             setTimeout(function() {
                 if (linkInput.includes("adam baldwin") || linkInput.includes("baldwin")) {
                     score.innerHTML = "96%";
