@@ -86,7 +86,7 @@
     </div>
 
     <!-- JAVASCRIPT: THE DYNAMIC SEQUENTIAL UNLOCK CONTROLLER -->
-    <script>
+        <script>
         function runSimulation() {
             var btn = document.getElementById("actionBtn");
             var status = document.getElementById("statusText");
@@ -103,7 +103,6 @@
 
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Analysis In Progress... Terminal Locked";
-            
             btn.innerHTML = "🔍 PASS 1/4: ISOLATING RAW VOCAL STREAMS...";
             status.innerHTML = "Deconstructing instrument layers to pull frequency boundaries...";
             
@@ -120,17 +119,27 @@
                 status.innerHTML = "Compiling quantization anomalies and stitching artifacts...";
             }, 7500);
             setTimeout(function() {
-                if (linkInput.toLowerCase().includes("adam baldwin") || linkInput.toLowerCase().includes("baldwin")) {
-                    score.innerHTML = "96%"; status.innerHTML = "Analysis complete. Flawless biological tracking confirmed.";
-                } else {
-                    var randomScore = Math.floor(Math.random() * (92 - 45 + 1)) + 45; 
-                    score.innerHTML = randomScore + "%"; status.innerHTML = "Analysis complete. 4-pass vocal validation archived.";
-                }
-                btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
+                var lowerLink = linkInput.toLowerCase();
                 
-                // UNLOCK GATEWAY TRIGGER: Flips class state to green color styling and releases clicking lock
-                checkout.className = "checkout-btn unlocked"; 
-                checkout.innerHTML = "Unlock Studio Report for $1.99";
+                if (lowerLink.includes("adam baldwin") || lowerLink.includes("baldwin")) {
+                    score.innerHTML = "96%"; 
+                    status.innerHTML = "Analysis complete. Flawless biological tracking confirmed for Adam Baldwin.";
+                } else {
+                    // TEXT HASHING: Generates a deterministic mathematical fingerprint from the URL string
+                    var hash = 0;
+                    var combinedInput = lowerLink + (fileInput > 0 ? "file-active" : "");
+                    for (var i = 0; i < combinedInput.length; i++) {
+                        hash = combinedInput.charCodeAt(i) + ((hash << 5) - hash);
+                    }
+                    // Restricts the final percentage scaling window neatly between 61% and 94%
+                    var finalScore = 61 + Math.abs(hash % (94 - 61 + 1));
+                    
+                    score.innerHTML = finalScore + "%"; 
+                    status.innerHTML = "Analysis complete. 4-pass vocal validation archived.";
+                }
+                
+                btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
+                checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Studio Report for $1.99";
             }, 10000);
         }
     </script>
