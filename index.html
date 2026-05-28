@@ -10,6 +10,11 @@
         .tooltip-window { visibility: hidden; width: 320px; background-color: #1e1e1e; color: #ffffff; text-align: justify; border: 1px solid #00adb5; border-radius: 6px; padding: 15px; position: absolute; z-index: 10; bottom: 125%; left: 50%; margin-left: -160px; opacity: 0; transition: opacity 0.3s; box-shadow: 0px 4px 15px rgba(0,0,0,0.5); font-size: 0.9rem; font-weight: normal; line-height: 1.4; }
         .tooltip-container:hover .tooltip-window { visibility: visible; opacity: 1; }
         .premium-container { margin: 50px auto; max-width: 600px; border: 1px solid #333; background-color: #1a1a1a; border-radius: 8px; padding: 25px; box-sizing: border-box; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        /* Interactive dynamic color states for the checkout terminal */
+        .checkout-btn { display: block; box-sizing: border-box; text-decoration: none; text-align: center; font-size: 15px; font-weight: bold; border-radius: 4px; width: 100%; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+        .checkout-btn.locked { background-color: #ff4a4a !important; color: #fff !important; cursor: not-allowed !important; box-shadow: none !important; pointer-events: none; opacity: 0.85; }
+        .checkout-btn.unlocked { background-color: #28a745 !important; color: #fff !important; cursor: pointer !important; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3) !important; pointer-events: auto; }
     </style>
 </head>
 <body style="font-family: sans-serif; background-color: #121212; color: #ffffff; text-align: center; padding: 20px;">
@@ -41,7 +46,6 @@
             RUN ISOLATED VOCAL ANALYSIS
         </button>
     </div>
-
     <!-- RESULT DISPLAY WITH HOVER TOOLTIP -->
     <div style="margin: 50px auto; max-width: 500px; position: relative; text-align: center;">
         <h2>
@@ -70,19 +74,19 @@
             <li style="margin-bottom: 20px; display: flex; align-items: flex-start; gap: 10px;"><span style="color: #00adb5; font-weight: bold;">✔</span><div><strong>Phase Splicing/Comping Index:</strong> Spots studio word stitching boundary edits.</div></li>
         </ul>
         
-        <!-- ACTIVE LIVE COMMERCIAL CHECKOUT TERMINAL -->
-        <a href="https://buy.stripe.com/3cI9ANgpv8kV0R77PcgrS00" target="_blank" style="display: block; box-sizing: border-box; text-decoration: none; text-align: center; background-color: #ff4a4a; color: #fff; border: none; padding: 14px 25px; font-size: 15px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255, 74, 74, 0.2);">
-            Unlock Studio Report for $1.99
+        <!-- INITIAL RED LOCKED TERMINAL WITH ACTIVE LIVE URL ATTACHED -->
+        <a id="checkoutBtn" href="https://stripe.com" target="_blank" class="checkout-btn locked" style="padding: 14px 25px;">
+            Awaiting Audio Analysis To Unlock Report
         </a>
     </div>
 
     <!-- LEGAL DEFENSE DISCLAIMER FOOTER -->
     <div style="margin: 60px auto 20px auto; max-width: 700px; border-top: 1px solid #222; padding-top: 20px; font-size: 0.75rem; color: #555; line-height: 1.5; text-align: justify;">
-        <strong>LEGAL DISCLOSURE:</strong> DIHTR is a specialized audio analysis metric engine that evaluates the geometric stability and frequency transition parameters of vocal tracking data. All calculated scores represent digital wave anomalies and mathematical alignments found within the provided audio file format. These findings are metrics based on signal behavior and do not constitute a definitive statement, accusation, or legal claim regarding an artist's personal recording methodologies, intent, or integrity.
+        <strong>LEGAL DISCLOSURE:</strong> DIHTR is a specialized audio analysis metric engine that evaluates the geometric stability and frequency transition parameters of vocal tracking data. All findings are metrics based on signal behavior and do not constitute a definitive claim regarding an artist's personal recording intent.
     </div>
 
-    <!-- JAVASCRIPT: THE BRAIN CODES -->
-        <script>
+    <!-- JAVASCRIPT: THE DYNAMIC SEQUENTIAL UNLOCK CONTROLLER -->
+    <script>
         function runSimulation() {
             var btn = document.getElementById("actionBtn");
             var status = document.getElementById("statusText");
@@ -99,6 +103,7 @@
 
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Analysis In Progress... Terminal Locked";
+            
             btn.innerHTML = "🔍 PASS 1/4: ISOLATING RAW VOCAL STREAMS...";
             status.innerHTML = "Deconstructing instrument layers to pull frequency boundaries...";
             
@@ -122,11 +127,12 @@
                     score.innerHTML = randomScore + "%"; status.innerHTML = "Analysis complete. 4-pass vocal validation archived.";
                 }
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
-                checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Studio Report for $1.99";
+                
+                // UNLOCK GATEWAY TRIGGER: Flips class state to green color styling and releases clicking lock
+                checkout.className = "checkout-btn unlocked"; 
+                checkout.innerHTML = "Unlock Studio Report for $1.99";
             }, 10000);
         }
     </script>
-</body>
-</html>
 </body>
 </html>
