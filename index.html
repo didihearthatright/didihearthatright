@@ -82,25 +82,39 @@
     </div>
 
     <!-- JAVASCRIPT: THE BRAIN CODES -->
-    <script>
+        <script>
         function runSimulation() {
             var btn = document.getElementById("actionBtn");
             var status = document.getElementById("statusText");
             var score = document.getElementById("scoreDisplay");
             var linkInput = document.getElementById("ytLink").value.toLowerCase();
-            btn.innerHTML = "ISOLATING VOCAL FREQUENCIES... RUNNING BIOMETRIC AUDIT...";
-            btn.style.backgroundColor = "#555"; btn.disabled = true;
-            status.innerHTML = "Analyzing vocal track wave patterns against calibration scale..."; score.innerHTML = "-- %";
+            btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %";
+            btn.innerHTML = "🔍 PASS 1/4: ISOLATING RAW VOCAL STREAMS...";
+            status.innerHTML = "Deconstructing instrument layers to pull frequency boundaries...";
+            setTimeout(function() {
+                btn.innerHTML = "⚡ PASS 2/4: MAPPING RETUNE CLAMP VELOCITY...";
+                status.innerHTML = "Auditing millisecond correction velocities against automated matrices...";
+            }, 2500);
+            setTimeout(function() {
+                btn.innerHTML = "🔬 PASS 3/4: INDEXING MICRO-TONAL DRIFT...";
+                status.innerHTML = "Evaluating harmonic curves to detect missing organic larynx tremors...";
+            }, 5000);
+            setTimeout(function() {
+                btn.innerHTML = "📡 PASS 4/4: SCANNING PHASE FOR STUDIO EDITS...";
+                status.innerHTML = "Compiling quantization anomalies and stitching artifacts from vocal comping...";
+            }, 7500);
             setTimeout(function() {
                 if (linkInput.includes("adam baldwin") || linkInput.includes("baldwin")) {
-                    score.innerHTML = "96%"; status.innerHTML = "Analysis complete. Flawless biological tracking confirmed.";
+                    score.innerHTML = "96%"; status.innerHTML = "Analysis complete. 4-pass forensic audit confirms flawless tracking for Adam Baldwin.";
                 } else {
                     var randomScore = Math.floor(Math.random() * (92 - 45 + 1)) + 45; 
-                    score.innerHTML = randomScore + "%"; status.innerHTML = "Analysis complete. Isolated vocal tracking archived.";
+                    score.innerHTML = randomScore + "%"; status.innerHTML = "Analysis complete. 4-pass multi-tier isolated vocal validation archived.";
                 }
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
-            }, 3000);
+            }, 10000);
         }
     </script>
+</body>
+</html>
 </body>
 </html>
