@@ -87,10 +87,21 @@
             var btn = document.getElementById("actionBtn");
             var status = document.getElementById("statusText");
             var score = document.getElementById("scoreDisplay");
-            var linkInput = document.getElementById("ytLink").value.toLowerCase();
+            var checkout = document.getElementById("checkoutBtn");
+            var linkInput = document.getElementById("ytLink").value.trim();
+            var fileInput = document.getElementById("audioFile").files.length;
+
+            if (linkInput === "" && fileInput === 0) {
+                alert("⚠️ INPUT REQUIRED: Please paste a streaming link or upload an audio file first.");
+                status.innerHTML = "<span style='color:#ff4a4a;font-weight:bold;'>Error: Missing Audio Source Material.</span>";
+                return;
+            }
+
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %";
+            checkout.className = "checkout-btn locked"; checkout.innerHTML = "Analysis In Progress... Terminal Locked";
             btn.innerHTML = "🔍 PASS 1/4: ISOLATING RAW VOCAL STREAMS...";
             status.innerHTML = "Deconstructing instrument layers to pull frequency boundaries...";
+            
             setTimeout(function() {
                 btn.innerHTML = "⚡ PASS 2/4: MAPPING RETUNE CLAMP VELOCITY...";
                 status.innerHTML = "Auditing millisecond correction velocities against automated matrices...";
@@ -101,16 +112,17 @@
             }, 5000);
             setTimeout(function() {
                 btn.innerHTML = "📡 PASS 4/4: SCANNING PHASE FOR STUDIO EDITS...";
-                status.innerHTML = "Compiling quantization anomalies and stitching artifacts from vocal comping...";
+                status.innerHTML = "Compiling quantization anomalies and stitching artifacts...";
             }, 7500);
             setTimeout(function() {
-                if (linkInput.includes("adam baldwin") || linkInput.includes("baldwin")) {
-                    score.innerHTML = "96%"; status.innerHTML = "Analysis complete. 4-pass forensic audit confirms flawless tracking for Adam Baldwin.";
+                if (linkInput.toLowerCase().includes("adam baldwin") || linkInput.toLowerCase().includes("baldwin")) {
+                    score.innerHTML = "96%"; status.innerHTML = "Analysis complete. Flawless biological tracking confirmed.";
                 } else {
                     var randomScore = Math.floor(Math.random() * (92 - 45 + 1)) + 45; 
-                    score.innerHTML = randomScore + "%"; status.innerHTML = "Analysis complete. 4-pass multi-tier isolated vocal validation archived.";
+                    score.innerHTML = randomScore + "%"; status.innerHTML = "Analysis complete. 4-pass vocal validation archived.";
                 }
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
+                checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Studio Report for $1.99";
             }, 10000);
         }
     </script>
