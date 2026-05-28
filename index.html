@@ -6,15 +6,15 @@
     <title>Did I Hear That Right - DIHTR Vocal Verification</title>
     <style>
         .tooltip-container { position: relative; display: inline-block; cursor: help; border-bottom: 2px dotted #00adb5; }
-        .tooltip-window { visibility: hidden; width: 320px; background-color: #1e1e1e; color: #ffffff; text-align: left; border: 1px solid #00adb5; border-radius: 6px; padding: 15px; position: absolute; z-index: 10; bottom: 125%; left: 50%; margin-left: -160px; opacity: 0; transition: opacity 0.3s; box-shadow: 0px 4px 15px rgba(0,0,0,0.5); font-size: 0.9rem; font-weight: normal; line-height: 1.4; }
+        .tooltip-window { visibility: hidden; width: 320px; background-color: #1e1e1e; color: #ffffff; text-align: justify; border: 1px solid #00adb5; border-radius: 6px; padding: 15px; position: absolute; z-index: 10; bottom: 125%; left: 50%; margin-left: -160px; opacity: 0; transition: opacity 0.3s; box-shadow: 0px 4px 15px rgba(0,0,0,0.5); font-size: 0.9rem; font-weight: normal; line-height: 1.4; }
         .tooltip-container:hover .tooltip-window { visibility: visible; opacity: 1; }
-        .premium-container { margin: 50px auto; max-width: 600px; border: 1px solid #333; background-color: #1a1a1a; border-radius: 8px; padding: 25px; box-sizing: border-box; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .premium-container { margin: 50px auto; max-width: 600px; border: 1px solid #333; background-color: #1a1a1a; border-radius: 8px; padding: 25px; box-sizing: border-box; text-align: justify; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body style="font-family: sans-serif; background-color: #121212; color: #ffffff; text-align: center; padding: 20px;">
 
     <!-- TOP BETA STATUS ZONE -->
-    <div style="border: 1px solid #ffcc00; padding: 15px; margin: 20px auto; max-width: 728px; background-color: #1a1500; color: #ffcc00; font-family: monospace; font-size: 0.9rem; border-radius: 4px; font-weight: bold; letter-spacing: 1px;">
+    <div style="border: 1px solid #ffcc00; padding: 15px; margin: 20px auto; max-width: 728px; background-color: #1a1500; color: #ffcc00; font-family: monospace; font-size: 0.9rem; border-radius: 4px; font-weight: bold; letter-spacing: 1px; text-align: center;">
         🧪 ACTIVE SYSTEM TESTING SANDBOX // PUBLIC BETA v1.0
     </div>
 
@@ -23,13 +23,13 @@
         <img src="banner.png" alt="DIHTR - Did I Hear That Right" style="width: 100%; height: auto; display: block; background-color: #121212;">
     </div>
     
-    <!-- BRAND PITCH -->
-    <p style="color: #aaa; font-size: 1.1rem; margin: 35px auto 40px auto; max-width: 650px; line-height: 1.6;">
+    <!-- BRAND PITCH (JUSTIFIED RECTANGLE) -->
+    <p style="color: #aaa; font-size: 1.1rem; margin: 35px auto 40px auto; max-width: 650px; line-height: 1.6; text-align: justify;">
         Preserving authentic vocal ability in a world of digital manipulation. When you listen to a track and ask yourself, <span style="color: #ffffff; font-style: italic;">"Did I hear that right?"</span>, our software steps in. We completely isolate the background music to analyze <span style="color: #00adb5; font-weight: bold; border-bottom: 1px dashed #00adb5;">strictly the vocal performance</span>, measuring exactly where human expression ends and software begins.
     </p>
 
     <!-- MULTIPLE INPUT SOURCES SECTION -->
-    <div style="margin: 40px auto; max-width: 500px; padding: 30px; border: 1px solid #333; background-color: #1e1e1e; border-radius: 8px;">
+    <div style="margin: 40px auto; max-width: 500px; padding: 30px; border: 1px solid #333; background-color: #1e1e1e; border-radius: 8px; text-align: center;">
         <h3 style="margin-top: 0; color: #ffffff;">Input Track for Isolated Vocal Analysis:</h3>
         <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">YouTube / Streaming Link:</label>
         <input id="ytLink" type="text" placeholder="Paste link to track or live performance..." style="width: 95%; padding: 12px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #444; background-color: #2a2a2a; color: #fff;"><br>
@@ -42,7 +42,7 @@
     </div>
 
     <!-- RESULT DISPLAY WITH HOVER TOOLTIP -->
-    <div style="margin: 50px auto; max-width: 500px; position: relative;">
+    <div style="margin: 50px auto; max-width: 500px; position: relative; text-align: center;">
         <h2>
             <div class="tooltip-container">
                 Biological Artistry Score <span style="font-size: 0.85em; opacity: 0.8;">ⓘ</span>
@@ -59,9 +59,9 @@
         <p id="statusText" style="color: #aaa; font-style: italic;">Awaiting track input to extract and evaluate human vocal tracking integrity...</p>
     </div>
 
-    <!-- PREMIUM STUDIO VALUE OVERVIEW -->
+    <!-- PREMIUM STUDIO VALUE OVERVIEW (JUSTIFIED RECTANGLE) -->
     <div class="premium-container">
-        <h3 style="color: #00adb5; margin-top: 0; font-size: 1.25rem; font-weight: bold; border-bottom: 1px solid #2d3238; padding-bottom: 10px;">🔬 The Granular Studio Report Includes:</h3>
+        <h3 style="color: #00adb5; margin-top: 0; font-size: 1.25rem; font-weight: bold; border-bottom: 1px solid #2d3238; padding-bottom: 10px; text-align: center;">🔬 The Granular Studio Report Includes:</h3>
         <ul style="list-style: none; padding: 0; margin: 20px 0; font-size: 0.95rem; line-height: 1.8; color: #ddd;">
             <li style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px;"><span style="color: #00adb5; font-weight: bold;">✔</span><div><strong>Retune Clamp Velocity Map:</strong> Tracks millisecond tuning snap speed.</div></li>
             <li style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px;"><span style="color: #00adb5; font-weight: bold;">✔</span><div><strong>Micro-Tonal Drift Index:</strong> Graphs natural biological human vocal tremors.</div></li>
@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <!-- LEGAL DEFENSE DISCLAIMER FOOTER -->
+    <!-- LEGAL DEFENSE DISCLAIMER FOOTER (JUSTIFIED RECTANGLE) -->
     <div style="margin: 60px auto 20px auto; max-width: 700px; border-top: 1px solid #222; padding-top: 20px; font-size: 0.75rem; color: #555; line-height: 1.5; text-align: justify;">
         <strong>LEGAL DISCLOSURE:</strong> DIHTR is a specialized audio analysis metric engine that evaluates the geometric stability and frequency transition parameters of vocal tracking data. All calculated scores represent digital wave anomalies and mathematical alignments found within the provided audio file format. These findings are metrics based on signal behavior and do not constitute a definitive statement, accusation, or legal claim regarding an artist's personal recording methodologies, intent, or integrity.
     </div>
