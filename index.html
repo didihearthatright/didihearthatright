@@ -51,15 +51,16 @@
             RUN ISOLATED VOCAL ANALYSIS
         </button>
     </div>
-
-    <div style="margin: 50px auto; max-width: 550px; position: relative; text-align: center;">
+<div style="margin: 50px auto; max-width: 550px; position: relative; text-align: center;">
         <h2>Vocal Integrity Spectrum: <span id="scoreDisplay" style="color: #00adb5; font-family: monospace;">-- %</span></h2>
         <div style="width: 100%; height: 24px; background-color: #11151b; border-radius: 12px; overflow: hidden; margin: 20px 0 8px 0; border: 1px solid #444; position: relative; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);">
-            <div id="meterFill" style="width: 0%; height: 100%; background: linear-gradient(to right, #28a745, #00adb5, #ffcc00, #ff4a4a); transition: width 1.5s ease-out; border-radius: 12px 0 0 12px;"></div>
+            <!-- GRADIENT FIXED: Flows natively from Red (Machine/Left) to Green (Human/Right) -->
+            <div id="meterFill" style="width: 0%; height: 100%; background: linear-gradient(to right, #ff4a4a, #ffcc00, #00adb5, #28a745); transition: width 1.5s ease-out; border-radius: 12px 0 0 12px;"></div>
         </div>
         <div style="display: flex; justify-content: space-between; padding: 0 5px; color: #555; font-family: monospace; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px;"><span>|</span><span>|</span><span>|</span></div>
         <div style="display: flex; justify-content: space-between; padding: 0 2px; color: #666; font-family: monospace; font-size: 0.75rem; font-weight: 900; letter-spacing: 1.5px; margin-bottom: 20px;">
-            <span style="color: #28a745;">HUMAN</span><span style="color: #00adb5;">MUTANT / HYBRID</span><span style="color: #ff4a4a;">MACHINE</span>
+            <!-- LABELS FIXED: Machine on Left, Mutant in Middle, Human on Right -->
+            <span style="color: #ff4a4a;">MACHINE</span><span style="color: #00adb5;">MUTANT / HYBRID</span><span style="color: #28a745;">HUMAN</span>
         </div>
         <div id="statusText" style="color: #aaa; font-weight: bold; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; min-height: 25px;">
             Awaiting track input to extract and evaluate human vocal tracking integrity...
