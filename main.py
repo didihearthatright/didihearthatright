@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from typing import Annotated
 from fastapi.middleware.cors import CORSMiddleware
+import io
 import numpy as np
 import librosa
 
@@ -8,7 +9,7 @@ app = FastAPI(title="DIHTR Universal Forensic Core Engine")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://dihtr.com", "https://dihtr.com"],
+    allow_origins=["https://dihtr.com", "https://www.dihtr.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -18,7 +19,7 @@ app.add_middleware(
 async def analyze_vocal(file: UploadFile = File(...)):
     try:
         audio_bytes = await file.read()
-        y_raw, sr = librosa.load(librosa.util.buf_to_float(audio_bytes), sr=22050)
+y_raw, sr = librosa.load(io.BytesIO(audio_bytes), sr=22050)
         
         y_vocals = librosa.effects.harmonic(y_raw, margin=4.0)
         y_vocals = librosa.effects.preemphasis(y_vocals)
