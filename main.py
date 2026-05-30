@@ -34,6 +34,7 @@ async def analyze_vocal(file: UploadFile = File(...)):
         f0, voiced_flag, voiced_probs = librosa.pyin(
             y_vocals, fmin=librosa.note_to_hz('F2'), fmax=librosa.note_to_hz('C6'), sr=sr
         )
+        
         if f0.ndim > 1:
             f0_clean = f0[~np.isnan(f0) & active_singing[:len(f0)]]
         else:
