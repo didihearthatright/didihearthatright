@@ -53,7 +53,7 @@
             </div>
             <div style="margin-bottom: 25px;"></div>
         </div>
-            <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio (MP3, FLAC, WAV):</label>
+        <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio (MP3, FLAC, WAV):</label>
         <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 95%; padding: 10px; margin-bottom: 30px; border: 1px dashed #444; background-color: #222b35; border-radius: 4px; color: #aaa;"><br>
         <button id="actionBtn" onclick="runSimulation()" style="background-color: #00adb5; color: #fff; border: none; padding: 15px 40px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 1px;">
             RUN ISOLATED VOCAL ANALYSIS
@@ -98,7 +98,7 @@
             ✉ Launch Secure Feedback Intake Email
         </a>
     </div>
-        <!-- LEGAL FOOTER AND HIDDEN AUDIO-HEAD TECHNICAL CORRIDOR -->
+    <!-- LEGAL FOOTER AND HIDDEN AUDIO-HEAD TECHNICAL CORRIDOR -->
     <div style="margin: 60px auto 20px auto; max-width: 700px; border-top: 1px solid #111; padding-top: 20px; font-size: 0.75rem; color: #333; line-height: 1.5; text-align: justify; user-select: none;">
         <strong>LEGAL DISCLOSURE:</strong> DIHTR metrics evaluate structural wave alignments and do not constitute personal accusations. 
         
@@ -111,7 +111,7 @@
         </div>
     </div>
 
-    <!-- DEDICATED HIGH-SPEED PAID INFRASTRUCTURE CONTROLLER SCRIPT -->
+    <!-- DEDICATED INFRASTRUCTURE NETWORK DRIVER -->
     <script>
         function toggleInputFields() {
             var linkVal = document.getElementById("ytLink").value.trim();
@@ -127,12 +127,11 @@
 
             if (fileSelector.files.length === 0) { alert("⚠️ FILE REQUIRED: Please upload an audio file to run raw forensic processing."); return; }
             
-            // THE FIX: Grabs the exact first physical file item inside the array object
+            // THE CRITICAL SINGLE-FILE ARRAY EXTRACTOR FIX
             var fileInput = fileSelector.files[0]; 
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
             
-            // ACCELERATED 12-SECOND TIMER FOR PREMIUM PAID HARDWARE INSTANCES
             btn.innerHTML = "🔍 PASS 1/3: ISOLATING LEAD VOCAL HARMONICS...";
             status.style.color = "#aaa"; status.innerHTML = "Meta HTDemucs v4 AI Core separating track arrangement in 3D cloud space...";
             
@@ -174,7 +173,7 @@
                     btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
                 })
                 .catch(err => {
-                    status.style.color = "#ff4a4a"; status.innerHTML = "❌ SERVER TIMEOUT: VERIFY INFRASTRUCTURE STATUS ROUTE GATEWAYS.";
+                    status.style.color = "#ff4a4a"; status.innerHTML = "❌ SERVER TIMEOUT: ROUTE GATEWAY UNRESPONSIVE.";
                     btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
                 });
             }, 12000);
