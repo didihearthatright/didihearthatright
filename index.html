@@ -37,6 +37,9 @@
     </div>
 
     <button id="analyze-trigger" class="action-btn">INITIATE DEEP INTEGRITY SCAN</button>
+    
+    <div id="status-console" class="status-box">SYSTEM STANDING BY. MOUNT VOCAL TRACK TO BEGIN INTEGRITY RETRIEVAL LAYER.</div>
+
     <div id="report-dashboard" class="metric-card">
         <div style="text-align: center; font-size: 14px; letter-spacing: 1px; color: #45a29e;">RESOLVED VOCAL INTEGRITY INDEX</div>
         <div id="vocal-score-display" class="score-large">--%</div>
@@ -85,64 +88,57 @@ btn.addEventListener("click", function() {
     formData.append("file", file);
 
     btn.disabled = true;
-    btn.innerHTML = "🔮 SECURING CLOUD NETWORK CONNECTION...";
-    // All artificial countdown pass wait times are completely set to 0 seconds here
-    setTimeout(function() { btn.innerHTML = "🔮 PASS 1/6: ISOLATING SPECTRUM INTEGRITY..."; status.innerHTML = "Stripping multi-track production layers and background instrumentation room nodes..."; }, 0);
-    setTimeout(function() { btn.innerHTML = "🔮 PASS 2/6: CAPTURING PITCH FREQUENCIES..."; status.innerHTML = "Mapping biological vocal chords via parabolic interpolated tracking algorithm..."; }, 0);
-    setTimeout(function() { btn.innerHTML = "🔮 PASS 3/6: REVERB DE-NOISER DEPLOYED..."; status.innerHTML = "Filtering synthetic chamber tails, echoes, and spatial room modulations..."; }, 0);
-    setTimeout(function() { btn.innerHTML = "🔮 PASS 4/6: GLIDE REFRACTION ANALYSIS..."; status.innerHTML = "Examining micro-tonal adjustments across transitional step boundaries..."; }, 0);
-    setTimeout(function() { btn.innerHTML = "🔮 PASS 5/6: INDUCTING INTEGRITY MATRIX..."; status.innerHTML = "Evaluating harmonic tremors against sterile, machine-quantized wave paths..."; }, 0);
-    setTimeout(function() { btn.innerHTML = "🔮 PASS 6/6: GENERATING ENGINE REPORT..."; status.innerHTML = "Syncing final alignment verification scores back to primary homepage dashboard console..."; }, 0);
+    btn.innerHTML = "🔮 ANALYZING FORENSIC DATA CORE...";
+    status.style.color = "#ffffff";
+    status.innerHTML = "Isolating vocal spectrum and mapping note-glide trajectory...";
 
-    setTimeout(function() {
-        fetch("https://onrender.com", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Server infrastructure response anomaly.");
-            return response.json();
-        })
-        .then(data => {
-            btn.disabled = false;
-            btn.innerHTML = "INITIATE DEEP INTEGRITY SCAN";
-            
-            if (data.success) {
-                const finalScore = data.score;
-                score.innerHTML = finalScore + "%";
-                fill.style.width = finalScore + "%";
-                dashboard.style.display = "block";
+    fetch("https://onrender.com", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Server infrastructure response anomaly.");
+        return response.json();
+    })
+    .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = "INITIATE DEEP INTEGRITY SCAN";
+        
+        if (data.success) {
+            const finalScore = data.score;
+            score.innerHTML = finalScore + "%";
+            fill.style.width = finalScore + "%";
+            dashboard.style.display = "block";
 
-                trajectory.innerHTML = data.trajectory.toUpperCase();
-                drift.innerHTML = data.drift_index.toUpperCase();
-                velocity.innerHTML = data.velocity_map.toUpperCase();
+            trajectory.innerHTML = data.trajectory.toUpperCase();
+            drift.innerHTML = data.drift_index.toUpperCase();
+            velocity.innerHTML = data.velocity_map.toUpperCase();
 
-                if (finalScore >= 85) {
-                    status.style.color = "#28a745";
-                    status.innerHTML = "✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.";
-                } else if (finalScore >= 70) {
-                    status.style.color = "#00adb5";
-                    status.innerHTML = "△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE DETECTED.";
-                } else {
-                    status.style.color = "#ff4a4a";
-                    status.innerHTML = "✕ STATUS: ARTIFICIAL QUANTIZATION & VELOCITY MACHINE MANIPULATION DETECTED.";
-                }
-
-                checkout.className = "checkout-btn unlocked";
-                checkout.innerHTML = "UNLOCK FULL CORE SECURITY REPORT ($1.99)";
+            if (finalScore >= 85) {
+                status.style.color = "#28a745";
+                status.innerHTML = "✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.";
+            } else if (finalScore >= 70) {
+                status.style.color = "#00adb5";
+                status.innerHTML = "△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE DETECTED.";
             } else {
                 status.style.color = "#ff4a4a";
-                status.innerHTML = "✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase();
+                status.innerHTML = "✕ STATUS: ARTIFICIAL QUANTIZATION & VELOCITY MACHINE MANIPULATION DETECTED.";
             }
-        })
-        .catch(error => {
-            console.error(error);
-            btn.disabled = false;
-            btn.innerHTML = "INITIATE DEEP INTEGRITY SCAN";
+
+            checkout.className = "checkout-btn unlocked";
+            checkout.innerHTML = "UNLOCK FULL CORE SECURITY REPORT ($1.99)";
+        } else {
             status.style.color = "#ff4a4a";
-            status.innerHTML = "✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.";
-        });
-    }, 0);
+            status.innerHTML = "✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase();
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        btn.disabled = false;
+        btn.innerHTML = "INITIATE DEEP INTEGRITY SCAN";
+        status.style.color = "#ff4a4a";
+        status.innerHTML = "✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.";
+    });
 });
 </script>
 </body>
