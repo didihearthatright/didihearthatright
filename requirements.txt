@@ -1,4 +1,1 @@
-fastapi
-numpy
-librosa
-python-multipart
+
