@@ -107,91 +107,97 @@
     </div>
 
     <!-- EXPANDED PERCEIVED PERFORMANCE LOGIC DRIVER SCRIPT -->
-    <script>
-        function toggleInputFields() {
-            var linkVal = document.getElementById("ytLink").value.trim();
-            var fileLen = document.getElementById("audioFile").files.length;
-            if (linkVal !== "") { document.getElementById("audioFile").disabled = true; }
-            else if (fileLen > 0) { document.getElementById("ytLink").disabled = true; }
-            else { document.getElementById("audioFile").disabled = false; document.getElementById("ytLink").disabled = false; }
-        }
-        function runSimulation() {
-            var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
-            var score = document.getElementById("scoreDisplay"); var fill = document.getElementById("meterFill");
-            var checkout = document.getElementById("checkoutBtn"); var fileInput = document.getElementById("audioFile").files;
+<script>
+const fileInput = document.getElementById("audio-file-input");
+const fileDisplay = document.getElementById("file-name-display");
+const btn = document.getElementById("analyze-trigger");
+const status = document.getElementById("status-console");
+const dashboard = document.getElementById("report-dashboard");
+const score = document.getElementById("vocal-score-display");
+const fill = document.getElementById("vocal-progress-fill");
+const trajectory = document.getElementById("trajectory-text");
+const drift = document.getElementById("drift-index-text");
+const velocity = document.getElementById("velocity-map-text");
+const checkout = document.getElementById("checkout-action");
 
-            if (fileInput.length === 0) { alert("⚠️ FILE REQUIRED: Please upload an audio file to run raw forensic processing."); return; }
-            
-            btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
-            checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
-            
-            // PASS 1: COUNTDOWN ILLUSION INIT (0s - 15s)
-            btn.innerHTML = "🔍 PASS 1/6: INITIALIZING CLOUD MATRIX // OPENING SIGNAL GATES...";
-            status.style.color = "#aaa"; status.innerHTML = "Establishing handshake with off-site forensic nodes and clearing processing cache...";
-            
-            // PASS 2: DEMUCS AI ISOLATION (15s - 30s)
-            setTimeout(function() { 
-                btn.innerHTML = "🤖 PASS 2/6: DEMUCS NEURAL SYSTEM ACTIVE // SEPARATING TRACK MIX..."; 
-                status.innerHTML = "Isolating percussion transients, sub-bass registers, and instrumental walls from audio payload..."; 
-            }, 15000);
-            
-            // PASS 3: REVERB STRIPPING (30s - 45s)
-            setTimeout(function() { 
-                btn.innerHTML = "⚡ PASS 3/6: REVERB DE-NOISER DEPLOYED // EXTRACTING DRY VOICE STEM..."; 
-                status.innerHTML = "Slicing out late-field room reflections, echo trails, and background microphone hiss..."; 
-            }, 30000);
-            
-            // PASS 4: AUTOTUNE CHECK (45s - 60s)
-            setTimeout(function() { 
-                btn.innerHTML = "🔬 PASS 4/6: PROBABILISTIC PITCH MATRICES // VELOCITY AUDIT..."; 
-                status.innerHTML = "Auditing note-to-note glide velocities against mathematical millisecond larynx thresholds..."; 
-            }, 45000);
-            
-            // PASS 5: NOISE CHAOS SCAN (60s - 70s)
-            setTimeout(function() { 
-                btn.innerHTML = "📉 PASS 5/6: INDUCTING HARMONIC INTEGRITY MATRIX // CHAOS INDEX..."; 
-                status.innerHTML = "Evaluating biological micro-tonal vocal tremors against sterile, machine-quantized wave paths..."; 
-            }, 60000);
-            
-            // PASS 6: FINAL INJECTION DATA STREAM (70s - 75s)
-            setTimeout(function() { 
-                btn.innerHTML = "📡 PASS 6/6: COMPILED FORENSIC REPORT GENERATING // INJECTING GRAPH..."; 
-                status.innerHTML = "Syncing final alignment verification scores back to primary homepage dashboard console..."; 
-            }, 70000);
+// Update the display text when an audio track is mounted into the terminal drive
+fileInput.addEventListener("change", function() {
+    if (this.files.length > 0) {
+        fileDisplay.innerText = "MOUNTED: " + this.files[0].name.toUpperCase();
+    }
+});
 
-            // REAL CLOUD NETWORK INJECTION PIPELINE (Fires exactly at 75s)
-            setTimeout(function() {
-                var formData = new FormData();
-                formData.append("file", fileInput[0]);
+btn.addEventListener("click", function() {
+    if (fileInput.files.length === 0) {
+        status.innerHTML = "<span style='color: #ff4a4a;'>✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED IN STORAGE DRIVE.</span>";
+        return;
+    }
 
-                // WELDED CLOUD ENGINE LINK: Talk directly to your live Render Python environment
-                fetch("https://didihearthatright.onrender.com/analyze-vocal", {
-                    method: "POST",
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        var finalScore = data.score;
-                        score.innerHTML = finalScore + "%";
-                        fill.style.width = finalScore + "%";
-                        
-                        if (finalScore >= 85) { status.style.color = "#28a745"; status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + data.drift_index.toUpperCase(); } 
-                        else if (finalScore >= 70) { status.style.color = "#00adb5"; status.innerHTML = "⚠ STATUS: HIGH INTEGRITY HYBRID // " + data.trajectory.toUpperCase(); } 
-                        else { status.style.color = "#ff4a4a"; status.innerHTML = "❌ STATUS: MACHINE MODULATION // VELOCITY CLAMP: " + data.velocity_map; }
-                        
-                        checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Studio Report for $1.99";
-                    } else {
-                        alert("Engine Diagnostic Error: " + data.error);
-                    }
-                    btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
-                })
-                .catch(err => {
-                    alert("Server communication failure. Verify backend pipeline status.");
-                    btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
-                });
-            }, 75000);
-        }
-    </script>
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+
+    btn.disabled = true;
+    
+    // All artificial loading pass wait times are completely collapsed down to zero seconds here
+    setTimeout(function() { btn.innerHTML = "🔮 PASS 1/6: ISOLATING SPECTRUM INTEGRITY..."; status.innerHTML = "Stripping multi-track production layers and background instrumentation room nodes..."; }, 0);
+    setTimeout(function() { btn.innerHTML = "🔮 PASS 2/6: CAPTURING PITCH FREQUENCIES..."; status.innerHTML = "Mapping biological vocal chords via parabolic interpolated tracking algorithm..."; }, 0);
+    setTimeout(function() { btn.innerHTML = "🔮 PASS 3/6: REVERB DE-NOISER DEPLOYED..."; status.innerHTML = "Filtering synthetic chamber tails, echoes, and spatial room modulations..."; }, 0);
+    setTimeout(function() { btn.innerHTML = "🔮 PASS 4/6: GLIDE REFRACTION ANALYSIS..."; status.innerHTML = "Examining micro-tonal adjustments across transitional step boundaries..."; }, 0);
+    setTimeout(function() { btn.innerHTML = "🔮 PASS 5/6: INDUCTING INTEGRITY MATRIX..."; status.innerHTML = "Evaluating harmonic tremors against sterile, machine-quantized wave paths..."; }, 0);
+    setTimeout(function() { btn.innerHTML = "🔮 PASS 6/6: GENERATING ENGINE REPORT..."; status.innerHTML = "Syncing final alignment verification scores back to primary homepage dashboard console..."; }, 0);
+
+    setTimeout(function() {
+        fetch("https://onrender.com", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Server infrastructure response anomaly.");
+            return response.json();
+        })
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = "INITIATE DEEP INTEGRITY SCAN";
+            
+            if (data.success) {
+                const finalScore = data.score;
+                score.innerHTML = finalScore + "%";
+                fill.style.width = finalScore + "%";
+                dashboard.style.display = "block";
+
+                trajectory.innerHTML = data.trajectory.toUpperCase();
+                drift.innerHTML = data.drift_index.toUpperCase();
+                velocity.innerHTML = data.velocity_map.toUpperCase();
+
+                // Dynamic metric evaluation paths matching your exact visual layout goals
+                if (finalScore >= 85) {
+                    status.style.color = "#28a745";
+                    status.innerHTML = "✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.";
+                } else if (finalScore >= 70) {
+                    status.style.color = "#00adb5";
+                    status.innerHTML = "△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE DETECTED.";
+                } else {
+                    status.style.color = "#ff4a4a";
+                    status.innerHTML = "✕ STATUS: ARTIFICIAL QUANTIZATION & VELOCITY MACHINE MANIPULATION DETECTED.";
+                }
+
+                checkout.className = "checkout-btn unlocked";
+                checkout.innerHTML = "UNLOCK FULL CORE SECURITY REPORT ($1.99)";
+            } else {
+                status.style.color = "#ff4a4a";
+                status.innerHTML = "✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase();
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            btn.disabled = false;
+            btn.innerHTML = "INITIATE DEEP INTEGRITY SCAN";
+            status.style.color = "#ff4a4a";
+            status.innerHTML = "✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.";
+        });
+    }, 0);
+});
+</script>
 </body>
 </html>
