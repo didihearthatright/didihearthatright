@@ -121,11 +121,10 @@
 
             if (fileSelector.files.length === 0) { alert("⚠️ FILE REQUIRED: Please upload an audio file to run raw forensic processing."); return; }
             
-            var fileInput = fileSelector.files[0]; // CRITICAL FIX: Grabs the exact physical file object array
+            var fileInput = fileSelector.files[0]; 
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
             
-            // ACCELERATED 12-SECOND LIVE PAID HARDWARE ENGINE COUNTDOWN
             btn.innerHTML = "🔍 PASS 1/3: ISOLATING LEAD VOCAL HARMONICS...";
             status.style.color = "#aaa"; status.innerHTML = "Meta HTDemucs v4 AI Core separating track arrangement in 3D cloud space...";
             
@@ -139,7 +138,6 @@
                 status.innerHTML = "Probabilistic YIN algorithms auditing instantaneous frequency jumps against larynx thresholds..."; 
             }, 8000);
 
-            // LIVE HIGH-SPEED SERVER HANDSHAKE PIPELINE (Fires exactly at 12 seconds)
             setTimeout(function() {
                 var formData = new FormData();
                 formData.append("file", fileInput);
