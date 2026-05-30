@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
+from typing import Annotated
 from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import librosa
@@ -14,7 +15,7 @@ app.add_middleware(
 )
 
 @app.post("/analyze-vocal")
-async def analyze_vocal(file: UploadFile = File(...)):
+async def analyze_vocal(file: Annotated[UploadFile, File()]):
     try:
         audio_bytes = await file.read()
         y_raw, sr = librosa.load(librosa.util.buf_to_float(audio_bytes), sr=22050)
