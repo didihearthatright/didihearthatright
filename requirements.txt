@@ -1,1 +1,5 @@
 fastapi
+numpy
+librosa
+python-multipart
+uvicorn
