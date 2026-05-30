@@ -117,66 +117,78 @@
         function runSimulation() {
             var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
             var score = document.getElementById("scoreDisplay"); var fill = document.getElementById("meterFill");
-            var checkout = document.getElementById("checkoutBtn"); var linkInput = document.getElementById("ytLink").value.trim();
-            var fileInput = document.getElementById("audioFile").files;
-            
-            if (linkInput === "" && fileInput.length === 0) { alert("⚠️ INPUT REQUIRED: Please paste a link or upload a file first."); return; }
+            var checkout = document.getElementById("checkoutBtn"); var fileInput = document.getElementById("audioFile").files;
+
+            if (fileInput.length === 0) { alert("⚠️ FILE REQUIRED: Please upload an audio file to run raw forensic processing."); return; }
             
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
-            checkout.className = "checkout-btn locked"; checkout.innerHTML = "Analysis In Progress... Terminal Locked";
+            checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
             
-            // PASS 1: SYSTEM TRIGGER (0 to 15 seconds)
+            // PASS 1: COUNTDOWN ILLUSION INIT (0s - 15s)
             btn.innerHTML = "🔍 PASS 1/6: INITIALIZING CLOUD MATRIX // OPENING SIGNAL GATES...";
             status.style.color = "#aaa"; status.innerHTML = "Establishing handshake with off-site forensic nodes and clearing processing cache...";
             
-            // PASS 2: DEMUCS AI ISOLATION (15 to 30 seconds)
+            // PASS 2: DEMUCS AI ISOLATION (15s - 30s)
             setTimeout(function() { 
                 btn.innerHTML = "🤖 PASS 2/6: DEMUCS NEURAL SYSTEM ACTIVE // SEPARATING TRACK MIX..."; 
                 status.innerHTML = "Isolating percussion transients, sub-bass registers, and instrumental walls from audio payload..."; 
             }, 15000);
             
-            // PASS 3: REVERB STRIPPING (30 to 45 seconds)
+            // PASS 3: REVERB STRIPPING (30s - 45s)
             setTimeout(function() { 
                 btn.innerHTML = "⚡ PASS 3/6: REVERB DE-NOISER DEPLOYED // EXTRACTING DRY VOICE STEM..."; 
                 status.innerHTML = "Slicing out late-field room reflections, echo trails, and background microphone hiss..."; 
             }, 30000);
             
-            // PASS 4: AUTOTUNE CHECK (45 to 60 seconds)
+            // PASS 4: AUTOTUNE CHECK (45s - 60s)
             setTimeout(function() { 
                 btn.innerHTML = "🔬 PASS 4/6: PROBABILISTIC PITCH MATRICES // VELOCITY AUDIT..."; 
                 status.innerHTML = "Auditing note-to-note glide velocities against mathematical millisecond larynx thresholds..."; 
             }, 45000);
             
-            // PASS 5: NOISE CHAOS SCAN (60 to 70 seconds)
+            // PASS 5: NOISE CHAOS SCAN (60s - 70s)
             setTimeout(function() { 
                 btn.innerHTML = "📉 PASS 5/6: INDUCTING HARMONIC INTEGRITY MATRIX // CHAOS INDEX..."; 
                 status.innerHTML = "Evaluating biological micro-tonal vocal tremors against sterile, machine-quantized wave paths..."; 
             }, 60000);
             
-            // PASS 6: FINAL INJECTION DATA STREAM (70 to 75 seconds)
+            // PASS 6: FINAL INJECTION DATA STREAM (70s - 75s)
             setTimeout(function() { 
                 btn.innerHTML = "📡 PASS 6/6: COMPILED FORENSIC REPORT GENERATING // INJECTING GRAPH..."; 
                 status.innerHTML = "Syncing final alignment verification scores back to primary homepage dashboard console..."; 
             }, 70000);
-            
-            // FINAL DELIVERABLE REVEAL GATE (Triggers exactly at 75 seconds)
+
+            // REAL CLOUD NETWORK INJECTION PIPELINE (Fires exactly at 75s)
             setTimeout(function() {
-                var lowerLink = linkInput.toLowerCase(); var finalScore = 0;
-                if (lowerLink.includes("adam baldwin") || lowerLink.includes("baldwin")) { finalScore = 96; } 
-                else {
-                    var hash = 1315423911; var combinedInput = linkInput !== "" ? linkInput : (fileInput.name + fileInput.size);
-                    for (var i = 0; i < combinedInput.length; i++) { hash ^= ((hash << 5) + combinedInput.charCodeAt(i) + (hash >> 2)); }
-                    var baseCalc = 42 + Math.abs(hash % (95 - 42 + 1));
-                    if (baseCalc === 58) { finalScore = 92; } 
-                    else { finalScore = (baseCalc > 84) ? 68 + (baseCalc % 12) : baseCalc; }
-                }
-                score.innerHTML = finalScore + "%";
-                fill.style.width = finalScore + "%";
-                if (finalScore >= 85) { status.style.color = "#28a745"; status.innerHTML = "✔ STATUS: HUMAN // COMPLETELY UNALTERED HUMAN VOICE AUTHENTICITY VERIFIED"; } 
-                else if (finalScore >= 70) { status.style.color = "#00adb5"; status.innerHTML = "⚠ STATUS: HIGH INTEGRITY HYBRID // RELIABLE BIOMETRIC AUTHENTICITY DETECTED"; } 
-                else { status.style.color = "#ff4a4a"; status.innerHTML = "❌ STATUS: MACHINE GENERATED // ZERO NATURAL DRIFT DETECTED"; }
-                btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
-                checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Studio Report for $1.99";
+                var formData = new FormData();
+                formData.append("file", fileInput[0]);
+
+                // WELDED CLOUD ENGINE LINK: Talk directly to your live Render Python environment
+                fetch("https://onrender.com", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        var finalScore = data.score;
+                        score.innerHTML = finalScore + "%";
+                        fill.style.width = finalScore + "%";
+                        
+                        if (finalScore >= 85) { status.style.color = "#28a745"; status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + data.drift_index.toUpperCase(); } 
+                        else if (finalScore >= 70) { status.style.color = "#00adb5"; status.innerHTML = "⚠ STATUS: HIGH INTEGRITY HYBRID // " + data.trajectory.toUpperCase(); } 
+                        else { status.style.color = "#ff4a4a"; status.innerHTML = "❌ STATUS: MACHINE MODULATION // VELOCITY CLAMP: " + data.velocity_map; }
+                        
+                        checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Studio Report for $1.99";
+                    } else {
+                        alert("Engine Diagnostic Error: " + data.error);
+                    }
+                    btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
+                })
+                .catch(err => {
+                    alert("Server communication failure. Verify backend pipeline status.");
+                    btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
+                });
             }, 75000);
         }
     </script>
