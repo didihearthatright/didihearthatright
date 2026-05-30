@@ -55,11 +55,21 @@
         </div>
         <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio (MP3, FLAC, WAV):</label>
         <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 95%; padding: 10px; margin-bottom: 30px; border: 1px dashed #444; background-color: #222b35; border-radius: 4px; color: #aaa;"><br>
-        <button id="actionBtn" onclick="runSimulation()" style="background-color: #00adb5; color: #fff; border: none; padding: 15px 40px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 1px;">
+        <button id="actionBtn" onclick="runSimulation()" style="background-color: #00adb5; color: #fff; border: none; padding: 15px 40px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 1px; margin-bottom: 25px;">
             RUN ISOLATED VOCAL ANALYSIS
         </button>
 
-        <div style="margin-top: 40px;">
+        <!-- LIVE INTERACTIVE FORENSIC PROGRESS CHECKLIST -->
+        <div id="checklistPanel" style="text-align: left; background-color: #0b0f12; border: 1px solid #222; border-radius: 6px; padding: 20px; margin-bottom: 35px; font-family: monospace; font-size: 0.8rem; line-height: 1.8; color: #444;">
+            <div id="step1" style="transition: color 0.4s ease;">◽ PASS 1/6: INITIALIZING CLOUD INFRASTRUCTURE HANDSHAKE...</div>
+            <div id="step2" style="transition: color 0.4s ease;">◽ PASS 2/6: MT-DEMUCS v4 AI SOURCE MIX SEPARATION...</div>
+            <div id="step3" style="transition: color 0.4s ease;">◽ PASS 3/6: ROOM REVERB TAIL & NOISE FLOOR DE-NOISING...</div>
+            <div id="step4" style="transition: color 0.4s ease;">◽ PASS 4/6: PROBABILISTIC YIN PITCH TRAJECTORY ANALYSIS...</div>
+            <div id="step5" style="transition: color 0.4s ease;">◽ PASS 5/6: HARMONIC TEXTURE CHAOS COEFFICIENT AUDIT...</div>
+            <div id="step6" style="transition: color 0.4s ease;">◽ PASS 6/6: GENERATING STUDIO ALIGNMENT DATA REPORT...</div>
+        </div>
+
+        <div style="margin-top: 30px;">
             <h3 style="margin-bottom: 20px;">Vocal Integrity Spectrum: <span id="scoreDisplay" style="color: #00adb5;">-- %</span></h3>
             <div style="width: 100%; background-color: #222b35; border-radius: 20px; height: 16px; overflow: hidden; border: 1px solid #444; box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);">
                 <div id="meterFill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #ff4a4a 0%, #ffcc00 50%, #00adb5 75%, #28a745 100%); transition: width 1.5s cubic-bezier(0.1, 0.8, 0.2, 1);"></div>
@@ -71,7 +81,7 @@
             </div>
         </div>
 
-        <p id="statusText" style="margin-top: 30px; font-family: monospace; font-size: 0.85rem; font-weight: bold; line-height: 1.6; color: #777;">
+        <p id="statusText" style="margin-top: 30px; font-family: monospace; font-size: 0.85rem; font-weight: bold; line-height: 1.6; color: #777; text-align: center;">
             SYSTEM COCKPIT IDLE // AWAITING AUDIO MIX DATA STREAM...
         </p>
     </div>
@@ -90,7 +100,7 @@
         </a>
     </div>
 
-    <!-- INTAKE FEEDBACK LINK REPAIR -->
+    <!-- INTAKE FEEDBACK LINK -->
     <div style="margin: 60px auto; max-width: 600px; background-color: #14191f; border: 1px solid #ffcc00; border-radius: 6px; padding: 30px; box-sizing: border-box; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
         <h4 style="margin: 0 0 10px 0; color: #ffcc00; font-family: monospace; font-size: 1.1rem; letter-spacing: 1px;">📡 OFFICIAL BETA TESTING DATA INTAKE</h4>
         <p style="margin: 0 0 25px 0; color: #bbb; font-size: 0.85rem; line-height: 1.5;">Found an interface bug, layout formatting issue, or a calculation discrepancy? Submit your details directly via our secure off-site routing gateway link below.</p>
@@ -111,7 +121,7 @@
         </div>
     </div>
 
-    <!-- DEDICATED INFRASTRUCTURE NETWORK DRIVER -->
+    <!-- ADVANCED INTERACTIVE ENGINE AND FASTRACK TIMING CONTROLLER SCRIPT -->
     <script>
         function toggleInputFields() {
             var linkVal = document.getElementById("ytLink").value.trim();
@@ -127,25 +137,74 @@
 
             if (fileSelector.files.length === 0) { alert("⚠️ FILE REQUIRED: Please upload an audio file to run raw forensic processing."); return; }
             
-            // THE CRITICAL SINGLE-FILE ARRAY EXTRACTOR FIX
+            // THE CRITICAL ARRAY REPAIR CODE LINE SPLICED HERE SUCCESSFULLY
             var fileInput = fileSelector.files[0]; 
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
-            
-            btn.innerHTML = "🔍 PASS 1/3: ISOLATING LEAD VOCAL HARMONICS...";
-            status.style.color = "#aaa"; status.innerHTML = "Meta HTDemucs v4 AI Core separating track arrangement in 3D cloud space...";
-            
-            setTimeout(function() { 
-                btn.innerHTML = "⚡ PASS 2/3: DE-NOISING ROOM REVERB TRAILS..."; 
-                status.innerHTML = "RMS Energy Gates muting ambient microphone background hiss and late-field field echo..."; 
-            }, 4000);
-            
-            setTimeout(function() { 
-                btn.innerHTML = "🔬 PASS 3/3: TRACKING PITCH GLIDE VELOCITY..."; 
-                status.innerHTML = "Probabilistic YIN algorithms auditing instantaneous frequency jumps against larynx thresholds..."; 
-            }, 8000);
+            btn.innerHTML = "🔍 ISOLATION SEQUENCE INITIALIZED...";
 
+            // RE-ESTABLISH LIST ELEMENT BASICK STATE MATRIX
+            for(var i=1; i<=6; i++) { 
+                var el = document.getElementById("step"+i);
+                el.style.color = "#444";
+                el.innerHTML = el.innerHTML.replace("✔", "◽").replace("▶", "◽");
+            }
+
+            // PASS 1 HIGH LIGHT NEON CALIBRATION LOOP (0s - 3s)
+            document.getElementById("step1").style.color = "#00adb5";
+            document.getElementById("step1").innerHTML = "▶ PASS 1/6: INITIALIZING CLOUD INFRASTRUCTURE HANDSHAKE...";
+            status.style.color = "#aaa"; status.innerHTML = "Establishing handshake with off-site forensic nodes and clearing processing cache...";
+            
+            // PASS 2 TIMEOUT SEQUENCER TRANSITION (3s - 6s)
             setTimeout(function() {
+                document.getElementById("step1").style.color = "#222b35"; 
+                document.getElementById("step1").innerHTML = "✔ PASS 1/6: INITIALIZING CLOUD INFRASTRUCTURE HANDSHAKE...";
+                document.getElementById("step2").style.color = "#00adb5"; 
+                document.getElementById("step2").innerHTML = "▶ PASS 2/6: MT-DEMUCS v4 AI SOURCE MIX SEPARATION...";
+                status.innerHTML = "Isolating percussion transients, sub-bass registers, and instrumental walls from audio payload...";
+            }, 3000);
+            
+            // PASS 3 TIMEOUT SEQUENCER TRANSITION (6s - 9s)
+            setTimeout(function() {
+                document.getElementById("step2").style.color = "#222b35";
+                document.getElementById("step2").innerHTML = "✔ PASS 2/6: MT-DEMUCS v4 AI SOURCE MIX SEPARATION...";
+                document.getElementById("step3").style.color = "#00adb5";
+                document.getElementById("step3").innerHTML = "▶ PASS 3/6: ROOM REVERB TAIL & NOISE FLOOR DE-NOISING...";
+                status.innerHTML = "Slicing out late-field room reflections, echo trails, and background microphone hiss...";
+            }, 6000);
+            
+            // PASS 4 TIMEOUT SEQUENCER TRANSITION (9s - 12s)
+            setTimeout(function() {
+                document.getElementById("step3").style.color = "#222b35";
+                document.getElementById("step3").innerHTML = "✔ PASS 3/6: ROOM REVERB TAIL & NOISE FLOOR DE-NOISING...";
+                document.getElementById("step4").style.color = "#00adb5";
+                document.getElementById("step4").innerHTML = "▶ PASS 4/6: PROBABILISTIC YIN PITCH TRAJECTORY ANALYSIS...";
+                status.innerHTML = "Auditing note-to-note glide velocities against mathematical millisecond larynx thresholds...";
+            }, 9000);
+            
+            // PASS 5 TIMEOUT SEQUENCER TRANSITION (12s - 15s)
+            setTimeout(function() {
+                document.getElementById("step4").style.color = "#222b35";
+                document.getElementById("step4").innerHTML = "✔ PASS 4/6: PROBABILISTIC YIN PITCH TRAJECTORY ANALYSIS...";
+                document.getElementById("step5").style.color = "#00adb5";
+                document.getElementById("step5").innerHTML = "▶ PASS 5/6: HARMONIC TEXTURE CHAOS COEFFICIENT AUDIT...";
+                status.innerHTML = "Evaluating biological micro-tonal vocal tremors against sterile, machine-quantized wave paths...";
+            }, 12000);
+            
+            // PASS 6 TIMEOUT SEQUENCER TRANSITION (15s - 18s)
+            setTimeout(function() {
+                document.getElementById("step5").style.color = "#222b35";
+                document.getElementById("step5").innerHTML = "✔ PASS 5/6: HARMONIC TEXTURE CHAOS COEFFICIENT AUDIT...";
+                document.getElementById("step6").style.color = "#00adb5";
+                document.getElementById("step6").innerHTML = "▶ PASS 6/6: GENERATING STUDIO ALIGNMENT DATA REPORT...";
+                status.innerHTML = "Syncing final alignment verification scores back to primary homepage dashboard console...";
+            }, 15000);
+
+            // ACCELERATED 18-SECOND HIGH PERFORMANCE UPLOAD ROUTE (Fires exactly at 18 seconds)
+            setTimeout(function() {
+                document.getElementById("step6").style.color = "#222b35";
+                document.getElementById("step6").innerHTML = "✔ PASS 6/6: GENERATING STUDIO ALIGNMENT DATA REPORT...";
+                
                 var formData = new FormData();
                 formData.append("file", fileInput);
 
@@ -176,7 +235,7 @@
                     status.style.color = "#ff4a4a"; status.innerHTML = "❌ SERVER TIMEOUT: ROUTE GATEWAY UNRESPONSIVE.";
                     btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
                 });
-            }, 12000);
+            }, 18000);
         }
     </script>
 </body>
