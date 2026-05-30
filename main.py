@@ -15,9 +15,9 @@ app.add_middleware(
 )
 
 @app.post("/analyze-vocal")
-async def analyze_vocal(audio: Annotated[UploadFile, File()]):
+async def analyze_vocal(file: Annotated[UploadFile, File()]):
     try:
-        audio_bytes = await audio.read()
+        audio_bytes = await file.read()
         y_raw, sr = librosa.load(librosa.util.buf_to_float(audio_bytes), sr=22050)
         
         y_vocals = librosa.effects.harmonic(y_raw, margin=4.0)
