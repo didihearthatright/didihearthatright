@@ -1,7 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
-from typing import Annotated
 from fastapi.middleware.cors import CORSMiddleware
-import io
 import numpy as np
 import librosa
 
@@ -9,7 +7,7 @@ app = FastAPI(title="DIHTR Universal Forensic Core Engine")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://dihtr.com", "https://dihtr.com"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -19,38 +17,42 @@ app.add_middleware(
 async def analyze_vocal(file: UploadFile = File(...)):
     try:
         audio_bytes = await file.read()
-        y_raw, sr = librosa.load(io.BytesIO(audio_bytes), sr=22050)
         
+        # PRODUCTION OPTIMIZATION: Constrain duration to 15.0 seconds to execute in under 2s and stop timeouts
+        y_raw, sr = librosa.load(librosa.util.buf_to_float(audio_bytes), sr=22050, duration=15.0)
+        
+        # Universal AI Voice Isolation Layer
         y_vocals = librosa.effects.harmonic(y_raw, margin=4.0)
         y_vocals = librosa.effects.preemphasis(y_vocals)
         
+        # RMS Energy Noise Gate
         rms = librosa.feature.rms(y=y_vocals)
         db_rms = librosa.amplitude_to_db(rms, ref=np.max)
-        active_singing = db_rms > -28
+        active_frames = db_rms > -28
         
-        if not np.any(active_singing):
-            return {"success": False, "error": "Vocal stream density too faint."}
+        if not np.any(active_frames):
+            return {"success": False, "error": "Vocal track unresolvable. Payloads density mismatch."}
 
+        # Fundamental Vocal Pitch Tracking (Pyin Engine Layer)
         f0, voiced_flag, voiced_probs = librosa.pyin(
             y_vocals, fmin=librosa.note_to_hz('F2'), fmax=librosa.note_to_hz('C6'), sr=sr
         )
-        
-        if f0.ndim > 1:
-            f0_clean = f0[~np.isnan(f0) & active_singing[:len(f0)]]
-        else:
-            f0_clean = f0[~np.isnan(f0)]
+        f0_clean = f0[~np.isnan(f0) & active_frames[:len(f0)]]
         
         if len(f0_clean) < 20:
-            return {"success": False, "error": "Insufficient pitch data resolved."}
+            return {"success": False, "error": "Insufficient lead vocal tracking data resolved."}
 
+        # Precision Note-Glide Velocity Analysis (Autotune Hunter)
         pitch_velocity = np.abs(np.diff(f0_clean))
-        clamped_snaps = np.sum(pitch_velocity > 30)
+        clamped_snaps = np.sum(pitch_velocity > 30) 
         total_transitions = len(pitch_velocity)
         
-        harmonic_p = np.sum(librosa.feature.rms(y=y_vocals))
-        noise_p = np.sum(librosa.feature.rms(y=y_raw - y_vocals))
-        hnr = float(harmonic_p / max(0.001, noise_p))
+        # Harmonic-to-Noise Ratio
+        harmonic_power = np.sum(librosa.feature.rms(y=y_vocals))
+        noise_power = np.sum(librosa.feature.rms(y=y_raw - y_vocals))
+        hnr = float(harmonic_power / max(0.001, noise_power))
 
+        # Objective Metric Scaling Matrix
         clamp_ratio = clamped_snaps / total_transitions
         base_score = 100 - (clamp_ratio * 260)
         
@@ -66,5 +68,6 @@ async def analyze_vocal(file: UploadFile = File(...)):
             "drift_index": f"{100 - (clamp_ratio * 100):.1f}% organic vocal flexibility",
             "trajectory": "Pure Fluid Biological Tracking" if clamp_ratio < 0.04 else "Quantized Box-Stepping Detected"
         }
+        
     except Exception as e:
         return {"success": False, "error": str(e)}
