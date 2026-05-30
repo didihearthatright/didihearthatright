@@ -7,7 +7,7 @@ app = FastAPI(title="DIHTR Universal Forensic Core Engine")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://dihtr.com", "https://dihtr.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
