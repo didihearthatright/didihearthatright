@@ -49,7 +49,6 @@
     <div style="margin: 40px auto; max-width: 500px; padding: 30px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
         <h3 style="margin-top: 0;">Input Track for Isolated Vocal Analysis:</h3>
         
-        <!-- RESTORED LINK FIELD WITH TOGGLE CONTROLLERS -->
         <div style="display: block; margin-bottom: 25px;">
             <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">YouTube / Streaming Link:</label>
             <input id="ytLink" type="text" oninput="toggleInputFields()" placeholder="Paste YouTube link to track..." style="width: 95%; padding: 12px; border-radius: 4px; border: 1px solid #444; background-color: #222b35; color: #fff; box-sizing: border-box;"><br>
@@ -94,7 +93,6 @@
             <p id="velocityMapText" style="color: #555; font-size: 0.75rem; margin: 5px 0 0 0; display: none;"></p>
         </div>
 
-        <!-- DYNAMIC FORENSIC METRIC BREAKDOWN BOX -->
         <div id="legendBox" class="legend-card">
             <strong style="color: #00adb5; display: block; margin-bottom: 8px; border-bottom: 1px solid #222; padding-bottom: 4px; font-size: 0.85rem;">📊 METRIC INTERPRETATION BREAKDOWN:</strong>
             <span id="legendVocalType" style="font-weight: bold; display: block; margin-bottom: 8px;"></span>
@@ -119,7 +117,7 @@
     <div style="margin: 60px auto; max-width: 600px; background-color: #14191f; border: 1px solid #ffcc00; border-radius: 6px; padding: 30px; box-sizing: border-box; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
         <h4 style="margin: 0 0 10px 0; color: #ffcc00; font-family: monospace; font-size: 1.1rem; letter-spacing: 1px;">📡 OFFICIAL BETA TESTING DATA INTAKE</h4>
         <p style="margin: 0 0 25px 0; color: #bbb; font-size: 0.85rem; line-height: 1.5;">Found an interface bug, layout formatting issue, or a calculation discrepancy? Submit your details directly via our secure off-site routing gateway link below.</p>
-        <a href="mailto:dymark@eastlink.ca?subject=DIHTR%20Beta%20Feedback%20Report&body=Describe%20the%20bug%20or%20paste%20your%20test%20track%20link%20here%3A" style="display: block; background-color: #ffcc00; color: #000; text-decoration: none; padding: 15px 25px; font-weight: bold; border-radius: 4px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);">
+        <a href="mailto:sourpuss@eastlink.ca?subject=DIHTR%20Beta%20Feedback%20Report&body=Describe%20the%20bug%20or%20paste%20your%20test%20track%20link%20here%3A" style="display: block; background-color: #ffcc00; color: #000; text-decoration: none; padding: 15px 25px; font-weight: bold; border-radius: 4px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);">
             ✉ Launch Secure Feedback Intake Email
         </a>
     </div>
@@ -136,7 +134,7 @@
             </div>
         </div>
     </div>
-            <!-- ADVANCED INTERACTIVE ENGINE AND REAL-TIME NETWORKING CONTROLLER SCRIPT -->
+    <!-- ADVANCED INTERACTIVE ENGINE AND PROGRESSIVE SCANNER TIMING CONTROLLER SCRIPT -->
     <script>
         function toggleInputFields() {
             var linkVal = document.getElementById("ytLink").value.trim();
@@ -169,7 +167,6 @@
                 el.innerHTML = el.innerHTML.replace("✔", "◽").replace("▶", "◽");
             }
 
-            // VISUAL SELECTION TIMERS (Runs completely independent of network traffic lanes)
             document.getElementById("step1").style.color = "#00adb5";
             document.getElementById("step1").innerHTML = "▶ PASS 1/6: INITIALIZING CLOUD INFRASTRUCTURE HANDSHAKE...";
             status.style.color = "#aaa"; status.innerHTML = "Establishing handshake with off-site forensic nodes and clearing processing cache...";
@@ -203,7 +200,7 @@
                 status.innerHTML = "Syncing final alignment verification scores back to primary homepage dashboard console...";
             }, 15000);
 
-            // 🔥 IMMEDIATELY ENFORCED NETWORK LANES: Fires the data packet instantly on click, matching animations on front-end
+            // 🔥 HIGH-SPEED LANES WITH INTEGRATED NETWORK DIAGNOSTIC RADAR
             var formData = new FormData();
             if (hasFile) { formData.append("file", fileSelector.files.item(0)); } 
             else { formData.append("link", ytInput.value.trim()); }
@@ -212,7 +209,13 @@
                 method: "POST",
                 body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                // Catches hidden web gate block statuses (like 404, 502 Bad Gateway, or 422 Unprocessable Entity)
+                if (!response.ok) {
+                    throw new Error("HTTP-GATEWAY-RESPONSE-FAULT [STATUS CODE: " + response.status + "]");
+                }
+                return response.json();
+            })
             .then(data => {
                 document.getElementById("step6").style.color = "#222b35"; 
                 document.getElementById("step6").innerHTML = "✔ PASS 6/6: GENERATING STUDIO ALIGNMENT DATA REPORT... / FINISHED";
@@ -245,18 +248,18 @@
                     legend.style.display = "block";
                     checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
                 } else {
-                    status.style.color = "#ff4a4a"; status.innerHTML = "❌ SERVER PROCESSING EXCEPTION: " + data.error.toUpperCase();
+                    status.style.color = "#ff4a4a"; status.innerHTML = "❌ SERVER LOGIC EXCEPTION: " + data.error.toUpperCase();
                 }
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             })
             .catch(err => {
                 sDot.className = "pulsing-dot";
-                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: THE SERVER DIAL-OUT STALLED ON RAW EXTRACATION.";
+                status.style.color = "#ff4a4a"; 
+                // Dynamically exposes the exact structural connection failure code live on your screen card!
+                status.innerHTML = "❌ NETWORKING PIPELINE FAULT: " + err.message.toUpperCase();
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             });
         }
     </script>
 </body>
 </html>
-
-
