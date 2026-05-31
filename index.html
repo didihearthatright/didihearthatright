@@ -136,7 +136,7 @@
             </div>
         </div>
     </div>
-    <!-- ADVANCED INTERACTIVE ENGINE AND PROGRESSIVE SCANNER TIMING DEFERRAL SCRIPT -->
+        <!-- ADVANCED INTERACTIVE ENGINE AND PROGRESSIVE SCANNER TIMING DEFERRAL SCRIPT -->
     <script>
         function toggleInputFields() {
             var linkVal = document.getElementById("ytLink").value.trim();
@@ -145,16 +145,6 @@
             else if (fileLen > 0) { document.getElementById("ytLink").disabled = true; }
             else { document.getElementById("audioFile").disabled = false; document.getElementById("ytLink").disabled = false; }
         }
-
-        var defaultMetrics = {
-            "crescent": { score: 95, drift: "95.4% organic flexibility" },
-            "moon": { score: 95, drift: "95.4% organic flexibility" },
-            "rijah": { score: 95, drift: "95.4% organic flexibility" },
-            "albert": { score: 95, drift: "95.4% organic flexibility" },
-            "wasted": { score: 94, drift: "94.2% organic flexibility" },
-            "teardrop": { score: 96, drift: "95.8% organic flexibility" },
-            "before": { score: 96, drift: "95.8% organic flexibility" }
-        };
 
         function runSimulation() {
             var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
@@ -167,10 +157,6 @@
             var hasFile = fileSelector.files.length > 0; var hasLink = ytInput.value.trim() !== "";
 
             if (!hasFile && !hasLink) { alert("⚠️ DATA INPUT REQUIRED: Please upload a track file or paste a streaming link to execute forensics."); return; }
-            
-            var trackTitle = "streaming link track input payload";
-            if (hasFile) { trackTitle = fileSelector.files.item(0).name.toLowerCase(); } 
-            else { trackTitle = ytInput.value.toLowerCase(); }
             
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
             legend.style.display = "none"; vMapText.style.display = "none";
@@ -216,7 +202,7 @@
                 status.innerHTML = "Syncing final alignment verification scores back to primary homepage dashboard console...";
             }, 15000);
 
-            // ENCLOSED LIVE TELEMETRY TRANSMISSION GATES: FIRING SAFELY AT PASS 6
+            // ENCLOSED LIVE TELEMETRY TRANSMISSION GATES: COMPLETELY REMOVES KEYWORD TEMPLATES FOR RAW SERVER DATA ONLY
             setTimeout(function() {
                 document.getElementById("step6").style.color = "#222b35"; document.getElementById("step6").innerHTML = "✔ PASS 6/6: GENERATING STUDIO ALIGNMENT DATA REPORT... / FINISHED";
                 status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING AUDIO PAYLOAD BYTES TO LIVE ENGINE NODES...";
@@ -260,42 +246,18 @@
                         legend.style.display = "block";
                         checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
                     } else {
-                        triggerBackupRoutine(trackTitle, score, fill, status, checkout, legend, legendType, vMapText, sDot);
+                        status.style.color = "#ff4a4a"; status.innerHTML = "❌ SERVER PROCESSING EXCEPTION: " + data.error.toUpperCase();
                     }
                     btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
                 })
                 .catch(err => {
-                    triggerBackupRoutine(trackTitle, score, fill, status, checkout, legend, legendType, vMapText, sDot);
+                    sDot.className = "pulsing-dot";
+                    status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: THE SERVER DIAL-OUT STALLED ON RAW EXTRACATION.";
                     btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
                 });
             }, 18000);
         }
-
-        function triggerBackupRoutine(title, score, fill, status, checkout, legend, legendType, vMapText, sDot) {
-            var targetScore = 95; 
-            var targetDrift = "95.4% organic vocal flexibility"; 
-            sDot.className = "pulsing-dot"; 
-            
-            for (var matchKey in defaultMetrics) {
-                if (title.indexOf(matchKey) !== -1) {
-                    targetScore = defaultMetrics[matchKey].score;
-                    targetDrift = defaultMetrics[matchKey].drift;
-                    break;
-                }
-            }
-
-            score.innerHTML = targetScore + "%";
-            fill.style.width = targetScore + "%";
-            status.style.color = "#28a745";
-            status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + targetDrift.toUpperCase();
-            
-            legendType.style.color = "#28a745";
-            legendType.innerHTML = "• AUTHENTIC HUMAN VOICE: The vocal tract displays complete organic variance. No mathematical grid-tuning step-clamps or robotic anti-tremor filters were forced upon the waveform timeline.";
-            
-            legend.style.display = "block";
-            checkout.className = "checkout-btn unlocked";
-            checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
-        }
     </script>
 </body>
 </html>
+
