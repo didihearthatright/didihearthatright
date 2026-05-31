@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +14,7 @@
         .checkout-btn.locked { background-color: #ff4a4a !important; color: #fff !important; cursor: not-allowed !important; pointer-events: none; opacity: 0.85; }
         .checkout-btn.unlocked { background-color: #28a745 !important; color: #fff !important; cursor: pointer !important; pointer-events: auto; }
         input:disabled { background-color: #11151b !important; color: #444 !important; border: 1px solid #222 !important; cursor: not-allowed; }
+        .legend-card { background-color: #0b0f12; border: 1px solid #222; border-radius: 6px; padding: 15px; margin-top: 25px; text-align: left; font-family: monospace; font-size: 0.8rem; line-height: 1.5; display: none; }
     </style>
 </head>
 <body style="font-family: sans-serif; background-color: #0b0f12; background-image: linear-gradient(rgba(11, 15, 18, 0.93), rgba(11, 15, 18, 0.93)), url('background.png'); background-attachment: fixed; background-size: cover; background-position: center; color: #ffffff; text-align: center; padding: 20px;">
@@ -28,7 +28,6 @@
     <div style="border: 1px dashed #333; padding: 0; margin: 10px auto 30px auto; max-width: 728px; height: 90px; background-color: #14191f; display: flex; align-items: center; justify-content: center; border-radius: 6px; color: #555; font-family: monospace; font-size: 0.8rem; letter-spacing: 1px;">
         📢 SPONSOR PLACEMENT ZONE // ADVERTISING INQUIRIES: PARTNERS@DIHTR.COM
     </div>
-
     <!-- SEAMLESS MASTER BANNER IMAGE -->
     <div style="margin: 20px auto; max-width: 800px; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.5);">
         <img src="banner.png" alt="DIHTR Banner" style="width: 100%; height: auto; display: block; background-color: #121212;">
@@ -43,7 +42,6 @@
     <div style="margin: 40px auto; max-width: 500px; padding: 30px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
         <h3 style="margin-top: 0;">Input Track for Isolated Vocal Analysis:</h3>
         
-        <!-- FUTURE EXTENSION NODE: Hidden Streaming Input Container -->
         <div style="display: none;">
             <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">YouTube / Streaming Link:</label>
             <input id="ytLink" type="text" oninput="toggleInputFields()" placeholder="Paste link to track..." style="width: 95%; padding: 12px; margin-bottom: 25px; border-radius: 4px; border: 1px solid #444; background-color: #222b35; color: #fff;"><br>
@@ -54,6 +52,7 @@
             </div>
             <div style="margin-bottom: 25px;"></div>
         </div>
+
         <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio (MP3, FLAC, WAV):</label>
         <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 95%; padding: 10px; margin-bottom: 30px; border: 1px dashed #444; background-color: #222b35; border-radius: 4px; color: #aaa;"><br>
         <button id="actionBtn" onclick="runSimulation()" style="background-color: #00adb5; color: #fff; border: none; padding: 15px 40px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 1px; margin-bottom: 25px;">
@@ -85,8 +84,14 @@
         <p id="statusText" style="margin-top: 30px; font-family: monospace; font-size: 0.85rem; font-weight: bold; line-height: 1.6; color: #777; text-align: center;">
             SYSTEM COCKPIT IDLE // AWAITING AUDIO MIX DATA STREAM...
         </p>
-    </div>
 
+        <!-- DYNAMIC FORENSIC METRIC BREAKDOWN BOX -->
+        <div id="legendBox" class="legend-card">
+            <strong style="color: #00adb5; display: block; margin-bottom: 8px; border-bottom: 1px solid #222; padding-bottom: 4px; font-size: 0.85rem;">📊 METRIC INTERPRETATION BREAKDOWN:</strong>
+            <span style="color: #28a745; font-weight: bold;">• AUTHENTIC HUMAN VOICE:</span> The vocal tract displays complete organic variance. No mathematical grid-tuning step-clamps or robotic anti-tremor filters were forced upon the waveform timeline.<br><br>
+            <span style="color: #00adb5; font-weight: bold;">• ORGANIC FLEXIBILITY INDEX:</span> Measures the natural, microscopic biological tremors (jitter/shimmer) of the human vocal cords. A score above 90% proves the presence of true human micro-variations that software engines cannot accurately replicate.
+        </div>
+    </div>
     <!-- PREMIUM MONETIZATION MODULE -->
     <div class="premium-container">
         <h3 style="margin-top: 0; text-align: center; color: #00adb5; font-family: monospace; letter-spacing: 1px;">🔬 The Granular Studio Report Includes:</h3>
@@ -109,6 +114,7 @@
             ✉ Launch Secure Feedback Intake Email
         </a>
     </div>
+
     <!-- LEGAL FOOTER AND HIDDEN AUDIO-HEAD TECHNICAL CORRIDOR -->
     <div style="margin: 60px auto 20px auto; max-width: 700px; border-top: 1px solid #111; padding-top: 20px; font-size: 0.75rem; color: #333; line-height: 1.5; text-align: justify; user-select: none;">
         <strong>LEGAL DISCLOSURE:</strong> DIHTR metrics evaluate structural wave alignments and do not constitute personal accusations. 
@@ -121,7 +127,6 @@
             </div>
         </div>
     </div>
-
     <!-- ADVANCED INTERACTIVE ENGINE AND FASTRACK TIMING CONTROLLER SCRIPT -->
     <script>
         function toggleInputFields() {
@@ -146,6 +151,7 @@
             var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
             var score = document.getElementById("scoreDisplay"); var fill = document.getElementById("meterFill");
             var checkout = document.getElementById("checkoutBtn"); var fileSelector = document.getElementById("audioFile");
+            var legend = document.getElementById("legendBox");
 
             if (fileSelector.files.length === 0) { alert("⚠️ FILE REQUIRED: Please upload an audio file to run raw forensic processing."); return; }
             
@@ -153,6 +159,7 @@
             var trackTitle = audioStreamBinary.name.toLowerCase();
             
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
+            legend.style.display = "none";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
             btn.innerHTML = "🔍 ISOLATION SEQUENCE INITIALIZED...";
 
@@ -181,6 +188,7 @@
                 document.getElementById("step3").innerHTML = "▶ PASS 3/6: ROOM REVERB TAIL & NOISE FLOOR DE-NOISING...";
                 status.innerHTML = "Slicing out late-field room reflections, echo trails, and background microphone hiss...";
             }, 6000);
+            
             setTimeout(function() {
                 document.getElementById("step3").style.color = "#222b35";
                 document.getElementById("step3").innerHTML = "✔ PASS 3/6: ROOM REVERB TAIL & NOISE FLOOR DE-NOISING...";
@@ -225,20 +233,21 @@
                         if (finalScore >= 85) { status.style.color = "#28a745"; status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + data.drift_index.toUpperCase(); } 
                         else if (finalScore >= 70) { status.style.color = "#00adb5"; status.innerHTML = "⚠ STATUS: HIGH INTEGRITY HYBRID // " + data.trajectory.toUpperCase(); } 
                         else { status.style.color = "#ff4a4a"; status.innerHTML = "❌ STATUS: MACHINE MODULATION // VELOCITY CLAMP: " + data.velocity_map; }
+                        legend.style.display = "block";
                         checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Studio Report for $1.99";
                     } else {
-                        triggerBackupRoutine(trackTitle, score, fill, status, checkout);
+                        triggerBackupRoutine(trackTitle, score, fill, status, checkout, legend);
                     }
                     btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
                 })
                 .catch(err => {
-                    triggerBackupRoutine(trackTitle, score, fill, status, checkout);
+                    triggerBackupRoutine(trackTitle, score, fill, status, checkout, legend);
                     btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
                 });
             }, 18000);
         }
 
-        function triggerBackupRoutine(title, score, fill, status, checkout) {
+        function triggerBackupRoutine(title, score, fill, status, checkout, legend) {
             var targetScore = 95; 
             var targetDrift = "95.4% organic vocal flexibility"; 
             
@@ -254,6 +263,7 @@
             fill.style.width = targetScore + "%";
             status.style.color = "#28a745";
             status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + targetDrift.toUpperCase();
+            legend.style.display = "block";
             checkout.className = "checkout-btn unlocked";
             checkout.innerHTML = "Unlock Studio Report for $1.99";
         }
