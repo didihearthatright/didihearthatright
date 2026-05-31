@@ -44,19 +44,19 @@
     <div style="margin: 40px auto; max-width: 500px; padding: 30px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
         <h3 style="margin-top: 0;">Input Track for Isolated Vocal Analysis:</h3>
         
-        <div style="display: none;">
+        <!-- REVEALED INPUT CORE LAYER -->
+        <div style="display: block; margin-bottom: 25px;">
             <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">YouTube / Streaming Link:</label>
-            <input id="ytLink" type="text" oninput="toggleInputFields()" placeholder="Paste link to track..." style="width: 95%; padding: 12px; margin-bottom: 25px; border-radius: 4px; border: 1px solid #444; background-color: #222b35; color: #fff;"><br>
-            <div style="margin: 25px 0; display: flex; align-items: center; justify-content: center; gap: 15px;">
+            <input id="ytLink" type="text" oninput="toggleInputFields()" placeholder="Paste YouTube link to track..." style="width: 95%; padding: 12px; border-radius: 4px; border: 1px solid #444; background-color: #222b35; color: #fff; box-sizing: border-box;"><br>
+            <div style="margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 15px;">
                 <div style="flex: 1; height: 1px; background: #333;"></div>
-                <span style="color: #00adb5; font-weight: 900; font-size: 1.6rem; letter-spacing: 2px;">OR</span>
+                <span style="color: #00adb5; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;">OR</span>
                 <div style="flex: 1; height: 1px; background: #333;"></div>
             </div>
-            <div style="margin-bottom: 25px;"></div>
         </div>
 
         <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio (MP3, FLAC, WAV):</label>
-        <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 95%; padding: 10px; margin-bottom: 30px; border: 1px dashed #444; background-color: #222b35; border-radius: 4px; color: #aaa;"><br>
+        <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 95%; padding: 10px; margin-bottom: 30px; border: 1px dashed #444; background-color: #222b35; border-radius: 4px; color: #aaa; box-sizing: border-box;"><br>
         <button id="actionBtn" onclick="runSimulation()" style="background-color: #00adb5; color: #fff; border: none; padding: 15px 40px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 1px; margin-bottom: 25px;">
             RUN ISOLATED VOCAL ANALYSIS
         </button>
@@ -121,7 +121,7 @@
     <div style="margin: 60px auto 20px auto; max-width: 700px; border-top: 1px solid #111; padding-top: 20px; font-size: 0.75rem; color: #333; line-height: 1.5; text-align: justify; user-select: none;">
         <strong>LEGAL DISCLOSURE:</strong> DIHTR metrics evaluate structural wave alignments and do not constitute personal accusations. 
         
-        <div class="tooltip-container" style="color: #1a1e24; border-bottom: 1px dotted #1a1e24; cursor: help; float: right; font-family: monospace; font-size: 0.7rem; transition: color 0.3s;">
+        <div class="tooltip-container" style="color: #1a1e24; border-bottom: 1px dashed #1a1e24; cursor: help; float: right; font-family: monospace; font-size: 0.7rem; transition: color 0.3s;">
             <a href="science.html" style="color: #1a1e24; text-decoration: none;">[CORE_SPEC_CORE_ENGINE]</a>
             <div class="tooltip-window" style="bottom: 150%; left: 50%; width: 340px; margin-left: -170px; background-color: #0c0f14; border: 1px solid #222; box-shadow: 0 10px 40px rgba(0,0,0,0.9); padding: 18px; font-family: monospace; color: #888; font-size: 0.75rem; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.5px;">
                 <strong style="color: #00adb5; display: block; margin-bottom: 8px; letter-spacing: 1px;">📡 CORE SPECIFICATION SIGNAL MATRIX v1.1.0</strong>
@@ -153,12 +153,21 @@
             var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
             var score = document.getElementById("scoreDisplay"); var fill = document.getElementById("meterFill");
             var checkout = document.getElementById("checkoutBtn"); var fileSelector = document.getElementById("audioFile");
-            var legend = document.getElementById("legendBox");
+            var ytInput = document.getElementById("ytLink"); var legend = document.getElementById("legendBox");
 
-            if (fileSelector.files.length === 0) { alert("⚠️ FILE REQUIRED: Please upload an audio file to run raw forensic processing."); return; }
+            var hasFile = fileSelector.files.length > 0;
+            var hasLink = ytInput.value.trim() !== "";
+
+            if (!hasFile && !hasLink) { alert("⚠️ INPUT REQUIRED: Please upload an audio file or paste a streaming link to execute raw forensic processing."); return; }
             
-            var audioStreamBinary = fileSelector.files.item(0);
-            var trackTitle = audioStreamBinary.name.toLowerCase();
+            var trackTitle = "streaming link track input payload";
+            var audioStreamBinary = null;
+            if (hasFile) {
+                audioStreamBinary = fileSelector.files.item(0);
+                trackTitle = audioStreamBinary.name.toLowerCase();
+            } else {
+                trackTitle = ytInput.value.toLowerCase();
+            }
             
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
             legend.style.display = "none";
@@ -220,7 +229,11 @@
                 document.getElementById("step6").innerHTML = "✔ PASS 6/6: GENERATING STUDIO ALIGNMENT DATA REPORT...";
                 
                 var formData = new FormData();
-                formData.append("file", audioStreamBinary);
+                if (hasFile) {
+                    formData.append("file", audioStreamBinary);
+                } else {
+                    formData.append("link", ytInput.value.trim());
+                }
 
                 status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING AUDIO PAYLOAD BYTES TO LIVE ENGINE NODES...";
 
