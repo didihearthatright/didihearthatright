@@ -12,9 +12,11 @@
         .premium-container { margin: 50px auto; max-width: 600px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; padding: 25px; box-sizing: border-box; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .checkout-btn { display: block; box-sizing: border-box; text-decoration: none; text-align: center; font-size: 15px; font-weight: bold; border-radius: 4px; width: 100%; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
         .checkout-btn.locked { background-color: #ff4a4a !important; color: #fff !important; cursor: not-allowed !important; pointer-events: none; opacity: 0.85; }
-        .checkout-btn.unlocked { background-color: #28a745 !important; color: #fff !important; cursor: pointer !important; pointer-events: auto; }
+        .checkout-btn.unlocked { background-color: #28a745 !important; color: #fff !important; cursor: pointer !important; pointer-events: auto; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         input:disabled { background-color: #11151b !important; color: #444 !important; border: 1px solid #222 !important; cursor: not-allowed; }
         .legend-card { background-color: #0b0f12; border: 1px solid #222; border-radius: 6px; padding: 15px; margin-top: 25px; text-align: left; font-family: monospace; font-size: 0.8rem; line-height: 1.5; display: none; }
+        .live-link { color: #00adb5; text-decoration: none; border-bottom: 1px dashed #00adb5; transition: all 0.2s ease; }
+        .live-link:hover { color: #28a745; border-bottom-color: #28a745; }
     </style>
 </head>
 <body style="font-family: sans-serif; background-color: #0b0f12; background-image: linear-gradient(rgba(11, 15, 18, 0.93), rgba(11, 15, 18, 0.93)), url('background.png'); background-attachment: fixed; background-size: cover; background-position: center; color: #ffffff; text-align: center; padding: 20px;">
@@ -26,7 +28,7 @@
 
     <!-- SPONSOR LEADERBOARD (728x90) -->
     <div style="border: 1px dashed #333; padding: 0; margin: 10px auto 30px auto; max-width: 728px; height: 90px; background-color: #14191f; display: flex; align-items: center; justify-content: center; border-radius: 6px; color: #555; font-family: monospace; font-size: 0.8rem; letter-spacing: 1px;">
-        📢 SPONSOR PLACEMENT ZONE // ADVERTISING INQUIRIES: PARTNERS@DIHTR.COM
+        📢 SPONSOR PLACEMENT ZONE // ADVERTISING INQUIRIES: <a href="mailto:partners@dihtr.com" class="live-link">PARTNERS@DIHTR.COM</a>
     </div>
     <!-- SEAMLESS MASTER BANNER IMAGE -->
     <div style="margin: 20px auto; max-width: 800px; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.5);">
@@ -120,7 +122,7 @@
         <strong>LEGAL DISCLOSURE:</strong> DIHTR metrics evaluate structural wave alignments and do not constitute personal accusations. 
         
         <div class="tooltip-container" style="color: #1a1e24; border-bottom: 1px dotted #1a1e24; cursor: help; float: right; font-family: monospace; font-size: 0.7rem; transition: color 0.3s;">
-            <a href="science.html" style="color: #1a1e24; text-decoration: none; pointer-events: none;">[CORE_SPEC_CORE_ENGINE]</a>
+            <a href="science.html" style="color: #1a1e24; text-decoration: none;">[CORE_SPEC_CORE_ENGINE]</a>
             <div class="tooltip-window" style="bottom: 150%; left: 50%; width: 340px; margin-left: -170px; background-color: #0c0f14; border: 1px solid #222; box-shadow: 0 10px 40px rgba(0,0,0,0.9); padding: 18px; font-family: monospace; color: #888; font-size: 0.75rem; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.5px;">
                 <strong style="color: #00adb5; display: block; margin-bottom: 8px; letter-spacing: 1px;">📡 CORE SPECIFICATION SIGNAL MATRIX v1.1.0</strong>
                 Audio payloads run through multi-pass algorithmic matrices. Primary tracking executes an RMS Energy Gate to suppress ambient noise floors and late-field room reflections. Vocal tract analysis utilizes a Probabilistic YIN extraction engine to calculate instantaneous Pitch Trajectory Derivatives. System audits note-glide velocities against a maximum 30Hz frame-to-frame threshold to flag non-biological grid quantization (box-stepping). Natural human micro-tonal tremors (jitter/shimmer coefficients) are verified via a Harmonicity Texture Stability Index. System thresholds constraint maximum organic performance scaling to 97% to maintain active acoustic calculation variance.
@@ -234,7 +236,7 @@
                         else if (finalScore >= 70) { status.style.color = "#00adb5"; status.innerHTML = "⚠ STATUS: HIGH INTEGRITY HYBRID // " + data.trajectory.toUpperCase(); } 
                         else { status.style.color = "#ff4a4a"; status.innerHTML = "❌ STATUS: MACHINE MODULATION // VELOCITY CLAMP: " + data.velocity_map; }
                         legend.style.display = "block";
-                        checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Studio Report for $1.99";
+                        checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
                     } else {
                         triggerBackupRoutine(trackTitle, score, fill, status, checkout, legend);
                     }
@@ -265,7 +267,7 @@
             status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + targetDrift.toUpperCase();
             legend.style.display = "block";
             checkout.className = "checkout-btn unlocked";
-            checkout.innerHTML = "Unlock Studio Report for $1.99";
+            checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
         }
     </script>
 </body>
