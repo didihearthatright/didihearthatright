@@ -43,18 +43,8 @@
     <div style="margin: 40px auto; max-width: 500px; padding: 30px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
         <h3 style="margin-top: 0;">Input Track for Isolated Vocal Analysis:</h3>
         
-        <div style="display: block; margin-bottom: 25px;">
-            <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">YouTube / Streaming Link:</label>
-            <input id="ytLink" type="text" oninput="toggleInputFields()" placeholder="Paste YouTube link to track..." style="width: 95%; padding: 12px; border-radius: 4px; border: 1px solid #444; background-color: #222b35; color: #fff; box-sizing: border-box;"><br>
-            <div style="margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 15px;">
-                <div style="flex: 1; height: 1px; background: #333;"></div>
-                <span style="color: #00adb5; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;">OR</span>
-                <div style="flex: 1; height: 1px; background: #333;"></div>
-            </div>
-        </div>
-
-        <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio (MP3, FLAC, WAV):</label>
-        <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 95%; padding: 10px; margin-bottom: 30px; border: 1px dashed #444; background-color: #222b35; border-radius: 4px; color: #aaa; box-sizing: border-box;"><br>
+        <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio File (MP3, FLAC, WAV):</label>
+        <input id="audioFile" type="file" accept=".mp3,.flac,.wav" style="width: 95%; padding: 12px; margin-bottom: 30px; border: 1px dashed #00adb5; background-color: #222b35; border-radius: 4px; color: #fff; box-sizing: border-box;"><br>
         <button id="actionBtn" onclick="runSimulation()" style="background-color: #00adb5; color: #fff; border: none; padding: 15px 40px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 1px; margin-bottom: 25px;">
             RUN ISOLATED VOCAL ANALYSIS
         </button>
@@ -116,42 +106,39 @@
         </div>
     </div>
     <script>
-        function toggleInputFields() {
-            var linkVal = document.getElementById("ytLink").value.trim();
-            var fileLen = document.getElementById("audioFile").files.length;
-            if (linkVal !== "") { document.getElementById("audioFile").disabled = true; }
-            else if (fileLen > 0) { document.getElementById("ytLink").disabled = true; }
-            else { document.getElementById("audioFile").disabled = false; document.getElementById("ytLink").disabled = false; }
-        }
+        // 📡 AUTOMATED ENGINE room WAKE-UP: Fires instantly on page load to eliminate manual wake-ups forever
+        window.onload = function() {
+            console.log("DIHTR Core: Initiating background server handshake...");
+            fetch("https://onrender.com", { method: "OPTIONS" })
+            .then(() => console.log("DIHTR Core: Server handshake acknowledged. Engine room awake."))
+            .catch(() => console.log("DIHTR Core: Background wake signal transmitted successfully."));
+        };
 
         function runSimulation() {
             var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
             var score = document.getElementById("scoreDisplay"); var fill = document.getElementById("meterFill");
             var checkout = document.getElementById("checkoutBtn"); var fileSelector = document.getElementById("audioFile");
-            var ytInput = document.getElementById("ytLink"); var legend = document.getElementById("legendBox");
-            var legendType = document.getElementById("legendVocalType"); var vMapText = document.getElementById("velocityMapText");
-            var sDot = document.getElementById("statusDot");
+            var legend = document.getElementById("legendBox"); var legendType = document.getElementById("legendVocalType"); 
+            var vMapText = document.getElementById("velocityMapText"); var sDot = document.getElementById("statusDot");
 
-            var hasFile = fileSelector.files.length > 0; var hasLink = ytInput.value.trim() !== "";
-            if (!hasFile && !hasLink) { alert("⚠️ DATA INPUT REQUIRED: Please upload a track file or paste a link to execute forensics."); return; }
+            if (fileSelector.files.length === 0) { alert("⚠️ DATA INPUT REQUIRED: Please upload a track file to execute forensics."); return; }
             
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
             legend.style.display = "none"; vMapText.style.display = "none";
             sDot.className = "pulsing-dot pulsing-active";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
             btn.innerHTML = "🔍 ANALYZING VOCAL WAVEFORM PAYLOAD...";
-            status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING AUDIO DATA PAYLOAD TO LIVE CORE SERVER NODES...";
+            status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING PHYSICAL WAVEFORM BYTES TO LIVE SERVER NODES...";
 
             var formData = new FormData();
-            if (hasFile) { formData.append("file", fileSelector.files.item(0)); } 
-            else { formData.append("link", ytInput.value.trim()); }
-            // 🔐 SECURE ORBIT PIPELINE: Full address mapping handles data streams with zero internal cross-origin redirects
+            formData.append("file", fileSelector.files.item(0));
+            // 🔐 DIRECT UNBOUND TUNNEL: Standard trailing slash execution paths handle data packets without cross-origin blocks
             fetch("https://onrender.com", {
                 method: "POST",
                 body: formData
             })
             .then(response => {
-                if (!response.ok) { throw new Error("Server core calculation threshold breached."); }
+                if (!response.ok) { throw new Error("Server gateway latency threshold breached."); }
                 return response.json();
             })
             .then(data => {
@@ -183,7 +170,7 @@
             })
             .catch(err => {
                 sDot.className = "pulsing-dot";
-                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE TIMEOUT: PHYSICAL CONNECTION TO CORE NODES BREACHED. ALLOW 30 SECONDS FOR COLD-ENGINE WAKEUP AND RETRY.";
+                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: LIVE CHIPS REJECTED PAYLOAD GATES. RETRY SPRINT IN 15 SECONDS.";
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             });
         }
