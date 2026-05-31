@@ -5,54 +5,48 @@ import librosa
 
 app = FastAPI(title="DIHTR Universal Forensic Core Engine")
 
+# BULLETPROOF SECURITY PASSTHROUGH RULES — OPENS THE DATA GATES FOR DIHTR.COM
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
 
 @app.post("/analyze-vocal")
 async def analyze_vocal(file: UploadFile = File(...)):
     try:
         audio_bytes = await file.read()
+        y_raw, sr = librosa.load(librosa.util.buf_to_float(audio_bytes), sr=22050)
         
-        # PRODUCTION OPTIMIZATION: Constrain duration to 15.0 seconds to execute in under 2s and stop timeouts
-        y_raw, sr = librosa.load(librosa.util.buf_to_float(audio_bytes), sr=22050, duration=15.0)
-        
-        # Universal AI Voice Isolation Layer
         y_vocals = librosa.effects.harmonic(y_raw, margin=4.0)
         y_vocals = librosa.effects.preemphasis(y_vocals)
         
-        # RMS Energy Noise Gate
         rms = librosa.feature.rms(y=y_vocals)
         db_rms = librosa.amplitude_to_db(rms, ref=np.max)
         active_frames = db_rms > -28
         
         if not np.any(active_frames):
-            return {"success": False, "error": "Vocal track unresolvable. Payloads density mismatch."}
+            return {"success": False, "error": "Vocal stream density mismatch."}
 
-        # Fundamental Vocal Pitch Tracking (Pyin Engine Layer)
         f0, voiced_flag, voiced_probs = librosa.pyin(
             y_vocals, fmin=librosa.note_to_hz('F2'), fmax=librosa.note_to_hz('C6'), sr=sr
         )
         f0_clean = f0[~np.isnan(f0) & active_frames[:len(f0)]]
         
         if len(f0_clean) < 20:
-            return {"success": False, "error": "Insufficient lead vocal tracking data resolved."}
+            return {"success": False, "error": "Insufficient lead vocal tracking data."}
 
-        # Precision Note-Glide Velocity Analysis (Autotune Hunter)
         pitch_velocity = np.abs(np.diff(f0_clean))
-        clamped_snaps = np.sum(pitch_velocity > 30) 
+        clamped_snaps = np.sum(pitch_velocity > 30)
         total_transitions = len(pitch_velocity)
         
-        # Harmonic-to-Noise Ratio
         harmonic_power = np.sum(librosa.feature.rms(y=y_vocals))
         noise_power = np.sum(librosa.feature.rms(y=y_raw - y_vocals))
         hnr = float(harmonic_power / max(0.001, noise_power))
 
-        # Objective Metric Scaling Matrix
         clamp_ratio = clamped_snaps / total_transitions
         base_score = 100 - (clamp_ratio * 260)
         
