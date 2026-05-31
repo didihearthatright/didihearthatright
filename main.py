@@ -5,24 +5,24 @@ import numpy as np
 import audioread
 import os
 
-app = FastAPI(title="DIHTR Blistering Fast Vector Core Engine")
+app = FastAPI(title="DIHTR Universal Pure Forensic Core Engine")
 
+# 🔥 ARMED CORS SECURITY MODULE: Explicitly forces Render to pass header authentication stamps
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
+    expose_headers=["*"]
 )
 
-# HIGH-SPEED VECTOR PROCESSING ENGNE (Uses Fast Fourier Transforms)
 def process_audio_high_speed(audio_path: str):
     with audioread.audio_open(audio_path) as f:
         sr = f.samplerate
         channels = f.channels
         data_list = []
         
-        # Pull just the first 15 seconds for a rapid, accurate fingerprint snapshot
         max_samples = sr * channels * 15
         current_samples = 0
         for buf in f:
@@ -43,7 +43,6 @@ def process_audio_high_speed(audio_path: str):
     if channels > 1:
         y_raw = y_raw.reshape(-1, channels).mean(axis=1)
         
-    # High-speed window configuration
     frame_length = 1024
     hop_length = 512
     frames = [y_raw[i:i+frame_length] for i in range(0, len(y_raw)-frame_length, hop_length)]
@@ -51,23 +50,18 @@ def process_audio_high_speed(audio_path: str):
     if len(frames) < 10:
         return {"success": False, "error": "Insufficient lead vocal tracking data length."}
         
-    # Compute high-speed vector RMS energy gates
     rms_vals = np.sqrt(np.mean(np.square(frames), axis=1))
     max_rms = max(0.001, np.max(rms_vals))
     active_mask = rms_vals > (max_rms * 0.08)
     
     pitch_trajectory = []
-    
-    # RAPID VECTOR FFT MATH MATRIX (Bypasses slow manual frame iterations)
     for idx, frame in enumerate(frames):
         if not active_mask[idx]:
             continue
             
-        # Fast Fourier Transform shifts time audio straight into frequency spectral lines instantly
         fft_data = np.abs(np.fft.rfft(frame))
         fft_freqs = np.fft.rfftfreq(frame_length, d=1.0/sr)
         
-        # Target the vocal tracking spectrum bounds (65Hz to 1000Hz)
         vocal_band = (fft_freqs >= 65.0) & (fft_freqs <= 1000.0)
         if not np.any(vocal_band):
             continue
@@ -82,7 +76,6 @@ def process_audio_high_speed(audio_path: str):
     if len(pitch_clean) < 10:
         return {"success": False, "error": "Vocal stream density mismatch."}
         
-    # Calculate note-glide derivatives
     pitch_velocity = np.abs(np.diff(pitch_clean))
     clamped_snaps = np.sum(pitch_velocity > 40)
     total_transitions = len(pitch_velocity)
@@ -99,7 +92,7 @@ def process_audio_high_speed(audio_path: str):
         "trajectory": "Pure Fluid Biological Tracking" if clamp_ratio < 0.05 else "Quantized Box-Stepping Detected"
     }
 
-@app.post("/analyze-vocal")
+@app.post("/analyze-vocal/")
 async def analyze_vocal(file: Optional[UploadFile] = File(None), link: Optional[str] = Form(None)):
     if file:
         try:
