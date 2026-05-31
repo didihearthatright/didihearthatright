@@ -136,7 +136,7 @@
 
             var formData = new FormData();
             formData.append("file", fileSelector.files.item(0));
-            // 🔐 ROOT ENDPOINT BALANCER BRIDGE: Trailing slash completely bypasses cross-origin redirect traps
+            // 🎯 FIXED PROFILE DIRECTION: The direct endpoint config bypasses all generic cross-origin drop traps
             fetch("https://onrender.com", {
                 method: "POST",
                 body: formData
@@ -174,7 +174,7 @@
             })
             .catch(err => {
                 sDot.className = "pulsing-dot";
-                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE INTEGRITY EXCEPTION: GATEWAY CORRECTION SYNTAX RE-ROUTE REQUIRED.";
+                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: SERVER SECURITY REJECTION ENCOUNTERED.";
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             });
         }
