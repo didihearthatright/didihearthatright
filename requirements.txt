@@ -1,5 +1,6 @@
 fastapi
 uvicorn
 numpy
-librosa
+scipy
+audioread
 yt-dlp
