@@ -2,13 +2,13 @@ from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 import numpy as np
-import librosa
+import scipy.io.wavfile as wav
+import audioread
 import os
 import yt_dlp
 
-app = FastAPI(title="DIHTR Universal Forensic Core Engine")
+app = FastAPI(title="DIHTR Universal Pure Forensic Core Engine")
 
-# OPEN THE SYSTEM SECURITY GATES FOR DIRECT PROD CONNECTIONS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -17,41 +17,61 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-# INTERNAL SIGNAL MATH Forensics CALCULATOR
-def process_audio_forensics(audio_path: str):
-    y_raw, sr = librosa.load(audio_path, sr=22050)
-    y_vocals = librosa.effects.harmonic(y_raw, margin=4.0)
-    y_vocals = librosa.effects.preemphasis(y_vocals)
+# PURE PYTHON FORENSIC PROCESSING MATRIX (Zero System Dependencies)
+def process_audio_pure_python(audio_path: str):
+    # Dynamic decoder block handles mp3 streams into raw PCM arrays natively
+    with audioread.audio_open(audio_path) as f:
+        sr = f.samplerate
+        channels = f.channels
+        data_list = []
+        for buf in f:
+            data_list.append(np.frombuffer(buf, dtype=np.int16))
+        
+    y_raw = np.concatenate(data_list).astype(np.float32)
+    if channels > 1:
+        y_raw = y_raw.reshape(-1, channels).mean(axis=1)
+        
+    # Energy Gate threshold to locate active vocal performance frames
+    hop_length = 512
+    frame_length = 2048
+    frames = [y_raw[i:i+frame_length] for i in range(0, len(y_raw)-frame_length, hop_length)]
     
-    rms = librosa.feature.rms(y=y_vocals)
-    db_rms = librosa.amplitude_to_db(rms, ref=np.max)
-    active_frames = db_rms > -28
+    if len(frames) < 20:
+        return {"success": False, "error": "Insufficient lead vocal tracking data length."}
+        
+    rms_vals = np.array([np.sqrt(np.mean(frame**2)) for frame in frames])
+    max_rms = max(0.001, np.max(rms_vals))
+    active_frames = rms_vals > (max_rms * 0.05)
     
-    if not np.any(active_frames):
+    # Mathematical Autocorrelation Pitch Extraction Matrix (Replaces YIN)
+    pitch_trajectory = []
+    for idx, frame in enumerate(frames):
+        if not active_frames[idx]:
+            continue
+        # Autocorrelation routine
+        corr = np.correlate(frame, frame, mode='full')
+        corr = corr[len(corr)//2:]
+        dfr = np.diff(corr)
+        start_search = np.where(dfr > 0)[0]
+        if len(start_search) == 0:
+            continue
+        peak = np.argmax(corr[start_search[0]:]) + start_search[0]
+        if peak > 0:
+            freq = sr / peak
+            if 65.0 <= freq <= 1046.0:  # Bound directly inside human vocal tract thresholds (C2 to C6)
+                pitch_trajectory.append(freq)
+                
+    pitch_clean = np.array(pitch_trajectory)
+    if len(pitch_clean) < 20:
         return {"success": False, "error": "Vocal stream density mismatch."}
-
-    f0, voiced_flag, voiced_probs = librosa.pyin(
-        y_vocals, fmin=librosa.note_to_hz('F2'), fmax=librosa.note_to_hz('C6'), sr=sr
-    )
-    f0_clean = f0[~np.isnan(f0) & active_frames[:len(f0)]]
-    
-    if len(f0_clean) < 20:
-        return {"success": False, "error": "Insufficient lead vocal tracking data."}
-
-    pitch_velocity = np.abs(np.diff(f0_clean))
-    clamped_snaps = np.sum(pitch_velocity > 30)
+        
+    # Pitch alignment transition derivative calculation
+    pitch_velocity = np.abs(np.diff(pitch_clean))
+    clamped_snaps = np.sum(pitch_velocity > 35)
     total_transitions = len(pitch_velocity)
     
-    harmonic_power = np.sum(librosa.feature.rms(y=y_vocals))
-    noise_power = np.sum(librosa.feature.rms(y=y_raw - y_vocals))
-    hnr = float(harmonic_power / max(0.001, noise_power))
-
-    clamp_ratio = clamped_snaps / total_transitions
-    base_score = 100 - (clamp_ratio * 260)
-    
-    if clamp_ratio < 0.035 and hnr > 0.75:
-        base_score += 6
-        
+    clamp_ratio = clamped_snaps / max(1, total_transitions)
+    base_score = 100 - (clamp_ratio * 240)
     final_score = int(max(42, min(97, base_score)))
     
     return {
@@ -62,19 +82,13 @@ def process_audio_forensics(audio_path: str):
         "trajectory": "Pure Fluid Biological Tracking" if clamp_ratio < 0.04 else "Quantized Box-Stepping Detected"
     }
 
-# MASTER INGESTION ROUTER GATEWAY
 @app.post("/analyze-vocal")
-async def analyze_vocal(
-    file: Optional[UploadFile] = File(None), 
-    link: Optional[str] = Form(None)
-):
-    # DYNAMIC STREAM ROUTER BLOCK
+async def analyze_vocal(file: Optional[UploadFile] = File(None), link: Optional[str] = Form(None)):
     if link and link.strip() != "":
         target_url = link.strip()
         if os.path.exists("dl_stream.mp3"):
             os.remove("dl_stream.mp3")
             
-        # NATIVE API EXTRACTOR INTEGRATION CORE
         ydl_opts = {
             'format': 'bestaudio/best',
             'postprocessors': [{
@@ -83,40 +97,33 @@ async def analyze_vocal(
                 'preferredquality': '192',
             }],
             'outtmpl': 'dl_stream.%(ext)s',
-            'quiet': True,
-            'no_warnings': True
+            'quiet': True
         }
         
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([target_url])
-                
             if not os.path.exists("dl_stream.mp3"):
-                return {"success": False, "error": "Streaming compilation layer extraction defect."}
-                
-            metrics = process_audio_forensics("dl_stream.mp3")
+                return {"success": False, "error": "Streaming compilation extraction fault."}
+            metrics = process_audio_pure_python("dl_stream.mp3")
             os.remove("dl_stream.mp3")
             return metrics
-            
         except Exception as err:
             if os.path.exists("dl_stream.mp3"):
                 os.remove("dl_stream.mp3")
-            return {"success": False, "error": f"Cloud core stream extractor block: {str(err)}"}
+            return {"success": False, "error": f"Cloud stream extractor block: {str(err)}"}
 
-    # PHYSICAL FILE UPLOAD FALLBACK ROUTE
     if file:
         try:
             audio_bytes = await file.read()
             with open("temp_up.mp3", "wb") as f:
                 f.write(audio_bytes)
-                
-            metrics = process_audio_forensics("temp_up.mp3")
+            metrics = process_audio_pure_python("temp_up.mp3")
             os.remove("temp_up.mp3")
             return metrics
-            
         except Exception as e:
             if os.path.exists("temp_up.mp3"):
                 os.remove("temp_up.mp3")
             return {"success": False, "error": str(e)}
             
-    return {"success": False, "error": "No valid audio track text stream payload identified."}
+    return {"success": False, "error": "No valid audio track stream payload identified."}
