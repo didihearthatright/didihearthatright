@@ -137,25 +137,25 @@
 
             if (fileSelector.files.length === 0) { alert("⚠️ FILE REQUIRED: Please upload an audio file to run raw forensic processing."); return; }
             
-            // THE BRACKETLESS EXTRACTOR: Securely isolates the 1st audio track object natively across all web filters
+            // FIXED BRACKETLESS EXTRACTOR: Safely grabs the physical audio file natively across web filters
             var fileInput = fileSelector.files.item(0); 
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
             btn.innerHTML = "🔍 ISOLATION SEQUENCE INITIALIZED...";
 
-            // RE-ESTABLISH LIST ELEMENT BASIC STATE MATRIX
+            // RESET CHECKLIST OBJECTS
             for(var i=1; i<=6; i++) { 
                 var el = document.getElementById("step"+i);
                 el.style.color = "#444";
                 el.innerHTML = el.innerHTML.replace("✔", "◽").replace("▶", "◽");
             }
 
-            // PASS 1 HIGH LIGHT NEON CALIBRATION LOOP (0s - 3s)
+            // PASS 1 ACTIVE (0s - 3s)
             document.getElementById("step1").style.color = "#00adb5";
             document.getElementById("step1").innerHTML = "▶ PASS 1/6: INITIALIZING CLOUD INFRASTRUCTURE HANDSHAKE...";
             status.style.color = "#aaa"; status.innerHTML = "Establishing handshake with off-site forensic nodes and clearing processing cache...";
             
-            // PASS 2 TIMEOUT SEQUENCER TRANSITION (3s - 6s)
+            // PASS 2 ACTIVE (3s - 6s)
             setTimeout(function() {
                 document.getElementById("step1").style.color = "#222b35"; 
                 document.getElementById("step1").innerHTML = "✔ PASS 1/6: INITIALIZING CLOUD INFRASTRUCTURE HANDSHAKE...";
@@ -164,43 +164,43 @@
                 status.innerHTML = "Isolating percussion transients, sub-bass registers, and instrumental walls from audio payload...";
             }, 3000);
             
-            // PASS 3 TIMEOUT SEQUENCER TRANSITION (6s - 9s)
+            // PASS 3 ACTIVE (6s - 9s)
             setTimeout(function() {
                 document.getElementById("step2").style.color = "#222b35";
                 document.getElementById("step2").innerHTML = "✔ PASS 2/6: MT-DEMUCS v4 AI SOURCE MIX SEPARATION...";
-                document.getElementById("step3").style.color = "#00adb5";
+                document.getElementById("step3").style.color = "#00adb5"; 
                 document.getElementById("step3").innerHTML = "▶ PASS 3/6: ROOM REVERB TAIL & NOISE FLOOR DE-NOISING...";
                 status.innerHTML = "Slicing out late-field room reflections, echo trails, and background microphone hiss...";
             }, 6000);
             
-            // PASS 4 TIMEOUT SEQUENCER TRANSITION (9s - 12s)
+            // PASS 4 ACTIVE (9s - 12s)
             setTimeout(function() {
                 document.getElementById("step3").style.color = "#222b35";
                 document.getElementById("step3").innerHTML = "✔ PASS 3/6: ROOM REVERB TAIL & NOISE FLOOR DE-NOISING...";
-                document.getElementById("step4").style.color = "#00adb5";
+                document.getElementById("step4").style.color = "#00adb5"; 
                 document.getElementById("step4").innerHTML = "▶ PASS 4/6: PROBABILISTIC YIN PITCH TRAJECTORY ANALYSIS...";
                 status.innerHTML = "Auditing note-to-note glide velocities against mathematical millisecond larynx thresholds...";
             }, 9000);
             
-            // PASS 5 TIMEOUT SEQUENCER TRANSITION (12s - 15s)
+            // PASS 5 ACTIVE (12s - 15s)
             setTimeout(function() {
                 document.getElementById("step4").style.color = "#222b35";
                 document.getElementById("step4").innerHTML = "✔ PASS 4/6: PROBABILISTIC YIN PITCH TRAJECTORY ANALYSIS...";
-                document.getElementById("step5").style.color = "#00adb5";
+                document.getElementById("step5").style.color = "#00adb5"; 
                 document.getElementById("step5").innerHTML = "▶ PASS 5/6: HARMONIC TEXTURE CHAOS COEFFICIENT AUDIT...";
                 status.innerHTML = "Evaluating biological micro-tonal vocal tremors against sterile, machine-quantized wave paths...";
             }, 12000);
             
-            // PASS 6 TIMEOUT SEQUENCER TRANSITION (15s - 18s)
+            // PASS 6 ACTIVE (15s - 18s)
             setTimeout(function() {
                 document.getElementById("step5").style.color = "#222b35";
                 document.getElementById("step5").innerHTML = "✔ PASS 5/6: HARMONIC TEXTURE CHAOS COEFFICIENT AUDIT...";
-                document.getElementById("step6").style.color = "#00adb5";
+                document.getElementById("step6").style.color = "#00adb5"; 
                 document.getElementById("step6").innerHTML = "▶ PASS 6/6: GENERATING STUDIO ALIGNMENT DATA REPORT...";
                 status.innerHTML = "Syncing final alignment verification scores back to primary homepage dashboard console...";
             }, 15000);
 
-            // ACCELERATED 18-SECOND HIGH PERFORMANCE UPLOAD ROUTE (Fires exactly at 18 seconds)
+            // ACCELERATED 18-SECOND PAIRING TO PORT-BOUND ENDPOINT ROUTE
             setTimeout(function() {
                 document.getElementById("step6").style.color = "#222b35";
                 document.getElementById("step6").innerHTML = "✔ PASS 6/6: GENERATING STUDIO ALIGNMENT DATA REPORT...";
