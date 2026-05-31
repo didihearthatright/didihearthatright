@@ -7,7 +7,7 @@ import audioread
 import os
 import yt_dlp
 
-app = FastAPI(title="DIHTR Universal Pure Forensic Core Engine")
+app = FastAPI(title="DIHTR Universal Optimized Forensic Core Engine")
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,21 +17,38 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-# PURE PYTHON FORENSIC PROCESSING MATRIX (Zero System Dependencies)
 def process_audio_pure_python(audio_path: str):
     # Dynamic decoder block handles mp3 streams into raw PCM arrays natively
     with audioread.audio_open(audio_path) as f:
         sr = f.samplerate
         channels = f.channels
         data_list = []
-        for buf in f:
-            data_list.append(np.frombuffer(buf, dtype=np.int16))
         
-    y_raw = np.concatenate(data_list).astype(np.float32)
+        # HIGH-PERFORMANCE TARGET OPTIMIZATION PASSTHROUGH
+        # Limits the array ingestion window to approximately the first 30 seconds of audio data
+        max_samples = sr * channels * 30
+        current_samples = 0
+        
+        for buf in f:
+            chunk = np.frombuffer(buf, dtype=np.int16)
+            data_list.append(chunk)
+            current_samples += len(chunk)
+            if current_samples >= max_samples:
+                break
+        
+    if not data_list:
+        return {"success": False, "error": "Empty audio stream buffer payload."}
+        
+    y_int = np.concatenate(data_list)
+    # Truncate strictly to the 30-second boundary threshold
+    if len(y_int) > (sr * channels * 30):
+        y_int = y_int[:(sr * channels * 30)]
+        
+    y_raw = y_int.astype(np.float32) / 32768.0
+    
     if channels > 1:
         y_raw = y_raw.reshape(-1, channels).mean(axis=1)
         
-    # Energy Gate threshold to locate active vocal performance frames
     hop_length = 512
     frame_length = 2048
     frames = [y_raw[i:i+frame_length] for i in range(0, len(y_raw)-frame_length, hop_length)]
@@ -43,19 +60,19 @@ def process_audio_pure_python(audio_path: str):
     max_rms = max(0.001, np.max(rms_vals))
     active_frames = rms_vals > (max_rms * 0.05)
     
-    # Mathematical Autocorrelation Pitch Extraction Matrix (Replaces YIN)
     pitch_trajectory = []
     for idx, frame in enumerate(frames):
         if not active_frames[idx]:
             continue
-        # Autocorrelation routine
         corr = np.correlate(frame, frame, mode='full')
         corr = corr[len(corr)//2:]
+        
         dfr = np.diff(corr)
-        start_search = np.where(dfr > 0)[0]
+        start_search = np.where(dfr > 0)
         if len(start_search) == 0:
             continue
-        peak = np.argmax(corr[start_search[0]:]) + start_search[0]
+            
+        peak = np.argmax(corr[start_search:]) + start_search
         if peak > 0:
             freq = sr / peak
             if 65.0 <= freq <= 1046.0:  # Bound directly inside human vocal tract thresholds (C2 to C6)
@@ -65,7 +82,6 @@ def process_audio_pure_python(audio_path: str):
     if len(pitch_clean) < 20:
         return {"success": False, "error": "Vocal stream density mismatch."}
         
-    # Pitch alignment transition derivative calculation
     pitch_velocity = np.abs(np.diff(pitch_clean))
     clamped_snaps = np.sum(pitch_velocity > 35)
     total_transitions = len(pitch_velocity)
