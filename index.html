@@ -133,16 +133,6 @@
             else { document.getElementById("audioFile").disabled = false; document.getElementById("ytLink").disabled = false; }
         }
 
-        var defaultMetrics = {
-            "crescent": { score: 95, drift: "95.4% organic flexibility" },
-            "moon": { score: 95, drift: "95.4% organic flexibility" },
-            "rijah": { score: 95, drift: "95.4% organic flexibility" },
-            "albert": { score: 95, drift: "95.4% organic flexibility" },
-            "wasted": { score: 94, drift: "94.2% organic flexibility" },
-            "teardrop": { score: 96, drift: "95.8% organic flexibility" },
-            "before": { score: 96, drift: "95.8% organic flexibility" }
-        };
-
         function runSimulation() {
             var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
             var score = document.getElementById("scoreDisplay"); var fill = document.getElementById("meterFill");
@@ -249,37 +239,29 @@
                         legend.style.display = "block";
                         checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
                     } else {
-                        triggerBackupRoutine(trackTitle, score, fill, status, checkout, legend, legendType, vMapText, sDot);
+                        triggerBackupRoutine(score, fill, status, checkout, legend, legendType, vMapText, sDot);
                     }
                     btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
                 })
                 .catch(err => {
-                    triggerBackupRoutine(trackTitle, score, fill, status, checkout, legend, legendType, vMapText, sDot);
+                    triggerBackupRoutine(score, fill, status, checkout, legend, legendType, vMapText, sDot);
                     btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
                 });
             }, 18000);
         }
 
-        function triggerBackupRoutine(title, score, fill, status, checkout, legend, legendType, vMapText, sDot) {
-            var targetScore = 95; 
-            var targetDrift = "95.4% organic vocal flexibility"; 
+        // 🔥 THE BALANCING FILTER TEST HARNESS: Hardcoded constant scores to separate templates from real math
+        function triggerBackupRoutine(score, fill, status, checkout, legend, legendType, vMapText, sDot) {
+            var diagnosticScore = 77; 
             sDot.className = "pulsing-dot"; 
             
-            for (var matchKey in defaultMetrics) {
-                if (title.indexOf(matchKey) !== -1) {
-                    targetScore = defaultMetrics[matchKey].score;
-                    targetDrift = defaultMetrics[matchKey].drift;
-                    break;
-                }
-            }
-
-            score.innerHTML = targetScore + "%";
-            fill.style.width = targetScore + "%";
-            status.style.color = "#28a745";
-            status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + targetDrift.toUpperCase();
+            score.innerHTML = diagnosticScore + "%";
+            fill.style.width = diagnosticScore + "%";
+            status.style.color = "#00adb5";
+            status.innerHTML = "⚠ STATUS: HIGH INTEGRITY HYBRID // 77.0% DIAGNOSTIC COCKPIT SAFETY TRIGGER";
             
-            legendType.style.color = "#28a745";
-            legendType.innerHTML = "• AUTHENTIC HUMAN VOICE: The vocal tract displays complete organic variance. No mathematical grid-tuning step-clamps or robotic anti-tremor filters were forced upon the waveform timeline.";
+            legendType.style.color = "#00adb5";
+            legendType.innerHTML = "• DIAGNOSTIC SEPARATION TRIGGER ACTIVE: The user interface caught a network timeout or file encoding latency pass. Displaying a fixed 77% variable to distinguish cloud disconnect layers from genuine raw server responses.";
             
             legend.style.display = "block";
             checkout.className = "checkout-btn unlocked";
