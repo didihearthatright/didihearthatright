@@ -1,6 +1,5 @@
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 from typing import Optional
 import numpy as np
 import librosa
@@ -9,17 +8,14 @@ import subprocess
 
 app = FastAPI(title="DIHTR Universal Forensic Core Engine")
 
-# OPEN THE SYSTEM SECURITY GATES FOR DIRECT PROD CONNECTIONS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
-    expose_headers=["*"]
+    allow_headers=["*"]
 )
 
-# INTERNAL CALCULATION ENGINE LOGIC MATRIX
 def process_audio_forensics(audio_path: str):
     y_raw, sr = librosa.load(audio_path, sr=22050)
     y_vocals = librosa.effects.harmonic(y_raw, margin=4.0)
@@ -64,54 +60,34 @@ def process_audio_forensics(audio_path: str):
         "trajectory": "Pure Fluid Biological Tracking" if clamp_ratio < 0.04 else "Quantized Box-Stepping Detected"
     }
 
-# GATEWAY A: HANDLES STANDARD PHYSICAL AUDIO FILE UPLOADS
 @app.post("/analyze-vocal")
-async def analyze_vocal(
-    file: Optional[UploadFile] = File(None),
-    link: Optional[str] = Form(None)
-):
-    # DYNAMIC ROUTER: SEAMLESSLY DETECTS LINK PAYLOADS PASSED TO ENDPOINT
-    if link or (file is None):
-        target_url = link if link else ""
-        if not target_url:
-            return {"success": False, "error": "No valid input source detected."}
-            
-        out_template = "dl_stream_audio.%(ext)s"
-        if os.path.exists("dl_stream_audio.mp3"):
-            os.remove("dl_stream_audio.mp3")
-            
+async def analyze_vocal(file: Optional[UploadFile] = File(None), link: Optional[str] = Form(None)):
+    if link:
+        if os.path.exists("dl_stream.mp3"):
+            os.remove("dl_stream.mp3")
         try:
-            # INTEGRATED PAID-TIER LINUX DOWNLOAD TERMINAL ENGINE
-            cmd = [
-                "python3", "-m", "youtube_dl",
-                "--extract-audio",
-                "--audio-format", "mp3",
-                "-o", out_template,
-                target_url
-            ]
+            # High-speed download pass using the production container environment
+            cmd = ["yt-dlp", "-x", "--audio-format", "mp3", "-o", "dl_stream.mp3", link]
             subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             
-            if not os.path.exists("dl_stream_audio.mp3"):
-                return {"success": False, "error": "Streaming binary extraction failed."}
+            if not os.path.exists("dl_stream.mp3"):
+                return {"success": False, "error": "Download pipeline extraction failed."}
                 
-            metrics = process_audio_forensics("dl_stream_audio.mp3")
-            os.remove("dl_stream_audio.mp3")
+            metrics = process_audio_forensics("dl_stream.mp3")
+            os.remove("dl_stream.mp3")
             return metrics
-            
-        except Exception as streaming_err:
-            return {"success": False, "error": f"Extraction driver alert: {str(streaming_err)}"}
+        except Exception as err:
+            return {"success": False, "error": f"Downloader error: {str(err)}"}
 
-    # DEFAULT FALLBACK: SENDS UPLOADED FILES STRAIGHT TO MATRICES
-    try:
-        audio_bytes = await file.read()
-        with open("temp_upload.file", "wb") as f:
-            f.write(audio_bytes)
+    if file:
+        try:
+            audio_bytes = await file.read()
+            with open("temp_up.mp3", "wb") as f:
+                f.write(audio_bytes)
+            metrics = process_audio_forensics("temp_up.mp3")
+            os.remove("temp_up.mp3")
+            return metrics
+        except Exception as e:
+            return {"success": False, "error": str(e)}
             
-        metrics = process_audio_forensics("temp_upload.file")
-        os.remove("temp_upload.file")
-        return metrics
-        
-    except Exception as e:
-        if os.path.exists("temp_upload.file"):
-            os.remove("temp_upload.file")
-        return {"success": False, "error": str(e)}
+    return {"success": False, "error": "No valid input stream detected."}
