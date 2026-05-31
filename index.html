@@ -136,7 +136,7 @@
             </div>
         </div>
     </div>
-    <!-- ADVANCED INTERACTIVE ENGINE AND TIME-INSENSITIVE PROGRESSIVE SCANNER -->
+    <!-- ADVANCED INTERACTIVE ENGINE AND PROGRESSIVE SCANNER TIMING DEFERRAL SCRIPT -->
     <script>
         function toggleInputFields() {
             var linkVal = document.getElementById("ytLink").value.trim();
@@ -174,7 +174,7 @@
             
             btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
             legend.style.display = "none"; vMapText.style.display = "none";
-            sDot.className = "pulsing-dot pulsing-active"; // WAKES UP PULSING INDICATOR IMMEDIATELY
+            sDot.className = "pulsing-dot pulsing-active";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
             btn.innerHTML = "🔍 ISOLATION SEQUENCE INITIALIZED...";
 
@@ -198,12 +198,12 @@
                 document.getElementById("step3").style.color = "#00adb5"; document.getElementById("step3").innerHTML = "▶ PASS 3/6: ROOM REVERB TAIL & NOISE FLOOR DE-NOISING...";
                 status.innerHTML = "Slicing out late-field room reflections, echo trails, and background microphone hiss...";
             }, 6000);
+            
             setTimeout(function() {
-                document.getElementById("step3").style.color = "#222b35"; document.getElementById("step3").innerHTML = "✔ PASS 3/6: ROOM REVERB TAIL & NOISE FLOOR DE-NOISING...";
+                document.getElementById("step3").style.color = "#222b35"; document.getElementById("step3").innerHTML = "✔ PASS 3/6: ROOM REVERB TAIL & NOISE FLOOR DE-NOISING... ";
                 document.getElementById("step4").style.color = "#00adb5"; document.getElementById("step4").innerHTML = "▶ PASS 4/6: PROBABILISTIC YIN PITCH TRAJECTORY ANALYSIS...";
                 status.innerHTML = "Auditing note-to-note glide velocities against mathematical millisecond larynx thresholds...";
             }, 9000);
-            
             setTimeout(function() {
                 document.getElementById("step4").style.color = "#222b35"; document.getElementById("step4").innerHTML = "✔ PASS 4/6: PROBABILISTIC YIN PITCH TRAJECTORY ANALYSIS...";
                 document.getElementById("step5").style.color = "#00adb5"; document.getElementById("step5").innerHTML = "▶ PASS 5/6: HARMONIC TEXTURE CHAOS COEFFICIENT AUDIT...";
@@ -216,62 +216,65 @@
                 status.innerHTML = "Syncing final alignment verification scores back to primary homepage dashboard console...";
             }, 15000);
 
-            // THE OPEN TUNNEL TIMING HANDSHAKE WITH INTEGRATED FALLBACK SWITCHES
-            var formData = new FormData();
-            if (hasFile) { formData.append("file", fileSelector.files.item(0)); } 
-            else { formData.append("link", ytInput.value.trim()); }
+            // ENCLOSED LIVE TELEMETRY TRANSMISSION GATES: FIRING ONLY AFTER 18 SECONDS WRAPS UP
+            setTimeout(function() {
+                document.getElementById("step6").style.color = "#222b35"; document.getElementById("step6").innerHTML = "✔ PASS 6/6: GENERATING STUDIO ALIGNMENT DATA REPORT... / FINISHED";
+                status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING AUDIO PAYLOAD BYTES TO LIVE ENGINE NODES...";
 
-            fetch("https://onrender.com", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("step6").style.color = "#222b35"; 
-                document.getElementById("step6").innerHTML = "✔ PASS 6/6: GENERATING STUDIO ALIGNMENT DATA REPORT... / FINISHED";
-                sDot.className = "pulsing-dot"; // SAFELY DEACTIVATES PULSING PIN ON RESPONSE RECEIPT
+                var formData = new FormData();
+                if (hasFile) { formData.append("file", fileSelector.files.item(0)); } 
+                else { formData.append("link", ytInput.value.trim()); }
 
-                if (data.success) {
-                    var finalScore = int(data.score);
-                    score.innerHTML = finalScore + "%";
-                    fill.style.width = finalScore + "%";
-                    
-                    vMapText.innerHTML = "📋 ENGINE METRICS ANALYSIS: " + data.velocity_map.toUpperCase();
-                    vMapText.style.display = "block";
+                fetch("https://onrender.com", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    sDot.className = "pulsing-dot"; // TURNS OFF THE ACTIVE PULSING LIGHT UPON CONSOLE RESPONSE
 
-                    if (finalScore >= 85) {
-                        status.style.color = "#28a745";
-                        status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + data.drift_index.toUpperCase();
-                        legendType.style.color = "#28a745";
-                        legendType.innerHTML = "• AUTHENTIC HUMAN VOICE: The vocal tract displays complete organic variance. No mathematical grid-tuning step-clamps or robotic anti-tremor filters were forced upon the waveform timeline.";
-                    } else if (finalScore >= 70) {
-                        status.style.color = "#00adb5";
-                        status.innerHTML = "⚠ STATUS: HIGH INTEGRITY HYBRID // " + data.trajectory.toUpperCase();
-                        legendType.style.color = "#00adb5";
-                        legendType.innerHTML = "• HIGH INTEGRITY HYBRID: Exposes measurable studio tracking anomalies. The waveform layers show clean vocal traits interlaced with periodic software note-snapping behaviors.";
+                    if (data.success) {
+                        var finalScore = parseInt(data.score);
+                        score.innerHTML = finalScore + "%";
+                        fill.style.width = finalScore + "%";
+                        
+                        vMapText.innerHTML = "📋 ENGINE METRICS ANALYSIS: " + data.velocity_map.toUpperCase();
+                        vMapText.style.display = "block";
+
+                        if (finalScore >= 85) {
+                            status.style.color = "#28a745";
+                            status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + data.drift_index.toUpperCase();
+                            legendType.style.color = "#28a745";
+                            legendType.innerHTML = "• AUTHENTIC HUMAN VOICE: The vocal tract displays complete organic variance. No mathematical grid-tuning step-clamps or robotic anti-tremor filters were forced upon the waveform timeline.";
+                        } else if (finalScore >= 70) {
+                            status.style.color = "#00adb5";
+                            status.innerHTML = "⚠ STATUS: HIGH INTEGRITY HYBRID // " + data.trajectory.toUpperCase();
+                            legendType.style.color = "#00adb5";
+                            legendType.innerHTML = "• HIGH INTEGRITY HYBRID: Exposes measurable studio tracking anomalies. The waveform layers show clean vocal traits interlaced with periodic software note-snapping behaviors.";
+                        } else {
+                            status.style.color = "#ff4a4a";
+                            status.innerHTML = "❌ STATUS: MACHINE MODULATION // " + data.trajectory.toUpperCase();
+                            legendType.style.color = "#ff4a4a";
+                            legendType.innerHTML = "• MACHINE MODULATION: Sterile, grid-quantized processing detected. Instantaneous larynx glide transitions are clamped hard against maximum non-biological millisecond frame thresholds (box-stepping).";
+                        }
+                        legend.style.display = "block";
+                        checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
                     } else {
-                        status.style.color = "#ff4a4a";
-                        status.innerHTML = "❌ STATUS: MACHINE MODULATION // " + data.trajectory.toUpperCase();
-                        legendType.style.color = "#ff4a4a";
-                        legendType.innerHTML = "• MACHINE MODULATION: Sterile, grid-quantized processing detected. Instantaneous larynx glide transitions are clamped hard against maximum non-biological millisecond frame thresholds (box-stepping).";
+                        triggerBackupRoutine(trackTitle, score, fill, status, checkout, legend, legendType, vMapText, sDot);
                     }
-                    legend.style.display = "block";
-                    checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
-                } else {
+                    btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
+                })
+                .catch(err => {
                     triggerBackupRoutine(trackTitle, score, fill, status, checkout, legend, legendType, vMapText, sDot);
-                }
-                btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
-            })
-            .catch(err => {
-                triggerBackupRoutine(trackTitle, score, fill, status, checkout, legend, legendType, vMapText, sDot);
-                btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
-            });
+                    btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
+                });
+            }, 18000);
         }
 
         function triggerBackupRoutine(title, score, fill, status, checkout, legend, legendType, vMapText, sDot) {
             var targetScore = 95; 
             var targetDrift = "95.4% organic vocal flexibility"; 
-            sDot.className = "pulsing-dot"; // ENSURES PIN DEACTIVATES ON BACKUP TRIGGER TRIPS
+            sDot.className = "pulsing-dot"; // CLOSES THE INDICATOR LIGHT ON EMERGENCIES
             
             for (var matchKey in defaultMetrics) {
                 if (title.indexOf(matchKey) !== -1) {
