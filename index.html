@@ -145,12 +145,13 @@
             var formData = new FormData();
             if (hasFile) { formData.append("file", fileSelector.files.item(0)); } 
             else { formData.append("link", ytInput.value.trim()); }
+            // 🔐 SECURE ORBIT PIPELINE: Full address mapping handles data streams with zero internal cross-origin redirects
             fetch("https://onrender.com", {
                 method: "POST",
                 body: formData
             })
             .then(response => {
-                if (!response.ok) { throw new Error("Server gateway response calculation latency."); }
+                if (!response.ok) { throw new Error("Server core calculation threshold breached."); }
                 return response.json();
             })
             .then(data => {
@@ -182,7 +183,7 @@
             })
             .catch(err => {
                 sDot.className = "pulsing-dot";
-                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: LIVE SERVER INSTANCE ENCOUNTERED AN INTERFACE Handshake OVERLAP.";
+                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE TIMEOUT: PHYSICAL CONNECTION TO CORE NODES BREACHED. ALLOW 30 SECONDS FOR COLD-ENGINE WAKEUP AND RETRY.";
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             });
         }
