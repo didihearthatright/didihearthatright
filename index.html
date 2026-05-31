@@ -50,7 +50,7 @@
         </button>
 
         <div id="statusContainer" style="margin-top: 30px; font-family: monospace; font-size: 0.85rem; font-weight: bold; line-height: 1.6; text-align: center;">
-            <p id="statusText" style="color: #00adb5; margin: 0; display: inline-block; vertical-align: middle;">SYSTEM COCKPIT IDLE // AWAITING AUDIO MIX DATA STREAM...</p>
+            <p id="statusText" style="color: #00adb5; margin: 0; display: inline-block; middle; vertical-align: middle;">SYSTEM COCKPIT IDLE // AWAITING AUDIO MIX DATA STREAM...</p>
             <div id="statusDot" class="pulsing-dot"></div>
             <p id="velocityMapText" style="color: #555; font-size: 0.75rem; margin: 5px 0 0 0; display: none;"></p>
         </div>
@@ -124,14 +124,14 @@
 
             var formData = new FormData();
             formData.append("file", fileSelector.files.item(0));
-            // 🎯 CACHE-BUSTER BRIDGE: Enforces direct endpoint calls to wipe historical CORS routing memory
+            // 🎯 CACHE-BUSTER LINK ARCHITECTURE: Unique timestamp forces browser out of broken CORS memory loops
             fetch("https://onrender.com" + Date.now(), {
                 method: "POST",
                 mode: "cors",
                 body: formData
             })
             .then(response => {
-                if (!response.ok) { throw new Error("Server gateway response failure."); }
+                if (!response.ok) { throw new Error("Server gateway latency threshold breached."); }
                 return response.json();
             })
             .then(data => {
@@ -163,7 +163,7 @@
             })
             .catch(err => {
                 sDot.className = "pulsing-dot";
-                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE SEPARATION: AUDIO REGISTERS RECEIVED INDEPENDENTLY FROM NODE CHIPS.";
+                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: SERVER SECURITY REJECTION ENCOUNTERED.";
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             });
         }
