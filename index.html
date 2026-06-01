@@ -21,6 +21,9 @@
         .pulsing-dot { display: inline-block; width: 8px; height: 8px; background-color: #00adb5; border-radius: 50%; margin-left: 8px; vertical-align: middle; opacity: 0; box-shadow: 0 0 8px #00adb5; }
         @keyframes statusPulse { 0% { opacity: 0.2; transform: scale(0.9); box-shadow: 0 0 4px #00adb5; } 50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px #00adb5; } 100% { opacity: 0.2; transform: scale(0.9); box-shadow: 0 0 4px #00adb5; } }
         .pulsing-active { animation: statusPulse 1.4s infinite ease-in-out; opacity: 1 !important; }
+        
+        @keyframes textThrob { 0% { opacity: 0.35; color: #00adb5; } 50% { opacity: 1; color: #ffcc00; } 100% { opacity: 0.35; color: #00adb5; } }
+        .throb-active { animation: textThrob 1.2s infinite ease-in-out; font-weight: bold; }
     </style>
 </head>
 <body style="font-family: sans-serif; background-color: #0b0f12; background-image: linear-gradient(rgba(11, 15, 18, 0.93), rgba(11, 15, 18, 0.93)), url('background.png'); background-attachment: fixed; background-size: cover; background-position: center; color: #ffffff; text-align: center; padding: 20px;">
@@ -61,8 +64,11 @@
             <span style="color: #00adb5; font-weight: bold;">• ORGANIC FLEXIBILITY INDEX:</span> Measures the natural, microscopic biological tremors (jitter/shimmer) of the human vocal cords. Low scores prove execution of rigid grid-tuning quantization step-clamps.
         </div>
         
-        <div style="margin-top: 30px;">
-            <h3 style="margin-bottom: 20px;">Vocal Integrity Spectrum: <span id="scoreDisplay" style="color: #00adb5;">-- %</span></h3>
+        <div style="margin-top: 40px; min-height: 28px;">
+            <h3 id="verdictHeader" style="margin: 0; color: #00adb5; font-family: monospace; letter-spacing: 1px; transition: all 0.3s ease;"></h3>
+        </div>
+        
+        <div style="margin-top: 15px;">
             <div style="width: 100%; background-color: #222b35; border-radius: 20px; height: 16px; overflow: hidden; border: 1px solid #444; box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);">
                 <div id="meterFill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #ff4a4a 0%, #ffcc00 50%, #00adb5 75%, #28a745 100%); transition: width 1.5s cubic-bezier(0.1, 0.8, 0.2, 1);"></div>
             </div>
@@ -106,39 +112,34 @@
         </div>
     </div>
     <script>
-        // 📡 AUTOMATED ENGINE room WAKE-UP: Fires instantly on page load to eliminate manual wake-ups forever
-        window.onload = function() {
-            console.log("DIHTR Core: Initiating background server handshake...");
-            fetch("https://onrender.com", { method: "OPTIONS" })
-            .then(() => console.log("DIHTR Core: Server handshake acknowledged. Engine room awake."))
-            .catch(() => console.log("DIHTR Core: Background wake signal transmitted successfully."));
-        };
-
         function runSimulation() {
             var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
-            var score = document.getElementById("scoreDisplay"); var fill = document.getElementById("meterFill");
+            var fill = document.getElementById("meterFill"); var vHdr = document.getElementById("verdictHeader");
             var checkout = document.getElementById("checkoutBtn"); var fileSelector = document.getElementById("audioFile");
             var legend = document.getElementById("legendBox"); var legendType = document.getElementById("legendVocalType"); 
             var vMapText = document.getElementById("velocityMapText"); var sDot = document.getElementById("statusDot");
 
             if (fileSelector.files.length === 0) { alert("⚠️ DATA INPUT REQUIRED: Please upload a track file to execute forensics."); return; }
             
-            btn.style.backgroundColor = "#555"; btn.disabled = true; score.innerHTML = "-- %"; fill.style.width = "0%";
+            btn.style.backgroundColor = "#555"; btn.disabled = true; fill.style.width = "0%";
             legend.style.display = "none"; vMapText.style.display = "none";
             sDot.className = "pulsing-dot pulsing-active";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
             btn.innerHTML = "🔍 ANALYZING VOCAL WAVEFORM PAYLOAD...";
             status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING PHYSICAL WAVEFORM BYTES TO LIVE SERVER NODES...";
 
+            vHdr.className = "throb-active";
+            vHdr.innerHTML = "◽ ANALYZING AUDIO TRACK MIX DATA...";
+
             var formData = new FormData();
             formData.append("file", fileSelector.files.item(0));
-            // 🔐 DIRECT UNBOUND TUNNEL: Standard trailing slash execution paths handle data packets without cross-origin blocks
+            // 🔐 PREMIUM SERVICING ROUTE: Direct paid container domain mapping bypasses old free-tier timeouts completely
             fetch("https://onrender.com", {
                 method: "POST",
                 body: formData
             })
             .then(response => {
-                if (!response.ok) { throw new Error("Server gateway latency threshold breached."); }
+                if (!response.ok) { throw new Error("Paid server gateway latency threshold breached."); }
                 return response.json();
             })
             .then(data => {
@@ -146,10 +147,13 @@
 
                 if (data.success) {
                     var finalScore = parseInt(data.score);
-                    score.innerHTML = finalScore + "%";
                     fill.style.width = finalScore + "%";
                     vMapText.innerHTML = "📋 ENGINE METRICS ANALYSIS: " + data.velocity_map.toUpperCase();
                     vMapText.style.display = "block";
+
+                    vHdr.className = ""; 
+                    vHdr.style.color = "#00adb5";
+                    vHdr.innerHTML = "📊 FORENSIC DIAGNOSTIC VERDICT: " + finalScore + "%";
 
                     if (finalScore >= 85) {
                         status.style.color = "#28a745"; status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + data.drift_index.toUpperCase();
@@ -164,13 +168,15 @@
                     legend.style.display = "block";
                     checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
                 } else {
+                    vHdr.className = ""; vHdr.innerHTML = "";
                     status.style.color = "#ff4a4a"; status.innerHTML = "❌ SERVER CALCULATOR ERROR: " + data.error.toUpperCase();
                 }
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             })
             .catch(err => {
                 sDot.className = "pulsing-dot";
-                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: LIVE CHIPS REJECTED PAYLOAD GATES. RETRY SPRINT IN 15 SECONDS.";
+                vHdr.className = ""; vHdr.innerHTML = "";
+                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: SERVER TIMEOUT DETECTED. RETRY SPRINT SNAPSHOT.";
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             });
         }
