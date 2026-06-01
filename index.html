@@ -133,13 +133,18 @@
 
             var formData = new FormData();
             formData.append("file", fileSelector.files.item(0));
-            // 🔐 DIRECT TUNNEL COMMITTED: Enforcing the explicit application subdomain token removes the generic drop-loops entirely
+            // 🔐 UNBOUND TIMEOUT TUNNEL: AbortController forces the browser lane to stay wide open for 60 full seconds
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 60000);
+
             fetch("https://onrender.com", {
                 method: "POST",
-                body: formData
+                body: formData,
+                signal: controller.signal
             })
             .then(response => {
-                if (!response.ok) { throw new Error("Paid server gateway latency threshold breached."); }
+                clearTimeout(timeoutId);
+                if (!response.ok) { throw new Error("Paid server gateway calculation anomaly."); }
                 return response.json();
             })
             .then(data => {
@@ -174,9 +179,10 @@
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             })
             .catch(err => {
+                clearTimeout(timeoutId);
                 sDot.className = "pulsing-dot";
                 vHdr.className = ""; vHdr.innerHTML = "";
-                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: SERVER TIMEOUT DETECTED. RETRY SPRINT SNAPSHOT.";
+                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE INTEGRITY BREACH: CORE SERVER CHIPS STRIPPED TRANSACTION DATA PASS.";
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             });
         }
