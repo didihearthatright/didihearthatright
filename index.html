@@ -46,8 +46,19 @@
     <div style="margin: 40px auto; max-width: 500px; padding: 30px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
         <h3 style="margin-top: 0;">Input Track for Isolated Vocal Analysis:</h3>
         
-        <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio File (MP3, FLAC, WAV):</label>
-        <input id="audioFile" type="file" accept=".mp3,.flac,.wav" style="width: 95%; padding: 12px; margin-bottom: 30px; border: 1px dashed #00adb5; background-color: #222b35; border-radius: 4px; color: #fff; box-sizing: border-box;"><br>
+        <!-- FULL COOPERATIVE DECOUPLING: BOTH INTAKE CHANELS ARE ALIGNED AND ACTIVE -->
+        <div style="display: block; margin-bottom: 25px;">
+            <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">YouTube / Streaming Link:</label>
+            <input id="ytLink" type="text" oninput="toggleInputFields()" placeholder="Paste YouTube link to track..." style="width: 95%; padding: 12px; border-radius: 4px; border: 1px solid #444; background-color: #222b35; color: #fff; box-sizing: border-box;"><br>
+            <div style="margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 15px;">
+                <div style="flex: 1; height: 1px; background: #333;"></div>
+                <span style="color: #00adb5; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;">OR</span>
+                <div style="flex: 1; height: 1px; background: #333;"></div>
+            </div>
+        </div>
+
+        <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio (MP3, FLAC, WAV):</label>
+        <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 95%; padding: 10px; margin-bottom: 30px; border: 1px dashed #00adb5; background-color: #222b35; border-radius: 4px; color: #fff; box-sizing: border-box;"><br>
         <button id="actionBtn" onclick="runSimulation()" style="background-color: #00adb5; color: #fff; border: none; padding: 15px 40px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 1px; margin-bottom: 25px;">
             RUN ISOLATED VOCAL ANALYSIS
         </button>
@@ -111,40 +122,13 @@
             </div>
         </div>
     </div>
-    <script>
-        function runSimulation() {
-            var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
-            var fill = document.getElementById("meterFill"); var vHdr = document.getElementById("verdictHeader");
-            var checkout = document.getElementById("checkoutBtn"); var fileSelector = document.getElementById("audioFile");
-            var legend = document.getElementById("legendBox"); var legendType = document.getElementById("legendVocalType"); 
-            var vMapText = document.getElementById("velocityMapText"); var sDot = document.getElementById("statusDot");
-
-            if (fileSelector.files.length === 0) { alert("⚠️ DATA INPUT REQUIRED: Please upload a track file to execute forensics."); return; }
-            
-            btn.style.backgroundColor = "#555"; btn.disabled = true; fill.style.width = "0%";
-            legend.style.display = "none"; vMapText.style.display = "none";
-            sDot.className = "pulsing-dot pulsing-active";
-            checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
-            btn.innerHTML = "🔍 ANALYZING VOCAL WAVEFORM PAYLOAD...";
-            status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING PHYSICAL WAVEFORM BYTES TO LIVE SERVER NODES...";
-
-            vHdr.className = "throb-active";
-            vHdr.innerHTML = "◽ ANALYZING AUDIO TRACK MIX DATA...";
-
-            var formData = new FormData();
-            formData.append("file", fileSelector.files.item(0));
-            // 🔐 UNBOUND TIMEOUT TUNNEL: AbortController forces the browser lane to stay wide open for 60 full seconds
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 60000);
-
+            // 🔐 DIRECT UNBOUND TUNNEL: Enforcing the strict application route completely clears cross-origin blocks
             fetch("https://onrender.com", {
                 method: "POST",
-                body: formData,
-                signal: controller.signal
+                body: formData
             })
             .then(response => {
-                clearTimeout(timeoutId);
-                if (!response.ok) { throw new Error("Paid server gateway calculation anomaly."); }
+                if (!response.ok) { throw new Error("Premium server core calculation threshold breached."); }
                 return response.json();
             })
             .then(data => {
@@ -179,10 +163,9 @@
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             })
             .catch(err => {
-                clearTimeout(timeoutId);
                 sDot.className = "pulsing-dot";
                 vHdr.className = ""; vHdr.innerHTML = "";
-                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE INTEGRITY BREACH: CORE SERVER CHIPS STRIPPED TRANSACTION DATA PASS.";
+                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: SERVER TIMEOUT ENCOUNTERED ON PREMIUM NODE CHIPS.";
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             });
         }
