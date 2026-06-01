@@ -5,9 +5,12 @@ import numpy as np
 import audioread
 import os
 
-app = FastAPI(title="DIHTR Production Paid Core Engine")
+# 🟢 FIXED: redirect_slashes=False forces FastAPI to never issue 307 proxy domain redirects
+app = FastAPI(
+    title="DIHTR Premium Unbound Core Engine",
+    redirect_slashes=False
+)
 
-# 🚨 UNIVERSAL HARDENED CORS PROTOCOLS: Forces the paid server to accept all inbound web requests safely
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -23,7 +26,6 @@ def process_audio_high_speed(audio_path: str):
         channels = f.channels
         data_list = []
         
-        # Pull up to 15 seconds to ensure lightning-fast processing speeds on the premium CPU
         max_samples = sr * channels * 15
         current_samples = 0
         for buf in f:
@@ -34,7 +36,7 @@ def process_audio_high_speed(audio_path: str):
                 break
         
     if not data_list:
-        return {"success": False, "error": "Empty audio data stream buffer."}
+        return {"success": False, "error": "Empty audio stream buffer payload."}
         
     y_int = np.concatenate(data_list)
     if len(y_int) > (sr * channels * 15):
@@ -49,7 +51,7 @@ def process_audio_high_speed(audio_path: str):
     frames = [y_raw[i:i+frame_length] for i in range(0, len(y_raw)-frame_length, hop_length)]
     
     if len(frames) < 10:
-        return {"success": False, "error": "Vocal stream duration density mismatch."}
+        return {"success": False, "error": "Insufficient lead vocal tracking data length."}
         
     rms_vals = np.sqrt(np.mean(np.square(frames), axis=1))
     max_rms = max(0.001, np.max(rms_vals))
@@ -75,7 +77,7 @@ def process_audio_high_speed(audio_path: str):
             
     pitch_clean = np.array(pitch_trajectory)
     if len(pitch_clean) < 10:
-        return {"success": False, "error": "Insufficient fundamental pitch tracing records."}
+        return {"success": False, "error": "Vocal stream density mismatch."}
         
     pitch_velocity = np.abs(np.diff(pitch_clean))
     clamped_snaps = np.sum(pitch_velocity > 40)
@@ -93,6 +95,8 @@ def process_audio_high_speed(audio_path: str):
         "trajectory": "Pure Fluid Biological Tracking" if clamp_ratio < 0.05 else "Quantized Box-Stepping Detected"
     }
 
+# 🟢 FIXED: Double endpoint alignment registers routes both with and without trailing slashes safely
+@app.post("/analyze-vocal")
 @app.post("/analyze-vocal/")
 async def analyze_vocal(file: Optional[UploadFile] = File(None), link: Optional[str] = Form(None)):
     if file:
@@ -108,8 +112,4 @@ async def analyze_vocal(file: Optional[UploadFile] = File(None), link: Optional[
                 os.remove("temp_up.mp3")
             return {"success": False, "error": str(e)}
             
-    if link and link.strip() != "":
-        # Dynamic placeholder hook handles links safely to prevent payload parsing crashes
-        return {"success": True, "score": 95, "velocity_map": "0.00 Hz static link map", "drift_index": "95.0% organic vocal flexibility", "trajectory": "Link routing optimization bypass channel active"}
-        
-    return {"success": False, "error": "No valid data parameters or audio files identified."}
+    return {"success": False, "error": "No valid audio upload file payload identified."}
