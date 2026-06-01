@@ -5,15 +5,13 @@ import numpy as np
 import audioread
 import os
 
-# 🟢 FIXED: redirect_slashes=False forces FastAPI to never issue 307 proxy domain redirects
-app = FastAPI(
-    title="DIHTR Premium Unbound Core Engine",
-    redirect_slashes=False
-)
+app = FastAPI(title="DIHTR Universal Pure Forensic Core Engine")
 
+# 🔐 FULL DISCLOSURE CORS ACCESS MODULE
+# Explicitly authorizes incoming data payload arrays from all origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://dihtr.com", "http://localhost:8000", "*"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -26,6 +24,7 @@ def process_audio_high_speed(audio_path: str):
         channels = f.channels
         data_list = []
         
+        # Constrain ingestion to a high-density 15-second snapshot
         max_samples = sr * channels * 15
         current_samples = 0
         for buf in f:
@@ -95,8 +94,6 @@ def process_audio_high_speed(audio_path: str):
         "trajectory": "Pure Fluid Biological Tracking" if clamp_ratio < 0.05 else "Quantized Box-Stepping Detected"
     }
 
-# 🟢 FIXED: Double endpoint alignment registers routes both with and without trailing slashes safely
-@app.post("/analyze-vocal")
 @app.post("/analyze-vocal/")
 async def analyze_vocal(file: Optional[UploadFile] = File(None), link: Optional[str] = Form(None)):
     if file:
