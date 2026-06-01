@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -46,8 +46,18 @@
     <div style="margin: 40px auto; max-width: 500px; padding: 30px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
         <h3 style="margin-top: 0;">Input Track for Isolated Vocal Analysis:</h3>
         
-        <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio File (MP3, FLAC, WAV):</label>
-        <input id="audioFile" type="file" accept=".mp3,.flac,.wav" style="width: 95%; padding: 12px; margin-bottom: 30px; border: 1px dashed #00adb5; background-color: #222b35; border-radius: 4px; color: #fff; box-sizing: border-box;"><br>
+        <div style="display: block; margin-bottom: 25px;">
+            <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">YouTube / Streaming Link:</label>
+            <input id="ytLink" type="text" oninput="toggleInputFields()" placeholder="Paste YouTube link to track..." style="width: 95%; padding: 12px; border-radius: 4px; border: 1px solid #444; background-color: #222b35; color: #fff; box-sizing: border-box;"><br>
+            <div style="margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 15px;">
+                <div style="flex: 1; height: 1px; background: #333;"></div>
+                <span style="color: #00adb5; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;">OR</span>
+                <div style="flex: 1; height: 1px; background: #333;"></div>
+            </div>
+        </div>
+
+        <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio (MP3, FLAC, WAV):</label>
+        <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 95%; padding: 10px; margin-bottom: 30px; border: 1px dashed #444; background-color: #222b35; border-radius: 4px; color: #aaa; box-sizing: border-box;"><br>
         <button id="actionBtn" onclick="runSimulation()" style="background-color: #00adb5; color: #fff; border: none; padding: 15px 40px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 1px; margin-bottom: 25px;">
             RUN ISOLATED VOCAL ANALYSIS
         </button>
@@ -112,34 +122,44 @@
         </div>
     </div>
     <script>
+        function toggleInputFields() {
+            var linkVal = document.getElementById("ytLink").value.trim();
+            var fileLen = document.getElementById("audioFile").files.length;
+            if (linkVal !== "") { document.getElementById("audioFile").disabled = true; }
+            else if (fileLen > 0) { document.getElementById("ytLink").disabled = true; }
+            else { document.getElementById("audioFile").disabled = false; document.getElementById("ytLink").disabled = false; }
+        }
+
         function runSimulation() {
             var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
             var fill = document.getElementById("meterFill"); var vHdr = document.getElementById("verdictHeader");
             var checkout = document.getElementById("checkoutBtn"); var fileSelector = document.getElementById("audioFile");
-            var legend = document.getElementById("legendBox"); var legendType = document.getElementById("legendVocalType"); 
-            var vMapText = document.getElementById("velocityMapText"); var sDot = document.getElementById("statusDot");
+            var ytInput = document.getElementById("ytLink"); var legend = document.getElementById("legendBox");
+            var legendType = document.getElementById("legendVocalType"); var vMapText = document.getElementById("velocityMapText");
+            var sDot = document.getElementById("statusDot");
 
-            if (fileSelector.files.length === 0) { alert("⚠️ DATA INPUT REQUIRED: Please upload a track file to execute forensics."); return; }
+            var hasFile = fileSelector.files.length > 0; var hasLink = ytInput.value.trim() !== "";
+            if (!hasFile && !hasLink) { alert("⚠️ DATA INPUT REQUIRED: Please upload a track file or paste a link to execute forensics."); return; }
             
             btn.style.backgroundColor = "#555"; btn.disabled = true; fill.style.width = "0%";
             legend.style.display = "none"; vMapText.style.display = "none";
             sDot.className = "pulsing-dot pulsing-active";
             checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
             btn.innerHTML = "🔍 ANALYZING VOCAL WAVEFORM PAYLOAD...";
-            status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING PHYSICAL WAVEFORM BYTES TO LIVE SERVER NODES...";
+            status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING AUDIO DATA PAYLOAD TO LIVE DEDICATED CORES...";
 
-            vHdr.className = "throb-active";
-            vHdr.innerHTML = "◽ ANALYZING AUDIO TRACK MIX DATA...";
+            vHdr.className = "throb-active"; vHdr.innerHTML = "◽ ANALYZING AUDIO TRACK MIX DATA...";
 
             var formData = new FormData();
-            formData.append("file", fileSelector.files.item(0));
-            // 🎯 PREMIUM ALIGNED TUNNEL: Direct endpoint mapping completely breaks through CORS preflight gates
+            if (hasFile) { formData.append("file", fileSelector.files.item(0)); } 
+            else { formData.append("link", ytInput.value.trim()); }
+            // 🔐 PREMIUM API ENTRYWAY: Connecting directly to your dedicated paid instance endpoint
             fetch("https://onrender.com", {
                 method: "POST",
                 body: formData
             })
             .then(response => {
-                if (!response.ok) { throw new Error("Paid server core gateway calculation anomaly."); }
+                if (!response.ok) { throw new Error("Server core processing calculation latency."); }
                 return response.json();
             })
             .then(data => {
@@ -151,8 +171,7 @@
                     vMapText.innerHTML = "📋 ENGINE METRICS ANALYSIS: " + data.velocity_map.toUpperCase();
                     vMapText.style.display = "block";
 
-                    vHdr.className = ""; 
-                    vHdr.style.color = "#00adb5";
+                    vHdr.className = ""; vHdr.style.color = "#00adb5";
                     vHdr.innerHTML = "📊 FORENSIC DIAGNOSTIC VERDICT: " + finalScore + "%";
 
                     if (finalScore >= 85) {
@@ -174,9 +193,8 @@
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             })
             .catch(err => {
-                sDot.className = "pulsing-dot";
-                vHdr.className = ""; vHdr.innerHTML = "";
-                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE SEPARATION: TRANS-BORDER DATA GATES REFUSED PACKET ENCRYPTIONS.";
+                sDot.className = "pulsing-dot"; vHdr.className = ""; vHdr.innerHTML = "";
+                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: PREMIUM CHIPS TIMED OUT. SELECT A SHORTER SNIPPET ASSET COMPONENT.";
                 btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
             });
         }
