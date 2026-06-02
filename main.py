@@ -5,7 +5,6 @@ import numpy as np
 
 app = FastAPI(title="DIHTR Pure Python Ultra-Stable Forensic Core Engine")
 
-# ENABLE GLOBALLY ALIGNED CORS ACCESS CHANNELS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,12 +14,11 @@ app.add_middleware(
     expose_headers=["*"]
 )
 
-# 📡 FIXED ROUTER PASS: Standard GET handler explicitly captures Render's Health Check monitor
-@app.get("/")
+# 📡 UNIVERSAL ENDPOINT ROUTER: Captures GET and HEAD natively to pass Render's health monitor
+@app.api_route("/", methods=["GET", "HEAD"])
 async def root_health_check(request: Request):
     return {"status": "online", "message": "DIHTR Aligned Core Listening"}
 
-# ULTRA-STABLE CORE ENGINE INTERFACE PASSTHROUGH
 def process_audio_pure_python(audio_bytes: bytes):
     try:
         audio_len = len(audio_bytes)
