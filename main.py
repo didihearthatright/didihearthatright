@@ -1,11 +1,11 @@
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 import numpy as np
 
 app = FastAPI(title="DIHTR Pure Python Ultra-Stable Forensic Core Engine")
 
-# ALLOW ALL TRAFFIC HEADERS GLOBALLY
+# ENABLE GLOBALLY ALIGNED CORS ACCESS CHANNELS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,12 +15,12 @@ app.add_middleware(
     expose_headers=["*"]
 )
 
-# 📡 CRITICAL ROOT HANDSHAKE ADDED: Returns a clean status to prevent Render from triggering a safety reboot
-@app.get("/")
-async def root_handshake():
+# 📡 THE UNIFIED ROUTER PASS: Explicitly captures both GET and HEAD requests to clear Render's Health Check monitor
+@app.route("/", methods=["GET", "HEAD"])
+async def root_health_check(request: Request):
     return {"status": "online", "message": "DIHTR Aligned Core Listening"}
 
-# ULTRA-STABLE PROCESSOR LOOP
+# ULTRA-STABLE CORE ENGINE INTERFACE PASSTHROUGH
 def process_audio_pure_python(audio_bytes: bytes):
     try:
         audio_len = len(audio_bytes)
