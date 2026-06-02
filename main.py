@@ -15,8 +15,8 @@ app.add_middleware(
     expose_headers=["*"]
 )
 
-# 📡 THE UNIFIED ROUTER PASS: Official api_route call handles both GET and HEAD requests flawlessly
-@app.api_route("/", methods=["GET", "HEAD"])
+# 📡 FIXED ROUTER PASS: Standard GET handler explicitly captures Render's Health Check monitor
+@app.get("/")
 async def root_health_check(request: Request):
     return {"status": "online", "message": "DIHTR Aligned Core Listening"}
 
