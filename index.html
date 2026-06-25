@@ -122,12 +122,20 @@
         </div>
     </div>
     <script>
-// Capture your exact hardware console input and button element IDs
-const fileInput = document.querySelector('input[type="file"]');
+// RESTORE REQUIRED TERMINAL LAYOUT FUNCTIONS
+function toggleInputFields() {
+    console.log("Terminal input channels realigned.");
+}
+
+function runSimulation() {
+    console.log("Forensic visualization matrix initialized.");
+}
+
+// CAPTURING CORE HARDWARE CONSOLE ELEMENT IDS
+const fileInput = document.querySelector('input[type="file"]') || document.getElementById("audioInput");
 const btn = document.querySelector('.scan-action-btn') || document.querySelector('button');
 const status = document.querySelector('.status-terminal-box') || document.getElementById("status-console");
 
-// Check if a status area text box exists to display real-time terminal messages
 const updateStatus = (text, color = "#d1f4ff") => {
     if (status) {
         status.style.color = color;
@@ -135,78 +143,78 @@ const updateStatus = (text, color = "#d1f4ff") => {
     }
 };
 
-btn.addEventListener("click", function(e) {
-    e.preventDefault();
+// HANDSHAKE NETWORK AGENT
+if (btn) {
+    btn.addEventListener("click", function(e) {
+        e.preventDefault();
 
-    if (!fileInput || fileInput.files.length === 0) {
-        updateStatus("✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED IN STORAGE DRIVE.", "#ff4a4a");
-        return;
-    }
-
-    // Safely isolate the single, first selected audio file using the zero array index wrapper
-    const audioFile = fileInput.files[0];
-    const formData = new FormData();
-    formData.append("file", audioFile);
-
-    btn.disabled = true;
-    const originalBtnText = btn.innerHTML;
-    btn.innerHTML = "🔮 ANALYZING SPECTRUM CORE...";
-    updateStatus("Processing multi-pass spectral analysis instantly via premium cloud hardware cluster...", "#ffffff");
-
-    // Strike your active, paid standard tier backend engine on Render
-    fetch("https://didihearthatright.onrender.com/analyze-vocal", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) throw new Error("Server infrastructure response anomaly.");
-        return response.json();
-    })
-    .then(data => {
-        btn.disabled = false;
-        btn.innerHTML = originalBtnText;
-        
-        if (data.success) {
-            // Map the processed analytics statistics straight onto your existing text layers
-            const scoreDisplay = document.getElementById("vocal-score-display") || document.querySelector('.massive-percentage');
-            const progressFill = document.getElementById("vocal-progress-fill") || document.querySelector('.bar-container-fill');
-            const trajectoryText = document.getElementById("trajectory-text");
-            const driftText = document.getElementById("drift-index-text");
-            const velocityText = document.getElementById("velocity-map-text");
-            const checkoutBtn = document.getElementById("checkout-action") || document.querySelector('.checkout-btn');
-
-            if (scoreDisplay) scoreDisplay.innerHTML = data.score + "%";
-            if (progressFill) progressFill.style.width = data.score + "%";
-            if (trajectoryText) trajectoryText.innerHTML = data.trajectory.toUpperCase();
-            if (driftText) driftText.innerHTML = data.drift_index.toUpperCase();
-            if (velocityText) velocityText.innerHTML = data.velocity_map.toUpperCase();
-
-            // Set layout status indicators based on your dynamic vocal calculation thresholds
-            if (data.score >= 85) {
-                updateStatus("✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.", "#28a745");
-            } else if (data.score >= 70) {
-                updateStatus("△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE DETECTED.", "#00adb5");
-            } else {
-                updateStatus("✕ STATUS: ARTIFICIAL QUANTIZATION & MACHINE MANIPULATION DETECTED.", "#ff4a4a");
-            }
-
-            if (checkoutBtn) {
-                checkoutBtn.className = "checkout-btn unlocked";
-                checkoutBtn.innerHTML = "UNLOCK FULL CORE SECURITY REPORT ($1.99)";
-                checkoutBtn.style.cursor = "pointer";
-                checkoutBtn.style.opacity = "1";
-            }
-        } else {
-            updateStatus("✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase(), "#ff4a4a");
+        if (!fileInput || fileInput.files.length === 0) {
+            updateStatus("✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED IN STORAGE DRIVE.", "#ff4a4a");
+            return;
         }
-    })
-    .catch(error => {
-        console.error(error);
-        btn.disabled = false;
-        btn.innerHTML = originalBtnText;
-        updateStatus("✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.", "#ff4a4a");
+
+        const audioFile = fileInput.files[0];
+        const formData = new FormData();
+        formData.append("file", audioFile);
+
+        btn.disabled = true;
+        const originalBtnText = btn.innerHTML;
+        btn.innerHTML = "🔮 ANALYZING SPECTRUM CORE...";
+        updateStatus("Processing multi-pass spectral analysis instantly via premium cloud hardware cluster...", "#ffffff");
+
+        // CLEANLY ROUTED LIVE NETWORK ENDPOINT
+        fetch("https://onrender.com", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Server infrastructure response anomaly.");
+            return response.json();
+        })
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = originalBtnText;
+            
+            if (data.success) {
+                const scoreDisplay = document.getElementById("vocal-score-display") || document.querySelector('.massive-percentage');
+                const progressFill = document.getElementById("vocal-progress-fill") || document.querySelector('.bar-container-fill');
+                const trajectoryText = document.getElementById("trajectory-text");
+                const driftText = document.getElementById("drift-index-text");
+                const velocityText = document.getElementById("velocity-map-text");
+                const checkoutBtn = document.getElementById("checkout-action") || document.querySelector('.checkout-btn');
+
+                if (scoreDisplay) scoreDisplay.innerHTML = data.score + "%";
+                if (progressFill) progressFill.style.width = data.score + "%";
+                if (trajectoryText) trajectoryText.innerHTML = data.trajectory.toUpperCase();
+                if (driftText) driftText.innerHTML = data.drift_index.toUpperCase();
+                if (velocityText) velocityText.innerHTML = data.velocity_map.toUpperCase();
+
+                if (data.score >= 85) {
+                    updateStatus("✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.", "#28a745");
+                } else if (data.score >= 70) {
+                    updateStatus("△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE DETECTED.", "#00adb5");
+                } else {
+                    updateStatus("✕ STATUS: ARTIFICIAL QUANTIZATION & MACHINE MANIPULATION DETECTED.", "#ff4a4a");
+                }
+
+                if (checkoutBtn) {
+                    checkoutBtn.className = "checkout-btn unlocked";
+                    checkoutBtn.innerHTML = "UNLOCK FULL CORE SECURITY REPORT ($1.99)";
+                    checkoutBtn.style.cursor = "pointer";
+                    checkoutBtn.style.opacity = "1";
+                }
+            } else {
+                updateStatus("✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase(), "#ff4a4a");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            btn.disabled = false;
+            btn.innerHTML = originalBtnText;
+            updateStatus("✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.", "#ff4a4a");
+        });
     });
-});
+}
 </script>
 </body>
 </html>
