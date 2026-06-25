@@ -3,12 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIHTR - Maintenance Notice</title>
+    <title>Did I Hear That Right - DIHTR Vocal Verification</title>
+    <style>
+        p, h1, h2, h3, h4, div { text-wrap: balance; }
+        .tooltip-container { position: relative; display: inline-block; cursor: help; border-bottom: 2px dotted #00adb5; }
+        .tooltip-window { visibility: hidden; width: 320px; background-color: #1e1e1e; color: #fff; text-align: justify; border: 1px solid #00adb5; border-radius: 6px; padding: 15px; position: absolute; z-index: 10; bottom: 125%; left: 50%; margin-left: -160px; opacity: 0; transition: opacity 0.3s; box-shadow: 0px 4px 15px rgba(0,0,0,0.5); font-size: 0.9rem; line-height: 1.4; }
+        .tooltip-container:hover .tooltip-window { visibility: visible; opacity: 1; }
+        .premium-container { margin: 50px auto; max-width: 600px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; padding: 25px; box-sizing: border-box; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .checkout-btn { display: block; box-sizing: border-box; text-decoration: none; text-align: center; font-size: 15px; font-weight: bold; border-radius: 4px; width: 100%; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+        .checkout-btn.locked { background-color: #ff4a4a !important; color: #fff !important; cursor: not-allowed !important; pointer-events: none; opacity: 0.85; }
+        .checkout-btn.unlocked { background-color: #28a745 !important; color: #fff !important; cursor: pointer !important; pointer-events: auto; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        input:disabled { background-color: #11151b !important; color: #444 !important; border: 1px solid #222 !important; cursor: not-allowed; }
+        .legend-card { background-color: #0b0f12; border: 1px solid #222; border-radius: 6px; padding: 15px; margin-top: 25px; text-align: left; font-family: monospace; font-size: 0.8rem; line-height: 1.5; display: none; }
+        .live-link { color: #00adb5; text-decoration: none; border-bottom: 1px dashed #00adb5; transition: all 0.2s ease; }
+        .live-link:hover { color: #28a745; border-bottom-color: #28a745; }
+        
+        .pulsing-dot { display: inline-block; width: 8px; height: 8px; background-color: #00adb5; border-radius: 50%; margin-left: 8px; vertical-align: middle; opacity: 0; box-shadow: 0 0 8px #00adb5; }
+        @keyframes statusPulse { 0% { opacity: 0.2; transform: scale(0.9); box-shadow: 0 0 4px #00adb5; } 50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px #00adb5; } 100% { opacity: 0.2; transform: scale(0.9); box-shadow: 0 0 4px #00adb5; } }
+        .pulsing-active { animation: statusPulse 1.4s infinite ease-in-out; opacity: 1 !important; }
+        
+        @keyframes textThrob { 0% { opacity: 0.35; color: #00adb5; } 50% { opacity: 1; color: #ffcc00; } 100% { opacity: 0.35; color: #00adb5; } }
+        .throb-active { animation: textThrob 1.2s infinite ease-in-out; font-weight: bold; }
+    </style>
 </head>
-<body style="font-family: monospace; background-color: #0b0f12; color: #ffffff; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; padding: 20px; box-sizing: border-box;">
-    <div>
-        <h1 style="color: #ffcc00; font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 15px;">🔧 SYSTEM MAINTENANCE NOTICE</h1>
-        <p style="color: #aaa; font-size: 1rem; margin: 0;">This site is down for maintenance.</p>
+<body style="font-family: sans-serif; background-color: #0b0f12; background-image: linear-gradient(rgba(11, 15, 18, 0.93), rgba(11, 15, 18, 0.93)), url('background.png'); background-attachment: fixed; background-size: cover; background-position: center; color: #ffffff; text-align: center; padding: 20px;">
+
+    <div style="border: 1px solid #ffcc00; padding: 15px; margin: 20px auto; max-width: 728px; background-color: #1a1500; color: #ffcc00; font-family: monospace; font-size: 0.9rem; border-radius: 4px; font-weight: bold; letter-spacing: 1px;">
+        🧪 ACTIVE SYSTEM TESTING SANDBOX // PUBLIC BETA v1.0
     </div>
+
+    <div style="border: 1px dashed #333; padding: 0; margin: 10px auto 30px auto; max-width: 728px; height: 90px; background-color: #14191f; display: flex; align-items: center; justify-content: center; border-radius: 6px; color: #555; font-family: monospace; font-size: 0.8rem; letter-spacing: 1px;">
+        📢 SPONSOR PLACEMENT ZONE // ADVERTISING INQUIRIES: <a href="mailto:partners@dihtr.com" class="live-link">PARTNERS@DIHTR.COM</a>
+    </div>
+    <div style="margin: 20px auto; max-width: 800px; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.5);">
+        <img src="banner.png" alt="DIHTR Banner" style="width: 100%; height: auto; display: block; background-color: #121212;">
+    </div>
+    
+    <p style="color: #aaa; font-size: 1.1rem; margin: 35px auto 40px auto; max-width: 650px; line-height: 1.6;">
+        Preserving authentic vocal ability in a world of digital manipulation. When you listen to a track and ask yourself, <span style="color: #ffffff; font-style: italic;">"Did I hear that right?"</span>, our software steps in. We completely isolate the background music to analyze <span style="color: #00adb5; font-weight: bold; border-bottom: 1px dashed #00adb5;">strictly the vocal performance</span>, measuring exactly where human expression ends and software begins.
+    </p>
+
+    <div style="margin: 40px auto; max-width: 500px; padding: 30px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+        <h3 style="margin-top: 0;">Input Track for Isolated Vocal Analysis:</h3>
+        
+        <div style="display: block; margin-bottom: 25px;">
+            <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">YouTube / Streaming Link:</label>
+            <input id="ytLink" type="text" oninput="toggleInputFields()" placeholder="Paste YouTube link to track..." style="width: 95%; padding: 12px; border-radius: 4px; border: 1px solid #444; background-color: #222b35; color: #fff; box-sizing: border-box;"><br>
+            <div style="margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 15px;">
+                <div style="flex: 1; height: 1px; background: #333;"></div>
+                <span style="color: #00adb5; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;">OR</span>
+                <div style="flex: 1; height: 1px; background: #333;"></div>
+            </div>
+        </div>
+
+        <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio (MP3, FLAC, WAV):</label>
+        <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 95%; padding: 10px; margin-bottom: 30px; border: 1px dashed #444; background-color: #222b35; border-radius: 4px; color: #aaa; box-sizing: border-box;"><br>
+        <button id="actionBtn" onclick="runSimulation()" style="background-color: #00adb5; color: #fff; border: none; padding: 15px 40px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 1px; margin-bottom: 25px;">
+            RUN ISOLATED VOCAL ANALYSIS
+        </button>
+
+        <div id="statusContainer" style="margin-top: 30px; font-family: monospace; font-size: 0.85rem; font-weight: bold; line-height: 1.6; text-align: center;">
+            <p id="statusText" style="color: #00adb5; margin: 0; display: inline-block; vertical-align: middle;">SYSTEM COCKPIT IDLE // AWAITING AUDIO MIX DATA STREAM...</p>
+            <div id="statusDot" class="pulsing-dot"></div>
+            <p id="velocityMapText" style="color: #555; font-size: 0.75rem; margin: 5px 0 0 0; display: none;"></p>
+        </div>
+
+        <div id="legendBox" class="legend-card">
+            <strong style="color: #00adb5; display: block; margin-bottom: 8px; border-bottom: 1px solid #222; padding-bottom: 4px; font-size: 0.85rem;">📊 METRIC INTERPRETATION BREAKDOWN:</strong>
+            <span id="legendVocalType" style="font-weight: bold; display: block; margin-bottom: 8px;"></span>
+            <span style="color: #00adb5; font-weight: bold;">• ORGANIC FLEXIBILITY INDEX:</span> Measures the natural, microscopic biological tremors (jitter/shimmer) of the human vocal cords. Low scores prove execution of rigid grid-tuning quantization step-clamps.
+        </div>
+        
+        <div style="margin-top: 40px; min-height: 28px;">
+            <h3 id="verdictHeader" style="margin: 0; color: #00adb5; font-family: monospace; letter-spacing: 1px; transition: all 0.3s ease;"></h3>
+        </div>
+        
+        <div style="margin-top: 15px;">
+            <div style="width: 100%; background-color: #222b35; border-radius: 20px; height: 16px; overflow: hidden; border: 1px solid #444; box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);">
+                <div id="meterFill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #ff4a4a 0%, #ffcc00 50%, #00adb5 75%, #28a745 100%); transition: width 1.5s cubic-bezier(0.1, 0.8, 0.2, 1);"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-family: monospace; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold;">
+                <span style="color: #ff4a4a;">MACHINE</span>
+                <span style="color: #00adb5;">MUTANT / HYBRID</span>
+                <span style="color: #28a745;">HUMAN</span>
+            </div>
+        </div>
+    </div>
+    <div class="premium-container">
+        <h3 style="margin-top: 0; text-align: center; color: #00adb5; font-family: monospace; letter-spacing: 1px;">🔬 The Granular Studio Report Includes:</h3>
+        <ul style="list-style: none; padding-left: 5px; line-height: 2.2; font-size: 0.95rem; margin-bottom: 30px;">
+            <li><span style="color: #00adb5; font-weight: bold; margin-right: 8px;">✔</span> <strong>Retune Clamp Velocity Map:</strong> Tracks millisecond tuning snap speed.</li>
+            <li><span style="color: #00adb5; font-weight: bold; margin-right: 8px;">✔</span> <strong>Micro-Tonal Drift Index:</strong> Graphs natural biological human vocal tremors.</li>
+            <li><span style="color: #00adb5; font-weight: bold; margin-right: 8px;">✔</span> <strong>Phase Splicing Matrix:</strong> Scans timelines to expose invisible syllable studio edits.</li>
+            <li><span style="color: #00adb5; font-weight: bold; margin-right: 8px;">✔</span> <strong>Harmonicity Chaos Audit:</strong> Validates presence of natural physiological larynx fry.</li>
+        </ul>
+        <a id="checkoutBtn" href="https://stripe.com" class="checkout-btn locked">
+            Unlock Full Forensic Studio Report for $1.99
+        </a>
+    </div>
+
+    <div style="margin: 60px auto; max-width: 600px; background-color: #14191f; border: 1px solid #ffcc00; border-radius: 6px; padding: 30px; box-sizing: border-box; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+        <h4 style="margin: 0 0 10px 0; color: #ffcc00; font-family: monospace; font-size: 1.1rem; letter-spacing: 1px;">📡 OFFICIAL BETA TESTING DATA INTAKE</h4>
+        <p style="margin: 0 0 25px 0; color: #bbb; font-size: 0.85rem; line-height: 1.5;">Found an interface bug, layout formatting issue, or a calculation discrepancy? Submit your details directly via our secure off-site routing gateway link below.</p>
+        <a href="mailto:sourpuss@eastlink.ca?subject=DIHTR%20Beta%20Feedback%20Report&body=Describe%20the%20bug%20or%20paste%20your%20test%20track%20link%20here%3A" style="display: block; background-color: #ffcc00; color: #000; text-decoration: none; padding: 15px 25px; font-weight: bold; border-radius: 4px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);">
+            ✉ Launch Secure Feedback Intake Email
+        </a>
+    </div>
+
+    <div style="margin: 60px auto 20px auto; max-width: 700px; border-top: 1px solid #111; padding-top: 20px; font-size: 0.75rem; color: #333; line-height: 1.5; text-align: justify; user-select: none;">
+        <strong>LEGAL DISCLOSURE:</strong> DIHTR metrics evaluate structural wave alignments and do not constitute personal accusations. 
+        
+        <div class="tooltip-container" style="color: #1a1e24; border-bottom: 1px dashed #1a1e24; cursor: help; float: right; font-family: monospace; font-size: 0.7rem; transition: color 0.3s;">
+            <a href="science.html" style="color: #1a1e24; text-decoration: none;">[CORE_SPEC_CORE_ENGINE]</a>
+            <div class="tooltip-window" style="bottom: 150%; left: 50%; width: 340px; margin-left: -170px; background-color: #0c0f14; border: 1px solid #222; box-shadow: 0 10px 40px rgba(0,0,0,0.9); padding: 18px; font-family: monospace; color: #888; font-size: 0.75rem; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.5px;">
+                <strong style="color: #00adb5; display: block; margin-bottom: 8px; letter-spacing: 1px;">📡 CORE SPECIFICATION SIGNAL MATRIX v1.1.0</strong>
+                Audio payloads run through multi-pass algorithmic matrices. Primary tracking executes an RMS Energy Gate to suppress ambient noise floors and late-field room reflections. Vocal tract analysis utilizes a Probabilistic YIN extraction engine to calculate instantaneous Pitch Trajectory Derivatives. System audits note-glide velocities against a maximum 30Hz frame-to-frame threshold to flag non-biological grid quantization (box-stepping). Natural human micro-tonal tremors (jitter/shimmer coefficients) are verified via a Harmonicity Texture Stability Index. System thresholds constraint maximum organic performance scaling to 97% to maintain active acoustic calculation variance.
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleInputFields() {
+            var linkVal = document.getElementById("ytLink").value.trim();
+            var fileLen = document.getElementById("audioFile").files.length;
+            if (linkVal !== "") { document.getElementById("audioFile").disabled = true; }
+            else if (fileLen > 0) { document.getElementById("ytLink").disabled = true; }
+            else { document.getElementById("audioFile").disabled = false; document.getElementById("ytLink").disabled = false; }
+        }
+
+        function runSimulation() {
+            var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
+            var fill = document.getElementById("meterFill"); var vHdr = document.getElementById("verdictHeader");
+            var checkout = document.getElementById("checkoutBtn"); var fileSelector = document.getElementById("audioFile");
+            var ytInput = document.getElementById("ytLink"); var legend = document.getElementById("legendBox");
+            var legendType = document.getElementById("legendVocalType"); var vMapText = document.getElementById("velocityMapText");
+            var sDot = document.getElementById("statusDot");
+
+            var hasFile = fileSelector.files.length > 0; var hasLink = ytInput.value.trim() !== "";
+            if (!hasFile && !hasLink) { alert("⚠️ DATA INPUT REQUIRED: Please upload a track file or paste a link to execute forensics."); return; }
+            
+            btn.style.backgroundColor = "#555"; btn.disabled = true; fill.style.width = "0%";
+            legend.style.display = "none"; vMapText.style.display = "none";
+            sDot.className = "pulsing-dot pulsing-active";
+            checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
+            btn.innerHTML = "🔍 ANALYZING VOCAL WAVEFORM PAYLOAD...";
+            status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING AUDIO DATA PAYLOAD TO LIVE DEDICATED CORES...";
+
+            vHdr.className = "throb-active"; vHdr.innerHTML = "◽ ANALYZING AUDIO TRACK MIX DATA...";
+
+            var formData = new FormData();
+            if (hasFile) { formData.append("file", fileSelector.files.item(0)); } 
+            else { formData.append("link", ytInput.value.trim()); }
+            // 🔐 PREMIUM API ENTRYWAY: Connecting directly to your dedicated paid instance endpoint
+            fetch("https://onrender.com", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) { throw new Error("Server core processing calculation latency."); }
+                return response.json();
+            })
+            .then(data => {
+                sDot.className = "pulsing-dot"; 
+
+                if (data.success) {
+                    var finalScore = parseInt(data.score);
+                    fill.style.width = finalScore + "%";
+                    vMapText.innerHTML = "📋 ENGINE METRICS ANALYSIS: " + data.velocity_map.toUpperCase();
+                    vMapText.style.display = "block";
+
+                    vHdr.className = ""; vHdr.style.color = "#00adb5";
+                    vHdr.innerHTML = "📊 FORENSIC DIAGNOSTIC VERDICT: " + finalScore + "%";
+
+                    if (finalScore >= 85) {
+                        status.style.color = "#28a745"; status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + data.drift_index.toUpperCase();
+                        legendType.style.color = "#28a745"; legendType.innerHTML = "• AUTHENTIC HUMAN VOICE: The vocal tract displays complete organic variance. No mathematical grid-tuning step-clamps or robotic anti-tremor filters were forced upon the waveform timeline.";
+                    } else if (finalScore >= 70) {
+                        status.style.color = "#00adb5"; status.innerHTML = "⚠ STATUS: HIGH INTEGRITY HYBRID // " + data.trajectory.toUpperCase();
+                        legendType.style.color = "#00adb5"; legendType.innerHTML = "• HIGH INTEGRITY HYBRID: Exposes measurable studio tracking anomalies. The waveform layers show clean vocal traits interlaced with periodic software note-snapping behaviors.";
+                    } else {
+                        status.style.color = "#ff4a4a"; status.innerHTML = "❌ STATUS: MACHINE MODULATION // " + data.trajectory.toUpperCase();
+                        legendType.style.color = "#ff4a4a"; legendType.innerHTML = "• MACHINE MODULATION: Sterile, grid-quantized processing detected. Instantaneous larynx glide transitions are clamped hard against maximum non-biological millisecond frame thresholds (box-stepping).";
+                    }
+                    legend.style.display = "block";
+                    checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
+                } else {
+                    vHdr.className = ""; vHdr.innerHTML = "";
+                    status.style.color = "#ff4a4a"; status.innerHTML = "❌ SERVER CALCULATOR ERROR: " + data.error.toUpperCase();
+                }
+                btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
+            })
+            .catch(err => {
+                sDot.className = "pulsing-dot"; vHdr.className = ""; vHdr.innerHTML = "";
+                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: PREMIUM CHIPS TIMED OUT. SELECT A SHORTER SNIPPET ASSET COMPONENT.";
+                btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
+            });
+        }
+    </script>
 </body>
 </html>
