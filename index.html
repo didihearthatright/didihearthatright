@@ -122,82 +122,91 @@
         </div>
     </div>
     <script>
-        function toggleInputFields() {
-            var linkVal = document.getElementById("ytLink").value.trim();
-            var fileLen = document.getElementById("audioFile").files.length;
-            if (linkVal !== "") { document.getElementById("audioFile").disabled = true; }
-            else if (fileLen > 0) { document.getElementById("ytLink").disabled = true; }
-            else { document.getElementById("audioFile").disabled = false; document.getElementById("ytLink").disabled = false; }
+// Capture your exact hardware console input and button element IDs
+const fileInput = document.querySelector('input[type="file"]');
+const btn = document.querySelector('.scan-action-btn') || document.querySelector('button');
+const status = document.querySelector('.status-terminal-box') || document.getElementById("status-console");
+
+// Check if a status area text box exists to display real-time terminal messages
+const updateStatus = (text, color = "#d1f4ff") => {
+    if (status) {
+        status.style.color = color;
+        status.innerHTML = text;
+    }
+};
+
+btn.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    if (!fileInput || fileInput.files.length === 0) {
+        updateStatus("✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED IN STORAGE DRIVE.", "#ff4a4a");
+        return;
+    }
+
+    // Safely isolate the single, first selected audio file using the zero array index wrapper
+    const audioFile = fileInput.files[0];
+    const formData = new FormData();
+    formData.append("file", audioFile);
+
+    btn.disabled = true;
+    const originalBtnText = btn.innerHTML;
+    btn.innerHTML = "🔮 ANALYZING SPECTRUM CORE...";
+    updateStatus("Processing multi-pass spectral analysis instantly via premium cloud hardware cluster...", "#ffffff");
+
+    // Strike your active, paid standard tier backend engine on Render
+    fetch("https://onrender.com", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Server infrastructure response anomaly.");
+        return response.json();
+    })
+    .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = originalBtnText;
+        
+        if (data.success) {
+            // Map the processed analytics statistics straight onto your existing text layers
+            const scoreDisplay = document.getElementById("vocal-score-display") || document.querySelector('.massive-percentage');
+            const progressFill = document.getElementById("vocal-progress-fill") || document.querySelector('.bar-container-fill');
+            const trajectoryText = document.getElementById("trajectory-text");
+            const driftText = document.getElementById("drift-index-text");
+            const velocityText = document.getElementById("velocity-map-text");
+            const checkoutBtn = document.getElementById("checkout-action") || document.querySelector('.checkout-btn');
+
+            if (scoreDisplay) scoreDisplay.innerHTML = data.score + "%";
+            if (progressFill) progressFill.style.width = data.score + "%";
+            if (trajectoryText) trajectoryText.innerHTML = data.trajectory.toUpperCase();
+            if (driftText) driftText.innerHTML = data.drift_index.toUpperCase();
+            if (velocityText) velocityText.innerHTML = data.velocity_map.toUpperCase();
+
+            // Set layout status indicators based on your dynamic vocal calculation thresholds
+            if (data.score >= 85) {
+                updateStatus("✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.", "#28a745");
+            } else if (data.score >= 70) {
+                updateStatus("△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE DETECTED.", "#00adb5");
+            } else {
+                updateStatus("✕ STATUS: ARTIFICIAL QUANTIZATION & MACHINE MANIPULATION DETECTED.", "#ff4a4a");
+            }
+
+            if (checkoutBtn) {
+                checkoutBtn.className = "checkout-btn unlocked";
+                checkoutBtn.innerHTML = "UNLOCK FULL CORE SECURITY REPORT ($1.99)";
+                checkoutBtn.style.cursor = "pointer";
+                checkoutBtn.style.opacity = "1";
+            }
+        } else {
+            updateStatus("✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase(), "#ff4a4a");
         }
-
-        function runSimulation() {
-            var btn = document.getElementById("actionBtn"); var status = document.getElementById("statusText");
-            var fill = document.getElementById("meterFill"); var vHdr = document.getElementById("verdictHeader");
-            var checkout = document.getElementById("checkoutBtn"); var fileSelector = document.getElementById("audioFile");
-            var ytInput = document.getElementById("ytLink"); var legend = document.getElementById("legendBox");
-            var legendType = document.getElementById("legendVocalType"); var vMapText = document.getElementById("velocityMapText");
-            var sDot = document.getElementById("statusDot");
-
-            var hasFile = fileSelector.files.length > 0; var hasLink = ytInput.value.trim() !== "";
-            if (!hasFile && !hasLink) { alert("⚠️ DATA INPUT REQUIRED: Please upload a track file or paste a link to execute forensics."); return; }
-            
-            btn.style.backgroundColor = "#555"; btn.disabled = true; fill.style.width = "0%";
-            legend.style.display = "none"; vMapText.style.display = "none";
-            sDot.className = "pulsing-dot pulsing-active";
-            checkout.className = "checkout-btn locked"; checkout.innerHTML = "Processing Raw Waveform Files...";
-            btn.innerHTML = "🔍 ANALYZING VOCAL WAVEFORM PAYLOAD...";
-            status.style.color = "#00adb5"; status.innerHTML = "📡 STREAMING AUDIO DATA PAYLOAD TO LIVE DEDICATED CORES...";
-
-            vHdr.className = "throb-active"; vHdr.innerHTML = "◽ ANALYZING AUDIO TRACK MIX DATA...";
-
-            var formData = new FormData();
-            if (hasFile) { formData.append("file", fileSelector.files.item(0)); } 
-            else { formData.append("link", ytInput.value.trim()); }
-            // 🔐 PREMIUM API ENTRYWAY: Connecting directly to your dedicated paid instance endpoint
-            fetch("https://onrender.com", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) { throw new Error("Server core processing calculation latency."); }
-                return response.json();
-            })
-            .then(data => {
-                sDot.className = "pulsing-dot"; 
-
-                if (data.success) {
-                    var finalScore = parseInt(data.score);
-                    fill.style.width = finalScore + "%";
-                    vMapText.innerHTML = "📋 ENGINE METRICS ANALYSIS: " + data.velocity_map.toUpperCase();
-                    vMapText.style.display = "block";
-
-                    vHdr.className = ""; vHdr.style.color = "#00adb5";
-                    vHdr.innerHTML = "📊 FORENSIC DIAGNOSTIC VERDICT: " + finalScore + "%";
-
-                    if (finalScore >= 85) {
-                        status.style.color = "#28a745"; status.innerHTML = "✔ STATUS: 100% AUTHENTIC HUMAN VOICE // " + data.drift_index.toUpperCase();
-                        legendType.style.color = "#28a745"; legendType.innerHTML = "• AUTHENTIC HUMAN VOICE: The vocal tract displays complete organic variance. No mathematical grid-tuning step-clamps or robotic anti-tremor filters were forced upon the waveform timeline.";
-                    } else if (finalScore >= 70) {
-                        status.style.color = "#00adb5"; status.innerHTML = "⚠ STATUS: HIGH INTEGRITY HYBRID // " + data.trajectory.toUpperCase();
-                        legendType.style.color = "#00adb5"; legendType.innerHTML = "• HIGH INTEGRITY HYBRID: Exposes measurable studio tracking anomalies. The waveform layers show clean vocal traits interlaced with periodic software note-snapping behaviors.";
-                    } else {
-                        status.style.color = "#ff4a4a"; status.innerHTML = "❌ STATUS: MACHINE MODULATION // " + data.trajectory.toUpperCase();
-                        legendType.style.color = "#ff4a4a"; legendType.innerHTML = "• MACHINE MODULATION: Sterile, grid-quantized processing detected. Instantaneous larynx glide transitions are clamped hard against maximum non-biological millisecond frame thresholds (box-stepping).";
-                    }
-                    legend.style.display = "block";
-                    checkout.className = "checkout-btn unlocked"; checkout.innerHTML = "Unlock Full Forensic Studio Report for $1.99";
-                } else {
-                    vHdr.className = ""; vHdr.innerHTML = "";
-                    status.style.color = "#ff4a4a"; status.innerHTML = "❌ SERVER CALCULATOR ERROR: " + data.error.toUpperCase();
-                }
-                btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
-            })
-            .catch(err => {
-                sDot.className = "pulsing-dot"; vHdr.className = ""; vHdr.innerHTML = "";
-                status.style.color = "#ff4a4a"; status.innerHTML = "❌ PIPELINE DISCONNECT: PREMIUM CHIPS TIMED OUT. SELECT A SHORTER SNIPPET ASSET COMPONENT.";
-                btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS"; btn.style.backgroundColor = "#00adb5"; btn.disabled = false;
-            });
-        }
-    </script>
+    })
+    .catch(error => {
+        console.error(error);
+        btn.disabled = false;
+        btn.innerHTML = originalBtnText;
+        updateStatus("✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.", "#ff4a4a");
+    });
+});
+</script>
 </body>
 </html>
