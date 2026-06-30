@@ -1,7 +1,8 @@
 fastapi
 uvicorn
+python-multipart
 numpy
 scipy
 audioread
+librosa
 yt-dlp
-python-multipart
