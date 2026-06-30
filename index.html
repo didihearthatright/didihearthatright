@@ -131,111 +131,93 @@ window.runSimulation = function() {
     console.log("Forensic tracking sequence engaged.");
 };
 
-const fileInput = document.getElementById("audioInput");
-const fileDisplay = document.getElementById("file-name-display");
-const btn = document.getElementById("analyze-trigger");
-const status = document.getElementById("status-console");
-const dashboard = document.getElementById("report-dashboard");
-const score = document.getElementById("vocal-score-display");
-const fill = document.getElementById("vocal-progress-fill");
-const trajectory = document.getElementById("trajectory-text");
-const drift = document.getElementById("drift-index-text");
-const velocity = document.getElementById("velocity-map-text");
-const checkout = document.getElementById("checkout-action");
+// Capture your exact structural layout element IDs from the faceplate
+const fileInput = document.getElementById("audioFile");
+const btn = document.getElementById("actionBtn") || document.querySelector("button");
+const statusContainer = document.getElementById("statusContainer");
+const statusText = document.getElementById("statusText");
 
-if (fileInput) {
-    fileInput.addEventListener("change", function() {
-        if (this.files.length > 0) {
-            fileDisplay.innerText = "MOUNTED: " + this.files[0].name.toUpperCase();
+btn.addEventListener("click", function(e) {
+    e.preventDefault();
+    
+    if (!fileInput || fileInput.files.length === 0) {
+        if (statusText) {
+            statusText.style.color = "#ff4a4a";
+            statusText.innerHTML = "✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED.";
         }
-    });
-}
+        return;
+    }
 
-if (btn) {
-    btn.addEventListener("click", function(e) {
-        e.preventDefault();
+    // Isolate the raw audio binary stream using the explicit zero index map
+    const audioTrackFile = fileInput.files[0];
+    const formData = new FormData();
+    formData.append("file", audioTrackFile);
+
+    btn.disabled = true;
+    btn.innerHTML = "🔮 ANALYZING FORENSIC DATA CORE...";
+    if (statusText) {
+        statusText.style.color = "#00adb5";
+        statusText.innerHTML = "Processing multi-pass spectral analysis instantly via premium cloud hardware cluster...";
+    }
+
+    // Connect directly to your live, paid standard tier server engine on Render
+    fetch("https://onrender.com", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Server infrastructure response anomaly.");
+        return response.json();
+    })
+    .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
         
-        if (!fileInput || fileInput.files.length === 0) {
-            if (status) {
-                status.style.color = "#ff4a4a";
-                status.innerHTML = "✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED.";
+        if (data.success) {
+            // Unroll your live calculation metrics cleanly right into your main terminal window
+            if (statusContainer) {
+                statusContainer.style.textAlign = "left";
+                statusContainer.style.padding = "20px";
+                statusContainer.style.background = "#14191f";
+                statusContainer.style.border = "1px solid #00fff2";
+                
+                statusContainer.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; color: #00fff2; text-align: center; margin-bottom: 15px;">
+                        RESOLVED VOCAL INTEGRITY INDEX: ${data.score}%
+                    </div>
+                    <div style="background: #222b35; height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 20px;">
+                        <div style="background: #00fff2; height: 100%; width: ${data.score}%; box-shadow: 0 0 8px #00fff2;"></div>
+                    </div>
+                    <div style="font-size: 13px; line-height: 2; color: #d1f4ff;">
+                        <p>🧬 TRAJECTORY: <span style="color: #ffffff; font-weight: bold;">${data.trajectory.toUpperCase()}</span></p>
+                        <p>📉 DRIFT INDEX: <span style="color: #ffffff; font-weight: bold;">${data.drift_index.toUpperCase()}</span></p>
+                        <p>🎯 VELOCITY MAP: <span style="color: #ffffff; font-weight: bold;">${data.velocity_map.toUpperCase()}</span></p>
+                    </div>
+                    <div style="margin-top: 20px; font-weight: bold; text-align: center; color: ${data.score >= 85 ? '#28a745' : data.score >= 70 ? '#00adb5' : '#ff4a4a'}">
+                        ${data.score >= 85 ? '✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.' : data.score >= 70 ? '△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE.' : '✕ STATUS: ARTIFICIAL MACHINE MANIPULATION DETECTED.'}
+                    </div>
+                    <button id="checkout-action" class="checkout-btn" style="display: block; width: 100%; padding: 14px; background: transparent; border: 1px solid #28a745; color: #28a745; text-align: center; font-weight: bold; font-size: 11px; letter-spacing: 2px; margin-top: 20px; cursor: pointer; transition: 0.3s;">
+                        UNLOCK FULL CORE SECURITY REPORT ($1.99)
+                    </button>
+                `;
             }
-            return;
+        } else {
+            if (statusText) {
+                statusText.style.color = "#ff4a4a";
+                statusText.innerHTML = "✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase();
+            }
         }
-
-        // Clean raw file positioning mapping - completely explicit zero array extraction
-        const audioFile = fileInput.files[0];
-        const formData = new FormData();
-        formData.append("file", audioFile);
-
-        btn.disabled = true;
-        btn.innerHTML = "🔮 ANALYZING SPECTRUM CORE...";
-        if (status) {
-            status.style.color = "#ffffff";
-            status.innerHTML = "Processing multi-pass spectral analysis instantly via premium cloud hardware cluster...";
+    })
+    .catch(error => {
+        console.error(error);
+        btn.disabled = false;
+        btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
+        if (statusText) {
+            statusText.style.color = "#ff4a4a";
+            statusText.innerHTML = "✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.";
         }
-
-        // 100% complete, un-shortened web endpoint mapping link straight to your paid Render box
-        fetch("https://onrender.com", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Server infrastructure response anomaly.");
-            return response.json();
-        })
-        .then(data => {
-            btn.disabled = false;
-            btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
-            
-            if (data.success) {
-                // Drop processing state and open up metrics console panels instantly
-                const reportDashboard = document.getElementById("report-dashboard") || document.querySelector('.matrix-report-display');
-                if (reportDashboard) reportDashboard.style.display = "block";
-
-                if (score) score.innerHTML = data.score + "%";
-                if (fill) fill.style.width = data.score + "%";
-
-                if (trajectory) trajectory.innerHTML = data.trajectory.toUpperCase();
-                if (drift) drift.innerHTML = data.drift_index.toUpperCase();
-                if (velocity) velocity.innerHTML = data.velocity_map.toUpperCase();
-
-                if (status) {
-                    if (data.score >= 85) {
-                        status.style.color = "#28a745";
-                        status.innerHTML = "✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.";
-                    } else if (data.score >= 70) {
-                        status.style.color = "#00adb5";
-                        status.innerHTML = "△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE DETECTED.";
-                    } else {
-                        status.style.color = "#ff4a4a";
-                        status.innerHTML = "✕ STATUS: ARTIFICIAL QUANTIZATION & MACHINE MANIPULATION DETECTED.";
-                    }
-                }
-
-                if (checkout) {
-                    checkout.className = "checkout-btn unlocked";
-                    checkout.innerHTML = "UNLOCK FULL CORE SECURITY REPORT ($1.99)";
-                }
-            } else {
-                if (status) {
-                    status.style.color = "#ff4a4a";
-                    status.innerHTML = "✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase();
-                }
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            btn.disabled = false;
-            btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
-            if (status) {
-                status.style.color = "#ff4a4a";
-                status.innerHTML = "✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.";
-            }
-        });
     });
-}
+});
 </script>
 </body>
 </html>
-
