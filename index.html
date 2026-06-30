@@ -122,105 +122,105 @@
         </div>
     </div>
     <script>
-// Mandatory interface callback definitions to satisfy original HTML attributes explicitly
-window.toggleInputFields = function() {
-    console.log("Hardware input matrix verified.");
+        function toggleInputFields() {
+    console.log("Terminal input channels realigned.");
+}
+function runSimulation() {
+    console.log("Forensic visualization matrix initialized.");
+}
+// RESTORE REQUIRED TERMINAL LAYOUT FUNCTIONS
+function toggleInputFields() {
+    console.log("Terminal input channels realigned.");
+}
+
+function runSimulation() {
+    console.log("Forensic visualization matrix initialized.");
+}
+
+// CAPTURING CORE HARDWARE CONSOLE ELEMENT IDS
+const fileInput = document.querySelector('input[type="file"]') || document.getElementById("audioInput");
+const btn = document.querySelector('.scan-action-btn') || document.querySelector('button');
+const status = document.querySelector('.status-terminal-box') || document.getElementById("status-console");
+
+const updateStatus = (text, color = "#d1f4ff") => {
+    if (status) {
+        status.style.color = color;
+        status.innerHTML = text;
+    }
 };
 
-window.runSimulation = function() {
-    console.log("Forensic tracking sequence engaged.");
-    
-    // Safely look up elements inside the active click loop when they are fully painted
-    const targetFileBox = document.getElementById("audioFile");
-    const statusBoxText = document.getElementById("statusText");
-    const statusBoxFrame = document.getElementById("statusContainer");
-    const triggerButton = document.querySelector('button[onclick*="runSimulation"]') || document.querySelector('button');
+// HANDSHAKE NETWORK AGENT
+if (btn) {
+    btn.addEventListener("click", function(e) {
+        e.preventDefault();
 
-    if (!targetFileBox || targetFileBox.files.length === 0) {
-        if (statusBoxText) {
-            statusBoxText.style.color = "#ff4a4a";
-            statusBoxText.innerHTML = "✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED.";
+        if (!fileInput || fileInput.files.length === 0) {
+            updateStatus("✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED IN STORAGE DRIVE.", "#ff4a4a");
+            return;
         }
-        return;
-    }
 
-    // Isolate the raw audio binary stream using the explicit zero index list mapping tag
-    const audioTrackBytes = targetFileBox.files;
-    const coreFormData = new FormData();
-    coreFormData.append("file", audioTrackBytes);
+        const audioFile = fileInput.files[0];
+        const formData = new FormData();
+        formData.append("file", audioFile);
 
-    if (triggerButton) {
-        triggerButton.disabled = true;
-        triggerButton.innerHTML = "🔮 ANALYZING FORENSIC DATA CORE...";
-    }
-    
-    if (statusBoxText) {
-        statusBoxText.style.color = "#00adb5";
-        statusBoxText.innerHTML = "Processing multi-pass spectral analysis instantly via premium cloud hardware cluster...";
-    }
+        btn.disabled = true;
+        const originalBtnText = btn.innerHTML;
+        btn.innerHTML = "🔮 ANALYZING SPECTRUM CORE...";
+        updateStatus("Processing multi-pass spectral analysis instantly via premium cloud hardware cluster...", "#ffffff");
 
-    // Connect directly to your live, paid standard tier server engine on Render
-    fetch("https://didihearthatright.onrender.com/analyze-vocal", {
-        method: "POST",
-        body: coreFormData
-    })
-    .then(response => {
-        if (!response.ok) throw new Error("Server infrastructure response anomaly.");
-        return response.json();
-    })
-    .then(data => {
-        if (triggerButton) {
-            triggerButton.disabled = false;
-            triggerButton.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
-        }
-        
-        if (data.success) {
-            // Unroll your live calculation metrics cleanly right into your main terminal window frame
-            if (statusBoxFrame) {
-                statusBoxFrame.style.textAlign = "left";
-                statusBoxFrame.style.padding = "20px";
-                statusBoxFrame.style.background = "#14191f";
-                statusBoxFrame.style.border = "1px solid #00fff2";
-                
-                statusBoxFrame.innerHTML = `
-                    <div style="font-size: 24px; font-weight: bold; color: #00fff2; text-align: center; margin-bottom: 15px;">
-                        RESOLVED VOCAL INTEGRITY INDEX: ${data.score}%
-                    </div>
-                    <div style="background: #222b35; height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 20px;">
-                        <div style="background: #00fff2; height: 100%; width: ${data.score}%; box-shadow: 0 0 8px #00fff2;"></div>
-                    </div>
-                    <div style="font-size: 13px; line-height: 2; color: #d1f4ff;">
-                        <p>🧬 TRAJECTORY: <span style="color: #ffffff; font-weight: bold;">${data.trajectory.toUpperCase()}</span></p>
-                        <p>📉 DRIFT INDEX: <span style="color: #ffffff; font-weight: bold;">${data.drift_index.toUpperCase()}</span></p>
-                        <p>🎯 VELOCITY MAP: <span style="color: #ffffff; font-weight: bold;">${data.velocity_map.toUpperCase()}</span></p>
-                    </div>
-                    <div style="margin-top: 20px; font-weight: bold; text-align: center; color: ${data.score >= 85 ? '#28a745' : data.score >= 70 ? '#00adb5' : '#ff4a4a'}">
-                        ${data.score >= 85 ? '✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.' : data.score >= 70 ? '△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE.' : '✕ STATUS: ARTIFICIAL MACHINE MANIPULATION DETECTED.'}
-                    </div>
-                    <button id="checkout-action" style="display: block; width: 100%; padding: 14px; background: transparent; border: 1px solid #28a745; color: #28a745; text-align: center; font-weight: bold; font-size: 11px; letter-spacing: 2px; margin-top: 20px; cursor: pointer; transition: 0.3s;">
-                        UNLOCK FULL CORE SECURITY REPORT ($1.99)
-                    </button>
-                `;
+        // CLEANLY ROUTED LIVE NETWORK ENDPOINT
+        fetch("https://didihearthatright.onrender.com/analyze-vocal", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Server infrastructure response anomaly.");
+            return response.json();
+        })
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = originalBtnText;
+            
+            if (data.success) {
+                const scoreDisplay = document.getElementById("vocal-score-display") || document.querySelector('.massive-percentage');
+                const progressFill = document.getElementById("vocal-progress-fill") || document.querySelector('.bar-container-fill');
+                const trajectoryText = document.getElementById("trajectory-text");
+                const driftText = document.getElementById("drift-index-text");
+                const velocityText = document.getElementById("velocity-map-text");
+                const checkoutBtn = document.getElementById("checkout-action") || document.querySelector('.checkout-btn');
+
+                if (scoreDisplay) scoreDisplay.innerHTML = data.score + "%";
+                if (progressFill) progressFill.style.width = data.score + "%";
+                if (trajectoryText) trajectoryText.innerHTML = data.trajectory.toUpperCase();
+                if (driftText) driftText.innerHTML = data.drift_index.toUpperCase();
+                if (velocityText) velocityText.innerHTML = data.velocity_map.toUpperCase();
+
+                if (data.score >= 85) {
+                    updateStatus("✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.", "#28a745");
+                } else if (data.score >= 70) {
+                    updateStatus("△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE DETECTED.", "#00adb5");
+                } else {
+                    updateStatus("✕ STATUS: ARTIFICIAL QUANTIZATION & MACHINE MANIPULATION DETECTED.", "#ff4a4a");
+                }
+
+                if (checkoutBtn) {
+                    checkoutBtn.className = "checkout-btn unlocked";
+                    checkoutBtn.innerHTML = "UNLOCK FULL CORE SECURITY REPORT ($1.99)";
+                    checkoutBtn.style.cursor = "pointer";
+                    checkoutBtn.style.opacity = "1";
+                }
+            } else {
+                updateStatus("✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase(), "#ff4a4a");
             }
-        } else {
-            if (statusBoxText) {
-                statusBoxText.style.color = "#ff4a4a";
-                statusBoxText.innerHTML = "✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase();
-            }
-        }
-    })
-    .catch(error => {
-        console.error(error);
-        if (triggerButton) {
-            triggerButton.disabled = false;
-            triggerButton.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
-        }
-        if (statusBoxText) {
-            statusBoxText.style.color = "#ff4a4a";
-            statusBoxText.innerHTML = "✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.";
-        }
+        })
+        .catch(error => {
+            console.error(error);
+            btn.disabled = false;
+            btn.innerHTML = originalBtnText;
+            updateStatus("✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.", "#ff4a4a");
+        });
     });
-};
+}
 </script>
 </body>
 </html>
