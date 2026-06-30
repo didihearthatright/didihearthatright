@@ -129,59 +129,60 @@ window.toggleInputFields = function() {
 
 window.runSimulation = function() {
     console.log("Forensic tracking sequence engaged.");
-};
-
-// Capture your exact structural layout element IDs from the faceplate
-const fileInput = document.getElementById("audioFile");
-const btn = document.getElementById("actionBtn") || document.querySelector("button");
-const statusContainer = document.getElementById("statusContainer");
-const statusText = document.getElementById("statusText");
-
-btn.addEventListener("click", function(e) {
-    e.preventDefault();
     
-    if (!fileInput || fileInput.files.length === 0) {
-        if (statusText) {
-            statusText.style.color = "#ff4a4a";
-            statusText.innerHTML = "✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED.";
+    // Safely look up elements inside the active click loop when they are fully painted
+    const targetFileBox = document.getElementById("audioFile");
+    const statusBoxText = document.getElementById("statusText");
+    const statusBoxFrame = document.getElementById("statusContainer");
+    const triggerButton = document.querySelector('button[onclick*="runSimulation"]') || document.querySelector('button');
+
+    if (!targetFileBox || targetFileBox.files.length === 0) {
+        if (statusBoxText) {
+            statusBoxText.style.color = "#ff4a4a";
+            statusBoxText.innerHTML = "✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED.";
         }
         return;
     }
 
-    // Isolate the raw audio binary stream using the explicit zero index map
-    const audioTrackFile = fileInput.files[0];
-    const formData = new FormData();
-    formData.append("file", audioTrackFile);
+    // Isolate the raw audio binary stream using the explicit zero index list mapping tag
+    const audioTrackBytes = targetFileBox.files;
+    const coreFormData = new FormData();
+    coreFormData.append("file", audioTrackBytes);
 
-    btn.disabled = true;
-    btn.innerHTML = "🔮 ANALYZING FORENSIC DATA CORE...";
-    if (statusText) {
-        statusText.style.color = "#00adb5";
-        statusText.innerHTML = "Processing multi-pass spectral analysis instantly via premium cloud hardware cluster...";
+    if (triggerButton) {
+        triggerButton.disabled = true;
+        triggerButton.innerHTML = "🔮 ANALYZING FORENSIC DATA CORE...";
+    }
+    
+    if (statusBoxText) {
+        statusBoxText.style.color = "#00adb5";
+        statusBoxText.innerHTML = "Processing multi-pass spectral analysis instantly via premium cloud hardware cluster...";
     }
 
     // Connect directly to your live, paid standard tier server engine on Render
-    fetch("https://onrender.com", {
+    fetch("https://didihearthatright.onrender.com/analyze-vocal", {
         method: "POST",
-        body: formData
+        body: coreFormData
     })
     .then(response => {
         if (!response.ok) throw new Error("Server infrastructure response anomaly.");
         return response.json();
     })
     .then(data => {
-        btn.disabled = false;
-        btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
+        if (triggerButton) {
+            triggerButton.disabled = false;
+            triggerButton.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
+        }
         
         if (data.success) {
-            // Unroll your live calculation metrics cleanly right into your main terminal window
-            if (statusContainer) {
-                statusContainer.style.textAlign = "left";
-                statusContainer.style.padding = "20px";
-                statusContainer.style.background = "#14191f";
-                statusContainer.style.border = "1px solid #00fff2";
+            // Unroll your live calculation metrics cleanly right into your main terminal window frame
+            if (statusBoxFrame) {
+                statusBoxFrame.style.textAlign = "left";
+                statusBoxFrame.style.padding = "20px";
+                statusBoxFrame.style.background = "#14191f";
+                statusBoxFrame.style.border = "1px solid #00fff2";
                 
-                statusContainer.innerHTML = `
+                statusBoxFrame.innerHTML = `
                     <div style="font-size: 24px; font-weight: bold; color: #00fff2; text-align: center; margin-bottom: 15px;">
                         RESOLVED VOCAL INTEGRITY INDEX: ${data.score}%
                     </div>
@@ -196,28 +197,30 @@ btn.addEventListener("click", function(e) {
                     <div style="margin-top: 20px; font-weight: bold; text-align: center; color: ${data.score >= 85 ? '#28a745' : data.score >= 70 ? '#00adb5' : '#ff4a4a'}">
                         ${data.score >= 85 ? '✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.' : data.score >= 70 ? '△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE.' : '✕ STATUS: ARTIFICIAL MACHINE MANIPULATION DETECTED.'}
                     </div>
-                    <button id="checkout-action" class="checkout-btn" style="display: block; width: 100%; padding: 14px; background: transparent; border: 1px solid #28a745; color: #28a745; text-align: center; font-weight: bold; font-size: 11px; letter-spacing: 2px; margin-top: 20px; cursor: pointer; transition: 0.3s;">
+                    <button id="checkout-action" style="display: block; width: 100%; padding: 14px; background: transparent; border: 1px solid #28a745; color: #28a745; text-align: center; font-weight: bold; font-size: 11px; letter-spacing: 2px; margin-top: 20px; cursor: pointer; transition: 0.3s;">
                         UNLOCK FULL CORE SECURITY REPORT ($1.99)
                     </button>
                 `;
             }
         } else {
-            if (statusText) {
-                statusText.style.color = "#ff4a4a";
-                statusText.innerHTML = "✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase();
+            if (statusBoxText) {
+                statusBoxText.style.color = "#ff4a4a";
+                statusBoxText.innerHTML = "✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase();
             }
         }
     })
     .catch(error => {
         console.error(error);
-        btn.disabled = false;
-        btn.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
-        if (statusText) {
-            statusText.style.color = "#ff4a4a";
-            statusText.innerHTML = "✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.";
+        if (triggerButton) {
+            triggerButton.disabled = false;
+            triggerButton.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
+        }
+        if (statusBoxText) {
+            statusBoxText.style.color = "#ff4a4a";
+            statusBoxText.innerHTML = "✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.";
         }
     });
-});
+};
 </script>
 </body>
 </html>
