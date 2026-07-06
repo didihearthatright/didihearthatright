@@ -5,73 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Did I Hear That Right - DIHTR Vocal Verification</title>
     <style>
-        * { box-sizing: border-box; }
         p, h1, h2, h3, h4, div { text-wrap: balance; }
-        
-        body {
-            font-family: sans-serif; 
-            background-color: #0b0f12; 
-            background-image: linear-gradient(rgba(11, 15, 18, 0.93), rgba(11, 15, 18, 0.93)), url('background.png'); 
-            background-attachment: fixed; 
-            background-size: cover; 
-            background-position: center; 
-            color: #ffffff; 
-            text-align: center; 
-            padding: 20px;
-            margin: 0;
-        }
-
-        .console-mainframe {
-            margin: 40px auto; 
-            width: 100%;
-            max-width: 680px; 
-            padding: 30px; 
-            border: 1px solid #333; 
-            background-color: #14191f; 
-            border-radius: 8px; 
-            text-align: center; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-
-        .checkout-btn { 
-            display: block; 
-            box-sizing: border-box; 
-            text-decoration: none; 
-            text-align: center; 
-            font-size: 15px; 
-            font-weight: bold; 
-            border-radius: 4px; 
-            width: 100%; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            transition: all 0.3s ease; 
-        }
-        
-        .checkout-btn.unlocked { 
-            background-color: #28a745 !important; 
-            color: #fff !important; 
-            cursor: pointer !important; 
-            pointer-events: auto; 
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5); 
-            margin-top: 25px; 
-            padding: 14px; 
-        }
-
-        .legend-card { 
-            background-color: #0b0f12; 
-            border: 1px solid #222; 
-            border-radius: 6px; 
-            padding: 15px; 
-            margin-top: 25px; 
-            text-align: left; 
-            font-family: monospace; 
-            font-size: 0.8rem; 
-            line-height: 1.5; 
-            display: none; 
-            width: 100%;
-        }
-
+        .tooltip-container { position: relative; display: inline-block; cursor: help; border-bottom: 2px dotted #00adb5; }
+        .tooltip-window { visibility: hidden; width: 320px; background-color: #1e1e1e; color: #fff; text-align: justify; border: 1px solid #00adb5; border-radius: 6px; padding: 15px; position: absolute; z-index: 10; bottom: 125%; left: 50%; margin-left: -160px; opacity: 0; transition: opacity 0.3s; box-shadow: 0px 4px 15px rgba(0,0,0,0.5); font-size: 0.9rem; line-height: 1.4; }
+        .tooltip-container:hover .tooltip-window { visibility: visible; opacity: 1; }
+        .premium-container { margin: 50px auto; max-width: 600px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; padding: 25px; box-sizing: border-box; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .checkout-btn { display: block; box-sizing: border-box; text-decoration: none; text-align: center; font-size: 15px; font-weight: bold; border-radius: 4px; width: 100%; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+        .checkout-btn.locked { background-color: #ff4a4a !important; color: #fff !important; cursor: not-allowed !important; pointer-events: none; opacity: 0.85; }
+        .checkout-btn.unlocked { display: block; box-sizing: border-box; text-decoration: none; text-align: center; font-size: 15px; font-weight: bold; border-radius: 4px; width: 100%; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; background-color: #28a745 !important; color: #fff !important; cursor: pointer !important; pointer-events: auto; text-shadow: 0 1px 2px rgba(0,0,0,0.5); margin-top: 20px; padding: 14px; }
+        input:disabled { background-color: #11151b !important; color: #444 !important; border: 1px solid #222 !important; cursor: not-allowed; }
+        .legend-card { background-color: #0b0f12; border: 1px solid #222; border-radius: 6px; padding: 15px; margin-top: 25px; text-align: left; font-family: monospace; font-size: 0.8rem; line-height: 1.5; display: none; }
         .live-link { color: #00adb5; text-decoration: none; border-bottom: 1px dashed #00adb5; transition: all 0.2s ease; }
         .live-link:hover { color: #28a745; border-bottom-color: #28a745; }
         
@@ -83,7 +26,7 @@
         .throb-active { animation: textThrob 1.2s infinite ease-in-out; font-weight: bold; }
     </style>
 </head>
-<body>
+<body style="font-family: sans-serif; background-color: #0b0f12; background-image: linear-gradient(rgba(11, 15, 18, 0.93), rgba(11, 15, 18, 0.93)), url('background.png'); background-attachment: fixed; background-size: cover; background-position: center; color: #ffffff; text-align: center; padding: 20px;">
 
     <div style="border: 1px solid #ffcc00; padding: 15px; margin: 20px auto; max-width: 728px; background-color: #1a1500; color: #ffcc00; font-family: monospace; font-size: 0.9rem; border-radius: 4px; font-weight: bold; letter-spacing: 1px;">
         🧪 ACTIVE SYSTEM TESTING SANDBOX // PUBLIC BETA v1.0
@@ -92,7 +35,7 @@
     <div style="border: 1px dashed #333; padding: 0; margin: 10px auto 30px auto; max-width: 728px; height: 90px; background-color: #14191f; display: flex; align-items: center; justify-content: center; border-radius: 6px; color: #555; font-family: monospace; font-size: 0.8rem; letter-spacing: 1px;">
         📢 SPONSOR PLACEMENT ZONE // ADVERTISING INQUIRIES: <a href="mailto:partners@dihtr.com" class="live-link">PARTNERS@DIHTR.COM</a>
     </div>
-
+    
     <div style="margin: 20px auto; max-width: 800px; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.5);">
         <img src="banner.png" alt="DIHTR Banner" style="width: 100%; height: auto; display: block; background-color: #121212;">
     </div>
@@ -101,12 +44,12 @@
         Preserving authentic vocal ability in a world of digital manipulation. When you listen to a track and ask yourself, <span style="color: #ffffff; font-style: italic;">"Did I hear that right?"</span>, our software steps in. We completely isolate the background music to analyze <span style="color: #00adb5; font-weight: bold; border-bottom: 1px dashed #00adb5;">strictly the vocal performance</span>, measuring exactly where human expression ends and software begins.
     </p>
 
-    <div class="console-mainframe">
-        <h3 style="margin-top: 0; letter-spacing: 1px;">Input Track for Isolated Vocal Analysis:</h3>
+    <div style="margin: 40px auto; max-width: 500px; padding: 30px; border: 1px solid #333; background-color: #14191f; border-radius: 8px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+        <h3 style="margin-top: 0;">Input Track for Isolated Vocal Analysis:</h3>
         
         <div style="display: block; margin-bottom: 25px;">
             <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">YouTube / Streaming Link:</label>
-            <input id="ytLink" type="text" oninput="toggleInputFields()" placeholder="Paste YouTube link to track..." style="width: 100%; padding: 12px; border-radius: 4px; border: 1px solid #444; background-color: #222b35; color: #fff; box-sizing: border-box;"><br>
+            <input id="ytLink" type="text" oninput="toggleInputFields()" placeholder="Paste YouTube link to track..." style="width: 95%; padding: 12px; border-radius: 4px; border: 1px solid #444; background-color: #222b35; color: #fff; box-sizing: border-box;"><br>
             <div style="margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 15px;">
                 <div style="flex: 1; height: 1px; background: #333;"></div>
                 <span style="color: #00adb5; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;">OR</span>
@@ -115,15 +58,16 @@
         </div>
 
         <label style="display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #aaa;">Upload Studio/Live Audio (MP3, FLAC, WAV):</label>
-        <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 100%; padding: 10px; margin-bottom: 30px; border: 1px dashed #444; background-color: #222b35; border-radius: 4px; color: #aaa; box-sizing: border-box;"><br>
+        <input id="audioFile" type="file" onchange="toggleInputFields()" accept=".mp3,.flac,.wav" style="width: 95%; padding: 10px; margin-bottom: 30px; border: 1px dashed #444; background-color: #222b35; border-radius: 4px; color: #aaa; box-sizing: border-box;"><br>
         
         <button id="actionBtn" onclick="runSimulation()" style="background-color: #00adb5; color: #fff; border: none; padding: 15px 40px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 1px; margin-bottom: 25px;">
             RUN ISOLATED VOCAL ANALYSIS
         </button>
 
-        <div id="statusContainer" style="margin-top: 20px; font-family: monospace; font-size: 0.85rem; font-weight: bold; line-height: 1.6; text-align: center; width: 100%;">
+        <div id="statusContainer" style="margin-top: 30px; font-family: monospace; font-size: 0.85rem; font-weight: bold; line-height: 1.6; text-align: center;">
             <p id="statusText" style="color: #00adb5; margin: 0; display: inline-block; vertical-align: middle;">SYSTEM COCKPIT IDLE // AWAITING AUDIO MIX DATA STREAM...</p>
             <div id="statusDot" class="pulsing-dot pulsing-active"></div>
+            <p id="velocityMapText" style="color: #555; font-size: 0.75rem; margin: 5px 0 0 0; display: none;"></p>
         </div>
 
         <div id="legendBox" class="legend-card">
@@ -165,18 +109,16 @@ window.runSimulation = function() {
         return;
     }
 
-    // Capture the first raw audio track using the explicit zero index assignment
+    // Force array text positioning wrapper using clear zero array assignment
     const targetFile = fileInput.files[0];
     const formData = new FormData();
     formData.append("file", targetFile);
 
     if (btn) btn.disabled = true;
     
-    // IMMEDIATE SCANNING STATE INJECTION
     if (statusText) {
         statusText.className = "throb-active";
-        statusText.style.color = "#ffcc00";
-        statusText.innerHTML = "🔮 SEPARATING MULTI-TRACK AUDIO FREQUENCIES... CAPTURING VOCAL CORE CORE MATRIX...";
+        statusText.innerHTML = "🔮 SEPARATING MULTI-TRACK AUDIO FREQUENCIES...";
     }
     if (statusDot) statusDot.className = "pulsing-dot pulsing-active";
 
@@ -198,12 +140,12 @@ window.runSimulation = function() {
                 statusContainer.innerHTML = `
                     <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; color: #00fff2; text-align: center;">RESOLVED INTEGRITY INDEX: ${data.score}%</div>
                     <div style="background: #222b35; height: 10px; border-radius: 5px; overflow: hidden; margin: 15px 0; width: 100%;">
-                        <div style="background: #00fff2; height: 100%; width: ${data.score}%; box-shadow: 0 0 10px #00fff2; transition: width 0.5s ease;"></div>
+                        <div style="background: #00fff2; height: 100%; width: ${data.score}%; box-shadow: 0 0 10px #00fff2;"></div>
                     </div>
                     <div style="text-align: left; font-size: 0.85rem; color: #aaa; line-height: 2; margin-top: 20px; font-family: monospace;">
-                        <p style="margin: 6px 0;">🧬 TRAJECTORY: <span style="color: #fff; font-weight: bold;">${data.trajectory.toUpperCase()}</span></p>
-                        <p style="margin: 6px 0;">📉 DRIFT INDEX: <span style="color: #fff; font-weight: bold;">${data.drift_index.toUpperCase()}</span></p>
-                        <p style="margin: 6px 0;">🎯 VELOCITY MAP: <span style="color: #fff; font-weight: bold;">${data.velocity_map.toUpperCase()}</span></p>
+                        <p style="margin: 6px 0;">🧬 TRAJECTORY: <span style="color: #fff;">${data.trajectory.toUpperCase()}</span></p>
+                        <p style="margin: 6px 0;">📉 DRIFT INDEX: <span style="color: #fff;">${data.drift_index.toUpperCase()}</span></p>
+                        <p style="margin: 6px 0;">🎯 VELOCITY MAP: <span style="color: #fff;">${data.velocity_map.toUpperCase()}</span></p>
                     </div>
                     <a href="#" class="checkout-btn unlocked">UNLOCK FULL CORE SECURITY REPORT ($1.99)</a>
                 `;
@@ -222,18 +164,19 @@ window.runSimulation = function() {
                 }
             }
         } else {
-            if (statusContainer) {
-                statusContainer.style.textAlign = "center";
-                statusContainer.innerHTML = `<span style="color: #ff4a4a;">✕ ENGINE DIAGNOSTIC EXCEPTION: ${data.error.toUpperCase()}</span>`;
+            if (statusText) {
+                statusText.style.color = "#ff4a4a";
+                statusText.innerHTML = "✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase();
             }
         }
     })
     .catch(error => {
         console.error(error);
         if (btn) btn.disabled = false;
-        if (statusContainer) {
-            statusContainer.style.textAlign = "center";
-            statusContainer.innerHTML = `<span style="color: #ff4a4a;">✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.</span>`;
+        if (statusText) {
+            statusText.className = "";
+            statusText.style.color = "#ff4a4a";
+            statusText.innerHTML = "✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE.";
         }
     });
 };
