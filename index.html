@@ -121,7 +121,7 @@
             </div>
         </div>
     </div>
-    <script>
+   <script>
 // Mandatory interface callback definitions to satisfy original HTML attributes explicitly
 window.toggleInputFields = function() {
     console.log("Hardware input matrix verified.");
@@ -134,11 +134,11 @@ window.runSimulation = function() {
 
 function handleVocalAnalysisPipeline() {
     const targetFileBox = document.getElementById("audioFile");
-    const statusBoxText = document.getElementById("statusText");
     const statusBoxFrame = document.getElementById("statusContainer");
     const triggerButton = document.querySelector('button[onclick*="runSimulation"]') || document.querySelector('button');
 
     if (!targetFileBox || targetFileBox.files.length === 0) {
+        const statusBoxText = document.getElementById("statusText");
         if (statusBoxText) {
             statusBoxText.style.color = "#ff4a4a";
             statusBoxText.innerHTML = "✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED.";
@@ -146,7 +146,7 @@ function handleVocalAnalysisPipeline() {
         return;
     }
 
-    // Isolate the raw audio binary stream using the explicit zero index list mapping tag
+    // FIXED: Capturing the raw audio bytes using the absolute zero index wrapper
     const audioTrackBytes = targetFileBox.files[0];
     const coreFormData = new FormData();
     coreFormData.append("file", audioTrackBytes);
