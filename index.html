@@ -129,8 +129,10 @@ window.toggleInputFields = function() {
 
 window.runSimulation = function() {
     console.log("Forensic tracking sequence engaged.");
-    
-    // Safely pull element states directly out of the live layout during the click action loop
+    handleVocalAnalysisPipeline();
+};
+
+function handleVocalAnalysisPipeline() {
     const targetFileBox = document.getElementById("audioFile");
     const statusBoxText = document.getElementById("statusText");
     const statusBoxFrame = document.getElementById("statusContainer");
@@ -144,23 +146,35 @@ window.runSimulation = function() {
         return;
     }
 
-    // Capture the first audio track using a clean positional array string extraction format
+    // Isolate the raw audio binary stream using the explicit zero index list mapping tag
     const audioTrackBytes = targetFileBox.files[0];
     const coreFormData = new FormData();
     coreFormData.append("file", audioTrackBytes);
 
     if (triggerButton) {
         triggerButton.disabled = true;
-        triggerButton.innerHTML = "🔮 ANALYZING FORENSIC DATA CORE...";
+        triggerButton.innerHTML = "🔮 ANALYZING SPECTRUM CORE...";
     }
     
-    if (statusBoxText) {
-        statusBoxText.style.color = "#00adb5";
-        statusBoxText.innerHTML = "Processing multi-pass spectral analysis instantly via premium cloud hardware cluster...";
+    // INSTANT LIVE TELEMETRY LOADING STATE INJECTION
+    if (statusBoxFrame) {
+        statusBoxFrame.style.textAlign = "center";
+        statusBoxFrame.style.padding = "30px 20px";
+        statusBoxFrame.style.background = "rgba(0, 0, 0, 0.4)";
+        statusBoxFrame.style.border = "1px dashed #00adb5";
+        statusBoxFrame.innerHTML = `
+            <div style="color: #00adb5; font-size: 13px; font-weight: bold; letter-spacing: 2px; margin-bottom: 15px; font-family: 'Courier New', monospace;">
+                🔮 CORE SCANNING MATRIX ENGAGED...
+            </div>
+            <div style="font-size: 11px; color: #ffffff; opacity: 0.8; line-height: 1.8; font-family: 'Courier New', monospace;">
+                Isolating multi-track spectral production layers...<br>
+                Mapping biological vocal trajectories via parabolic tracking loops...
+            </div>
+        `;
     }
 
     // Connect directly to your live, paid standard tier server engine on Render
-    fetch("https://didihearthatright.onrender.com/analyze-vocal", {
+    fetch("https://onrender.com", {
         method: "POST",
         body: coreFormData
     })
@@ -175,37 +189,38 @@ window.runSimulation = function() {
         }
         
         if (data.success) {
-            // Unroll your live calculation metrics cleanly right into your main terminal window frame
             if (statusBoxFrame) {
                 statusBoxFrame.style.textAlign = "left";
                 statusBoxFrame.style.padding = "20px";
                 statusBoxFrame.style.background = "#14191f";
                 statusBoxFrame.style.border = "1px solid #00fff2";
                 
+                // RESTORED DYNAMIC GRAPHICAL WIDTH CONSTRAINTS
                 statusBoxFrame.innerHTML = `
-                    <div style="font-size: 24px; font-weight: bold; color: #00fff2; text-align: center; margin-bottom: 15px;">
+                    <div style="font-size: 20px; font-weight: bold; color: #00fff2; text-align: center; margin-top: 10px; margin-bottom: 15px; letter-spacing: 2px;">
                         RESOLVED VOCAL INTEGRITY INDEX: ${data.score}%
                     </div>
-                    <div style="background: #222b35; height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 20px;">
-                        <div style="background: #00fff2; height: 100%; width: ${data.score}%; box-shadow: 0 0 8px #00fff2;"></div>
+                    <div style="background: #222b35; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 25px; width: 100%; position: relative;">
+                        <div style="background: #00fff2; height: 100%; width: ${data.score}%; box-shadow: 0 0 10px #00fff2; transition: width 0.8s ease-in-out;"></div>
                     </div>
-                    <div style="font-size: 13px; line-height: 2; color: #d1f4ff;">
-                        <p>🧬 TRAJECTORY: <span style="color: #ffffff; font-weight: bold;">${data.trajectory.toUpperCase()}</span></p>
-                        <p>📉 DRIFT INDEX: <span style="color: #ffffff; font-weight: bold;">${data.drift_index.toUpperCase()}</span></p>
-                        <p>🎯 VELOCITY MAP: <span style="color: #ffffff; font-weight: bold;">${data.velocity_map.toUpperCase()}</span></p>
+                    <div style="font-size: 12px; line-height: 2.2; color: #d1f4ff; margin-bottom: 20px; padding: 0 10px;">
+                        <p style="margin: 5px 0;">🧬 TRAJECTORY: <span style="color: #ffffff; font-weight: bold;">${data.trajectory.toUpperCase()}</span></p>
+                        <p style="margin: 5px 0;">📉 DRIFT INDEX: <span style="color: #ffffff; font-weight: bold;">${data.drift_index.toUpperCase()}</span></p>
+                        <p style="margin: 5px 0;">🎯 VELOCITY MAP: <span style="color: #ffffff; font-weight: bold;">${data.velocity_map.toUpperCase()}</span></p>
                     </div>
-                    <div style="margin-top: 20px; font-weight: bold; text-align: center; color: ${data.score >= 85 ? '#28a745' : data.score >= 70 ? '#00adb5' : '#ff4a4a'}">
+                    <div style="margin-top: 20px; margin-bottom: 20px; font-weight: bold; text-align: center; font-size: 12px; letter-spacing: 1px; color: ${data.score >= 85 ? '#28a745' : data.score >= 70 ? '#00adb5' : '#ff4a4a'}">
                         ${data.score >= 85 ? '✓ STATUS: 100% AUTHENTIC HUMAN VOICE DETECTED.' : data.score >= 70 ? '△ STATUS: HIGH INTEGRITY HYBRID RECONSTRUCTION CORE.' : '✕ STATUS: ARTIFICIAL MACHINE MANIPULATION DETECTED.'}
                     </div>
-                    <button id="checkout-action" style="display: block; width: 100%; padding: 14px; background: transparent; border: 1px solid #28a745; color: #28a745; text-align: center; font-weight: bold; font-size: 11px; letter-spacing: 2px; margin-top: 20px; cursor: pointer; transition: 0.3s;">
+                    <button id="checkout-action" style="display: block; width: 100%; padding: 14px; background: transparent; border: 1px solid #28a745; color: #28a745; text-align: center; font-weight: bold; font-size: 11px; letter-spacing: 2px; margin-top: 10px; cursor: pointer; transition: 0.3s; font-family: 'Courier New', monospace;">
                         UNLOCK FULL CORE SECURITY REPORT ($1.99)
                     </button>
                 `;
             }
         } else {
-            if (statusBoxText) {
-                statusBoxText.style.color = "#ff4a4a";
-                statusBoxText.innerHTML = "✕ ENGINE DIAGNOSTIC EXCEPTION: " + data.error.toUpperCase();
+            if (statusBoxFrame) {
+                statusBoxFrame.style.textAlign = "center";
+                statusBoxFrame.style.padding = "20px";
+                statusBoxFrame.innerHTML = `<span style="color: #ff4a4a; font-size: 12px;">✕ ENGINE DIAGNOSTIC EXCEPTION: ${data.error.toUpperCase()}</span>`;
             }
         }
     })
@@ -215,12 +230,13 @@ window.runSimulation = function() {
             triggerButton.disabled = false;
             triggerButton.innerHTML = "RUN ISOLATED VOCAL ANALYSIS";
         }
-        if (statusBoxText) {
-            statusBoxText.style.color = "#ff4a4a";
-            statusBoxText.innerHTML = "✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.";
+        if (statusBoxFrame) {
+            statusBoxFrame.style.textAlign = "center";
+            statusBoxFrame.style.padding = "20px";
+            statusBoxFrame.innerHTML = `<span style="color: #ff4a4a; font-size: 12px;">✕ PIPELINE ERROR: SERVER COMMUNICATION FAILURE. VERIFY CORE ENGINE IS LIVE.</span>`;
         }
     });
-};
+}
 </script>
 </body>
 </html>
