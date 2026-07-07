@@ -182,7 +182,7 @@ window.runSimulation = function() {
 
     if (isUrlMode) {
         // MANUAL TARGET A: Clean the brackets out of this link after pasting
-        targetUrl = "https://didihearthatright[.]onrender[.]com/analyze-vocal-url";
+        targetUrl = "https://didihearthatright.onrender.com/analyze-vocal-url";
         requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -190,7 +190,7 @@ window.runSimulation = function() {
         };
     } else {
         // MANUAL TARGET B: Clean the brackets out of this link after pasting
-        targetUrl = "https://didihearthatright[.]onrender[.]com/analyze-vocal";
+        targetUrl = "https://didihearthatright.onrender.com/analyze-vocal";
         const formData = new FormData();
         formData.append("file", fileInput.files[0]);
         requestOptions = {
