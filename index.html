@@ -149,6 +149,7 @@ window.toggleInputFields = function() {
 };
 
 window.runSimulation = function() {
+    const ytInput = document.getElementById("ytLink");
     const fileInput = document.getElementById("audioFile");
     const btn = document.getElementById("actionBtn");
     const statusText = document.getElementById("statusText");
@@ -157,20 +158,18 @@ window.runSimulation = function() {
     const legendVocalType = document.getElementById("legendVocalType");
     const statusContainer = document.getElementById("statusContainer");
 
-    if (!fileInput || fileInput.files.length === 0) {
+    const isUrlMode = ytInput && ytInput.value.trim() !== "";
+    const isFileMode = fileInput && fileInput.files.length > 0;
+
+    if (!isUrlMode && !isFileMode) {
         if (statusText) {
             statusText.style.color = "#ff4a4a";
-            statusText.innerHTML = "✕ REJECTED: NO COMPATIBLE AUDIO TAPE DETECTED.";
+            statusText.innerHTML = "✕ REJECTED: NO STREAMING LINK OR AUDIO TAPE FILE DETECTED.";
         }
         return;
     }
 
-    const targetFile = fileInput.files[0];
-    const formData = new FormData();
-    formData.append("file", targetFile);
-
     if (btn) btn.disabled = true;
-    
     if (statusText) {
         statusText.className = "throb-active";
         statusText.style.color = "#ffcc00";
@@ -178,11 +177,29 @@ window.runSimulation = function() {
     }
     if (statusDot) statusDot.className = "pulsing-dot pulsing-active";
 
-    // MANUAL STEP: Delete the [ and ] around the dot right below after pasting
-    fetch("https://didihearthatright.onrender.com/analyze-vocal", {
-        method: "POST",
-        body: formData
-    })
+    let targetUrl = "";
+    let requestOptions = {};
+
+    if (isUrlMode) {
+        // MANUAL TARGET A: Clean the brackets out of this link after pasting
+        targetUrl = "https://didihearthatright[.]onrender[.]com/analyze-vocal-url";
+        requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url: ytInput.value.trim() })
+        };
+    } else {
+        // MANUAL TARGET B: Clean the brackets out of this link after pasting
+        targetUrl = "https://didihearthatright[.]onrender[.]com/analyze-vocal";
+        const formData = new FormData();
+        formData.append("file", fileInput.files[0]);
+        requestOptions = {
+            method: "POST",
+            body: formData
+        };
+    }
+
+    fetch(targetUrl, requestOptions)
     .then(response => {
         if (!response.ok) throw new Error("Server engine response anomaly.");
         return response.json();
