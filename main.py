@@ -1,3 +1,5 @@
+import yt_dlp
+import os
 from fastapi import FastAPI, UploadFile, File
 from typing import Annotated
 from fastapi.middleware.cors import CORSMiddleware
@@ -71,3 +73,67 @@ async def analyze_vocal(file: UploadFile = File(...)):
         }
     except Exception as e:
         return {"success": False, "error": str(e)}
+
+@app.post("/analyze-vocal-url")
+async def analyze_vocal_url(payload: dict):
+    url = payload.get("url")
+    if not url:
+        return {"success": False, "error": "No streaming link provided."}
+        
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'outtmpl': 'temp_track.%(ext)s',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+        'quiet': True
+    }
+    
+    try:
+        # Stream down the target media audio layer into a temporary array
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+            
+        temp_filename = "temp_track.mp3"
+        if not os.path.exists(temp_filename):
+            raise Exception("Media stream download layer extraction failed.")
+
+        # Route the raw audio footprint straight into your existing librosa math logic
+        y, sr = librosa.load(temp_filename, sr=None)
+        
+        # Calculate microscopic tremors (Jitter & Shimmer)
+        abs_diff = np.abs(np.diff(y))
+        jitter = float(np.mean(abs_diff) / (np.mean(np.abs(y)) + 0.001))
+        shimmer = float(np.std(y) / (np.mean(np.abs(y)) + 0.001))
+        
+        # Track dynamic frequency velocities
+        pitches, magnitudes = librosa.piptrack(y=y, sr=sr)
+        pitch_velocity = float(np.std(pitches) / (np.max(pitches) + 0.001))
+        
+        # Clean up the temporary system files to keep your container clear
+        if os.path.exists(temp_filename):
+            os.remove(temp_filename)
+            
+        # Calibrate the diagnostic tracking metrics
+        score = int(100 - (jitter * 400) - (pitch_velocity * 250))
+        score = max(5, min(95, score)) # Avenue 2 Neural Shield (Temporary baseline limits)
+        
+        trajectory = "Pure Fluid Biological Tracking" if score >= 85 else "Quantized Box-Stepping Detected"
+        drift_index = f"{max(10.0, min(99.9, 100 - (jitter * 600))):.1f}% Organic Vocal Flexibility"
+        velocity_map = f"{pitch_velocity * 40:.2f} Hz Note-Glide Velocity"
+        
+        return {
+            "success": True,
+            "score": score,
+            "trajectory": trajectory,
+            "drift_index": drift_index,
+            "velocity_map": velocity_map
+        }
+        
+    except Exception as e:
+        if os.path.exists("temp_track.mp3"):
+            os.remove("temp_track.mp3")
+        return {"success": False, "error": str(e)}
+
