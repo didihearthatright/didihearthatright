@@ -80,39 +80,36 @@ async def analyze_vocal_url(payload: dict):
     if not url:
         return {"success": False, "error": "No streaming link provided."}
         
-    # Extract the clean, raw media asset alphanumeric tracking key sequence
-    video_id = ""
-    if "v=" in url:
-        video_id = url.split("v=")[1].split("&")[0]
-    elif "be/" in url:
-        video_id = url.split("be/")[1].split("?")[0]
-    else:
-        video_id = url.split("/")[-1].split("?")[0]
-
-    if not video_id:
-        return {"success": False, "error": "Could not extract tracking ID from link structure."}
-
-    # Direct connection to a public, data-center restriction-free streaming audio mirror
-    stream_provider = f"https://vevioz.com{video_id}"
-    temp_filename = f"stream_{video_id}.mp3"
+    temp_filename = "temp_stream_track"
+    
+    # Advanced extraction options spoofing a standard residential desktop browser
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'outtmpl': f'{temp_filename}.%(ext)s',
+        'quiet': True,
+        'no_warnings': True,
+        'nocheckcertificate': True,
+        'ignoreerrors': False,
+        'logtostderr': False,
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/122.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Sec-Fetch-Mode': 'navigate',
+        }
+    }
     
     try:
-        import urllib.request
-        
-        # Pull the raw audio bytes stream directly from the decentralized matrix mirror
-        req = urllib.request.Request(
-            stream_provider, 
-            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0'}
-        )
-        
-        with urllib.request.urlopen(req) as response, open(temp_filename, 'wb') as out_file:
-            out_file.write(response.read())
+        # Natively extract the audio layer right inside your server container
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
+            actual_filename = ydl.prepare_filename(info)
+            
+        if not os.path.exists(actual_filename):
+            raise Exception("Media stream download core failed to write binary payload track.")
 
-        if not os.path.exists(temp_filename) or os.path.getsize(temp_filename) < 1000:
-            raise Exception("Mirror stream network extraction node returned empty payload data stream.")
-
-        # Route the extracted audio footprint straight into your existing librosa math logic
-        y, sr = librosa.load(temp_filename, sr=None)
+        # Route the raw audio footprint straight into your existing librosa math logic
+        y, sr = librosa.load(actual_filename, sr=None)
         
         # Calculate microscopic tremors (Jitter & Shimmer)
         abs_diff = np.abs(np.diff(y))
@@ -123,8 +120,8 @@ async def analyze_vocal_url(payload: dict):
         pitch_velocity = float(np.std(pitches) / (np.max(pitches) + 0.001))
         
         # Clean up the temporary system files to keep your container clear
-        if os.path.exists(temp_filename):
-            os.remove(temp_filename)
+        if os.path.exists(actual_filename):
+            os.remove(actual_filename)
             
         # AVENUE 2: THE AI NEURAL MATRIX ALGORITHM FILTER
         # Since your AI voice generated a flawless 95% by mimicking macro pitch glides,
@@ -154,6 +151,9 @@ async def analyze_vocal_url(payload: dict):
         }
         
     except Exception as e:
-        if os.path.exists(temp_filename):
-            os.remove(temp_filename)
-        return {"success": False, "error": f"Extraction Pipeline Node Offline: {str(e)}"}
+        # Emergency file tree cleanup on exception fault
+        for file in os.listdir('.'):
+            if file.startswith(temp_filename):
+                try: os.remove(file)
+                except: pass
+        return {"success": False, "error": f"Native Extraction Node Fault: {str(e)}"}
