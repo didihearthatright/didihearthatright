@@ -80,7 +80,7 @@ async def analyze_vocal(file: UploadFile = File(...)):
 
 @app.post("/analyze-vocal-url")
 async def analyze_vocal_url(payload: dict):
-    """Bypasses cloud server blocks via high-speed cobalt media stream extraction networks."""
+    """Bypasses cloud server blocks via decentralized open-source mirror routing."""
     url = payload.get("url", "").strip()
     if not url:
         return {"success": False, "error": "No streaming link provided."}
@@ -104,47 +104,21 @@ async def analyze_vocal_url(payload: dict):
         
     temp_filename = f"stream_{video_id}.mp3"
     
-    # Connect directly to a premium, high-availability public cobalt extraction api tunnel
-    cobalt_api = "https://api.cobalt.tools/"
+    # Direct hook into an open, data-center restriction-free processing mirror route
+    stream_provider = f"https://api.vevioz.com/api/button/mp3/{video_id}"
     
     try:
         import urllib.request
-        import json
-        
-                # Streamlined modern Cobalt payload configuration parameters
-        post_data = json.dumps({
-            "url": f"https://www.youtube.com/watch?v={video_id}"
-        }).encode('utf-8')
-
-        
         req = urllib.request.Request(
-            cobalt_api,
-            data=post_data,
-            headers={
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0',
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        )
-        
-        # Connect to the gateway node to pull down the direct media download link
-        with urllib.request.urlopen(req) as response:
-            res_data = json.loads(response.read().decode('utf-8'))
-            
-        stream_download_url = res_data.get("url")
-        if not stream_download_url:
-            raise Exception("Cobalt processing node failed to return a valid binary asset stream path.")
-            
-        # Download the raw audio file footprint straight into your system box memory
-        download_req = urllib.request.Request(
-            stream_download_url,
+            stream_provider, 
             headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0'}
         )
-        with urllib.request.urlopen(download_req) as response, open(temp_filename, 'wb') as out_file:
+        
+        with urllib.request.urlopen(req) as response, open(temp_filename, 'wb') as out_file:
             out_file.write(response.read())
 
         if not os.path.exists(temp_filename) or os.path.getsize(temp_filename) < 5000:
-            raise Exception("Cobalt network extraction node returned empty payload data stream.")
+            raise Exception("Mirror network extraction node returned empty payload data stream.")
 
         # Route the clean audio footprint straight into your functional vocal equations
         results = run_forensic_math(temp_filename)
