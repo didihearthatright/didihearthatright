@@ -113,10 +113,18 @@ async def analyze_vocal_url(payload: dict):
 
     # Secondary Automated Overpass: Premium Cobalt Media API compilation tunnel
     try:
-        post_data = json.dumps({"url": f"https://youtube.com{video_id}", "downloadMode": "audio"}).encode('utf-8')
+        # Streamlined layout payload parameters mapping precisely to modern Cobalt specifications
+        post_data = json.dumps({
+            "url": f"https://youtube.com{video_id}"
+        }).encode('utf-8')
+        
         req = urllib.request.Request(
             cobalt_api, data=post_data,
-            headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json', 'Content-Type': 'application/json'}
+            headers={
+                'User-Agent': 'Mozilla/5.0', 
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json'
+            }
         )
         with urllib.request.urlopen(req, timeout=10) as response:
             res_data = json.loads(response.read().decode('utf-8'))
