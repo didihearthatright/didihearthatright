@@ -70,3 +70,72 @@ def run_forensic_math(audio_path: str):
         }
     except Exception as e:
         return {"success": False, "error": f"Mathematical calculation failure: {str(e)}"}
+@app.post("/analyze-vocal")
+async def analyze_vocal(file: UploadFile = File(...)):
+    """Handles direct multi-track local binary file uploads from the cockpit tray."""
+    temp_filename = f"upload_{file.filename}"
+    try:
+        with open(temp_filename, "wb") as buffer:
+            buffer.write(await file.read())
+        
+        results = run_forensic_math(temp_filename)
+        
+        if os.path.exists(temp_filename):
+            os.remove(temp_filename)
+        return results
+    except Exception as e:
+        if os.path.exists(temp_filename):
+            os.remove(temp_filename)
+        return {"success": False, "error": f"Upload stream panic: {str(e)}"}
+
+@app.post("/analyze-vocal-url")
+async def analyze_vocal_url(payload: dict):
+    """Bypasses automated block gates via direct human desktop browser simulation."""
+    url = payload.get("url", "").strip()
+    if not url:
+        return {"success": False, "error": "No streaming link provided."}
+        
+    # Isolate the clean 11-character video track string using a robust matching map
+    video_id_match = re.search(r'(?:v=|\/shorts\/|\/embed\/|\/v\/|youtu\.be\/|\/v=|^)([^#\&\?]*){11}', url)
+    if not video_id_match:
+        return {"success": False, "error": "Could not parse valid tracking ID from streaming link matrix."}
+        
+    video_id = video_id_match.group(1)
+    temp_filename = f"stream_{video_id}"
+    
+    # Custom residential tracking simulation config to neutralize cloud data center IP bans
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'outtmpl': f'{temp_filename}.%(ext)s',
+        'quiet': True,
+        'no_warnings': True,
+        'nocheckcertificate': True,
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Sec-Fetch-Mode': 'navigate',
+        }
+    }
+    
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(f"https://youtube.com{video_id}", download=True)
+            actual_file = ydl.prepare_filename(info)
+            
+        if not os.path.exists(actual_file):
+            raise Exception("Core failed to capture stream payload from video matrix.")
+
+        results = run_forensic_math(actual_file)
+        
+        if os.path.exists(actual_file):
+            os.remove(actual_file)
+        return results
+        
+    except Exception as e:
+        # Emergency loop cleanup to keep your cloud container clear of garbage files
+        for file in os.listdir('.'):
+            if file.startswith(temp_filename):
+                try: os.remove(file)
+                except: pass
+        return {"success": False, "error": f"Streaming Pipeline Barrier: {str(e)}"}
