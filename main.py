@@ -105,7 +105,7 @@ async def analyze_vocal_url(payload: dict):
     temp_filename = f"stream_{video_id}.mp3"
     
     # Connect directly to a premium, high-availability public cobalt extraction api tunnel
-    cobalt_api = "https://cobalt.tools"
+    cobalt_api = "https://api.cobalt.tools/"
     
     try:
         import urllib.request
