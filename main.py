@@ -80,12 +80,12 @@ async def analyze_vocal(file: UploadFile = File(...)):
 
 @app.post("/analyze-vocal-url")
 async def analyze_vocal_url(payload: dict):
-    """Bypasses cloud server blocks via decentralized open-source mirror routing."""
+    """Bypasses cloud server blocks via high-speed cobalt media stream extraction networks."""
     url = payload.get("url", "").strip()
     if not url:
         return {"success": False, "error": "No streaming link provided."}
         
-    # Standard string separation to cleanly extract the unique video tracking key
+    # Standard string separation to cleanly isolate the unique video tracking key
     video_id = ""
     try:
         if "v=" in url:
@@ -103,21 +103,52 @@ async def analyze_vocal_url(payload: dict):
         return {"success": False, "error": "Could not extract valid tracking ID from streaming link matrix."}
         
     temp_filename = f"stream_{video_id}.mp3"
-    invidious_node = f"https://projectsegfau.lt{video_id}&itag=140"
+    
+    # Connect directly to a premium, high-availability public cobalt extraction api tunnel
+    cobalt_api = "https://cobalt.tools"
     
     try:
         import urllib.request
+        import json
+        
+        # Package the automated text request payload configuration parameters
+        post_data = json.dumps({
+            "url": f"https://youtube.com{video_id}",
+            "downloadMode": "audio",
+            "audioFormat": "mp3",
+            "audioBitrate": "128"
+        }).encode('utf-8')
+        
         req = urllib.request.Request(
-            invidious_node, 
-            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0'}
+            cobalt_api,
+            data=post_data,
+            headers={
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
         )
         
-        with urllib.request.urlopen(req) as response, open(temp_filename, 'wb') as out_file:
+        # Connect to the gateway node to pull down the direct media download link
+        with urllib.request.urlopen(req) as response:
+            res_data = json.loads(response.read().decode('utf-8'))
+            
+        stream_download_url = res_data.get("url")
+        if not stream_download_url:
+            raise Exception("Cobalt processing node failed to return a valid binary asset stream path.")
+            
+        # Download the raw audio file footprint straight into your system box memory
+        download_req = urllib.request.Request(
+            stream_download_url,
+            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0'}
+        )
+        with urllib.request.urlopen(download_req) as response, open(temp_filename, 'wb') as out_file:
             out_file.write(response.read())
 
         if not os.path.exists(temp_filename) or os.path.getsize(temp_filename) < 5000:
-            raise Exception("Invidious server network extraction node returned empty payload data stream.")
+            raise Exception("Cobalt network extraction node returned empty payload data stream.")
 
+        # Route the clean audio footprint straight into your functional vocal equations
         results = run_forensic_math(temp_filename)
         
         if os.path.exists(temp_filename):
