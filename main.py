@@ -85,24 +85,28 @@ async def analyze_vocal_url(payload: dict):
     if not url:
         return {"success": False, "error": "No streaming link provided."}
         
-    # Extract the clean 11-character alphanumeric tracking key sequence
+    # Standard string separation to cleanly extract the unique video tracking key
     video_id = ""
-    video_id_match = re.search(r'(?:v=|\/shorts\/|\/embed\/|\/v\/|youtu\.be\/|\/v=|^)([^#\&\?]*){11}', url)
-    if video_id_match:
-        video_id = video_id_match.group(1)
+    try:
+        if "v=" in url:
+            video_id = url.split("v=")[1].split("&")[0]
+        elif "be/" in url:
+            video_id = url.split("be/")[1].split("?")[0]
+        elif "shorts/" in url:
+            video_id = url.split("shorts/")[1].split("?")[0]
+        else:
+            video_id = url.split("/")[-1].split("?")[0]
+    except Exception:
+        return {"success": False, "error": "Link formatting parsing exception encountered."}
         
-    if not video_id or len(video_id) != 11:
-        return {"success": False, "error": "Could not parse valid tracking ID from streaming link matrix."}
+    if not video_id or len(video_id) < 10:
+        return {"success": False, "error": "Could not extract valid tracking ID from streaming link matrix."}
         
     temp_filename = f"stream_{video_id}.mp3"
-    
-    # Direct hook into an open, data-center restriction-free invidious mirror stream API node
     invidious_node = f"https://projectsegfau.lt{video_id}&itag=140"
     
     try:
         import urllib.request
-        
-        # Pull the raw audio bytes stream directly from the decentralized matrix mirror
         req = urllib.request.Request(
             invidious_node, 
             headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0'}
@@ -114,7 +118,6 @@ async def analyze_vocal_url(payload: dict):
         if not os.path.exists(temp_filename) or os.path.getsize(temp_filename) < 5000:
             raise Exception("Invidious server network extraction node returned empty payload data stream.")
 
-        # Route the extracted audio footprint straight into your existing librosa math logic
         results = run_forensic_math(temp_filename)
         
         if os.path.exists(temp_filename):
