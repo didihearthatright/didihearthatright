@@ -80,49 +80,48 @@ async def analyze_vocal(file: UploadFile = File(...)):
 
 @app.post("/analyze-vocal-url")
 async def analyze_vocal_url(payload: dict):
-    """Bypasses automated block gates via direct human desktop browser simulation."""
+    """Bypasses cloud server blocks via decentralized open-source mirror routing."""
     url = payload.get("url", "").strip()
     if not url:
         return {"success": False, "error": "No streaming link provided."}
         
+    # Extract the clean 11-character alphanumeric tracking key sequence
+    video_id = ""
     video_id_match = re.search(r'(?:v=|\/shorts\/|\/embed\/|\/v\/|youtu\.be\/|\/v=|^)([^#\&\?]*){11}', url)
-    if not video_id_match:
+    if video_id_match:
+        video_id = video_id_match.group(1)
+        
+    if not video_id or len(video_id) != 11:
         return {"success": False, "error": "Could not parse valid tracking ID from streaming link matrix."}
         
-    video_id = video_id_match.group(1)
-    temp_filename = f"stream_{video_id}"
+    temp_filename = f"stream_{video_id}.mp3"
     
-    ydl_opts = {
-        'format': 'bestaudio/best',
-        'outtmpl': f'{temp_filename}.%(ext)s',
-        'quiet': True,
-        'no_warnings': True,
-        'nocheckcertificate': True,
-        'http_headers': {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'Sec-Fetch-Mode': 'navigate',
-        }
-    }
+    # Direct hook into an open, data-center restriction-free invidious mirror stream API node
+    invidious_node = f"https://projectsegfau.lt{video_id}&itag=140"
     
     try:
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(f"https://youtube.com{video_id}", download=True)
-            actual_file = ydl.prepare_filename(info)
-            
-        if not os.path.exists(actual_file):
-            raise Exception("Core failed to capture stream payload from video matrix.")
-
-        results = run_forensic_math(actual_file)
+        import urllib.request
         
-        if os.path.exists(actual_file):
-            os.remove(actual_file)
+        # Pull the raw audio bytes stream directly from the decentralized matrix mirror
+        req = urllib.request.Request(
+            invidious_node, 
+            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0'}
+        )
+        
+        with urllib.request.urlopen(req) as response, open(temp_filename, 'wb') as out_file:
+            out_file.write(response.read())
+
+        if not os.path.exists(temp_filename) or os.path.getsize(temp_filename) < 5000:
+            raise Exception("Invidious server network extraction node returned empty payload data stream.")
+
+        # Route the extracted audio footprint straight into your existing librosa math logic
+        results = run_forensic_math(temp_filename)
+        
+        if os.path.exists(temp_filename):
+            os.remove(temp_filename)
         return results
         
     except Exception as e:
-        for file in os.listdir('.'):
-            if file.startswith(temp_filename):
-                try: os.remove(file)
-                except: pass
-        return {"success": False, "error": f"Streaming Pipeline Barrier: {str(e)}"}
+        if os.path.exists(temp_filename):
+            os.remove(temp_filename)
+        return {"success": False, "error": f"Extraction Pipeline Node Offline: {str(e)}"}
