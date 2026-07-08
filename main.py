@@ -111,13 +111,11 @@ async def analyze_vocal_url(payload: dict):
         import urllib.request
         import json
         
-        # Package the automated text request payload configuration parameters
+                # Streamlined modern Cobalt payload configuration parameters
         post_data = json.dumps({
-            "url": f"https://youtube.com{video_id}",
-            "downloadMode": "audio",
-            "audioFormat": "mp3",
-            "audioBitrate": "128"
+            "url": f"https://www.youtube.com/watch?v={video_id}"
         }).encode('utf-8')
+
         
         req = urllib.request.Request(
             cobalt_api,
