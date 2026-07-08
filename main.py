@@ -72,7 +72,6 @@ def run_forensic_math(audio_path: str):
         return {"success": False, "error": f"Mathematical calculation failure: {str(e)}"}
 @app.post("/analyze-vocal")
 async def analyze_vocal(file: UploadFile = File(...)):
-    """Handles direct multi-track local binary file uploads from the cockpit tray."""
     temp_filename = f"upload_{file.filename}"
     try:
         with open(temp_filename, "wb") as buffer:
@@ -90,12 +89,10 @@ async def analyze_vocal(file: UploadFile = File(...)):
 
 @app.post("/analyze-vocal-url")
 async def analyze_vocal_url(payload: dict):
-    """Bypasses automated block gates via direct human desktop browser simulation."""
     url = payload.get("url", "").strip()
     if not url:
         return {"success": False, "error": "No streaming link provided."}
         
-    # Isolate the clean 11-character video track string using a robust matching map
     video_id_match = re.search(r'(?:v=|\/shorts\/|\/embed\/|\/v\/|youtu\.be\/|\/v=|^)([^#\&\?]*){11}', url)
     if not video_id_match:
         return {"success": False, "error": "Could not parse valid tracking ID from streaming link matrix."}
@@ -103,7 +100,6 @@ async def analyze_vocal_url(payload: dict):
     video_id = video_id_match.group(1)
     temp_filename = f"stream_{video_id}"
     
-    # Custom residential tracking simulation config to neutralize cloud data center IP bans
     ydl_opts = {
         'format': 'bestaudio/best',
         'outtmpl': f'{temp_filename}.%(ext)s',
@@ -133,7 +129,6 @@ async def analyze_vocal_url(payload: dict):
         return results
         
     except Exception as e:
-        # Emergency loop cleanup to keep your cloud container clear of garbage files
         for file in os.listdir('.'):
             if file.startswith(temp_filename):
                 try: os.remove(file)
