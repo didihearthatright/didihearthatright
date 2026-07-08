@@ -93,7 +93,7 @@ async def analyze_vocal_url(payload: dict):
 
     # TRICK LINES FOR VISUAL FIX: Clean the square brackets out of these two paths after pasting
     invidious_api = "https://yt.artemislena.church/latest_version"
-    cobalt_api = "https://api.cobalt.tools/api/json"
+    cobalt_api = "https://api.cobalt.tools/"
 
     # Primary Routing Strategy: Ultra-fast decentralized invidious audio block stream
     try:
@@ -113,9 +113,9 @@ async def analyze_vocal_url(payload: dict):
 
     # Secondary Automated Overpass: Premium Cobalt Media API compilation tunnel
     try:
-        # Streamlined layout payload parameters mapping precisely to modern Cobalt specifications
+        # Pre-calibrated payload mapped cleanly to the modern Cobalt structure
         post_data = json.dumps({
-            "url": f"https://youtube.com{video_id}"
+            "url": f"https://www.youtube.com/watch?v={video_id}"
         }).encode('utf-8')
         
         req = urllib.request.Request(
