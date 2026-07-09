@@ -80,7 +80,7 @@ async def analyze_vocal(file: UploadFile = File(...)):
 
 @app.post("/analyze-vocal-url")
 async def analyze_vocal_url(payload: dict):
-    """Fallback-insulated stream extractor mapping decentralized open network paths."""
+    """Insulated stream extractor utilizing a premium open-source infrastructure bridge."""
     url = payload.get("url", "").strip()
     if not url:
         return {"success": False, "error": "No streaming link provided."}
@@ -91,54 +91,43 @@ async def analyze_vocal_url(payload: dict):
     video_id = video_id_match.group(1)
     temp_filename = f"stream_{video_id}.mp3"
 
-    # TRICK LINES FOR VISUAL FIX: Clean the square brackets out of these two paths after pasting
-    invidious_api = "https://yt.artemislena.church/latest_version"
-    cobalt_api = "https://api.cobalt.tools/"
+    # TRICK LINE FOR VISUAL FIX: Clean the square brackets out of this path after pasting
+    stream_bridge = "https://api.v0.wtf/api/cobalt"
 
-    # Primary Routing Strategy: Ultra-fast decentralized invidious audio block stream
     try:
-        req = urllib.request.Request(
-            f"{invidious_api}?id={video_id}&itag=140",
-            headers={'User-Agent': 'Mozilla/5.0'}
-        )
-        with urllib.request.urlopen(req, timeout=10) as response, open(temp_filename, 'wb') as out_file:
-            out_file.write(response.read())
-            
-        if os.path.exists(temp_filename) and os.path.getsize(temp_filename) > 5000:
-            results = run_forensic_math(temp_filename)
-            os.remove(temp_filename)
-            return results
-    except Exception:
-        pass
-
-    # Secondary Automated Overpass: Premium Cobalt Media API compilation tunnel
-    try:
-        # Pre-calibrated payload mapped cleanly to the modern Cobalt structure
+        # Construct the streamlined modern query body for the infrastructure bridge
         post_data = json.dumps({
-            "url": f"https://www.youtube.com/watch?v={video_id}"
+            "url": f"https://www.youtube.com/watch?v={video_id}",
+            "isAudioOnly": True,
+            "aFormat": "mp3"
         }).encode('utf-8')
         
         req = urllib.request.Request(
-            cobalt_api, data=post_data,
+            stream_bridge, data=post_data,
             headers={
                 'User-Agent': 'Mozilla/5.0', 
                 'Accept': 'application/json', 
                 'Content-Type': 'application/json'
             }
         )
-        with urllib.request.urlopen(req, timeout=10) as response:
+        
+        with urllib.request.urlopen(req, timeout=15) as response:
             res_data = json.loads(response.read().decode('utf-8'))
             
         stream_url = res_data.get("url")
-        if stream_url:
-            down_req = urllib.request.Request(stream_url, headers={'User-Agent': 'Mozilla/5.0'})
-            with urllib.request.urlopen(down_req, timeout=10) as response, open(temp_filename, 'wb') as out_file:
-                out_file.write(response.read())
+        if not stream_url:
+            raise Exception("API bridge node failed to return a valid media asset stream link.")
+            
+        # Download the clean raw audio file stream straight into system container memory
+        down_req = urllib.request.Request(stream_url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(down_req, timeout=15) as response, open(temp_filename, 'wb') as out_file:
+            out_file.write(response.read())
                 
-            if os.path.exists(temp_filename) and os.path.getsize(temp_filename) > 5000:
-                results = run_forensic_math(temp_filename)
-                os.remove(temp_filename)
-                return results
+        if os.path.exists(temp_filename) and os.path.getsize(temp_filename) > 5000:
+            results = run_forensic_math(temp_filename)
+            os.remove(temp_filename)
+            return results
+            
     except Exception as e:
         if os.path.exists(temp_filename):
             os.remove(temp_filename)
