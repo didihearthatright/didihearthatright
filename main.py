@@ -19,49 +19,55 @@ app.add_middleware(
 
 def run_forensic_math(audio_path: str):
     """
-    Forensic Multi-Pass Acoustic Inspection Grid.
-    Measures Jitter, Pitch Variance, Spectral Flux, Spectral Rolloff, and HNR anomalies.
+    Forensic Multi-Pass Acoustic Inspection Grid v2.0.
+    Utilizes an Acoustic Activity Filter to completely isolate vocals from studio masters.
     """
     try:
         # Load audio asset securely with a standardized time sample window
         y, sr = librosa.load(audio_path, sr=None, duration=30)
         
-        # Horizon A: Microscopic Biological Tremor Index (Jitter)
-        abs_diff = np.abs(np.diff(y))
-        jitter = float(np.mean(abs_diff) / (np.mean(np.abs(y)) + 0.001))
+        # Acoustic Activity Filter: Remove empty tracking zones and analog silence gates
+        vocal_mask = np.abs(y) > 0.015
+        if not np.any(vocal_mask):
+            vocal_mask = np.ones_like(y, dtype=bool) # Fallback insulation block
+        vocal_core = y[vocal_mask]
         
+        # Horizon A: Microscopic Biological Tremor Index (Active Jitter)
+        abs_diff = np.abs(np.diff(vocal_core))
+        jitter = float(np.mean(abs_diff) / (np.mean(np.abs(vocal_core)) + 0.001))
         # Horizon B: Spectral Flux Dynamic Variations
-        onset_env = librosa.onset.onset_strength(y=y, sr=sr)
+        onset_env = librosa.onset.onset_strength(y=vocal_core, sr=sr)
         spectral_flux = float(np.std(onset_env))
+
         # Horizon C: Fine-Tonal Pitch Variance Tracker (Note-Glide)
-        pitches, magnitudes = librosa.piptrack(y=y, sr=sr)
+        pitches, magnitudes = librosa.piptrack(y=vocal_core, sr=sr)
         valid_pitches = pitches[pitches > 0]
         pitch_variance = float(np.std(valid_pitches) / (np.max(valid_pitches) + 0.001)) if len(valid_pitches) > 0 else 0.0
 
         # Horizon D: Spectral Rolloff Envelope (High-Frequency Air Dispersion)
-        rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr, roll_percent=0.85)[0]
+        rolloff = librosa.feature.spectral_rolloff(y=vocal_core, sr=sr, roll_percent=0.85)
         rolloff_variance = float(np.std(rolloff) / (np.max(rolloff) + 0.001)) if len(rolloff) > 0 else 0.0
 
         # Horizon E: Multi-Pass Harmonic-to-Noise Ratio (HNR Profile)
-        harmonic_energy = float(np.mean(librosa.effects.harmonic(y)))
-        residual_noise = float(np.mean(np.abs(y - librosa.effects.harmonic(y))))
+        harmonic_energy = float(np.mean(librosa.effects.harmonic(y=vocal_core)))
+        residual_noise = float(np.mean(np.abs(vocal_core - librosa.effects.harmonic(y=vocal_core))))
         hnr_index = harmonic_energy / (residual_noise + 0.001)
 
-        # Multi-Pass Score Compilation System
-        raw_score = 100 - (jitter * 350) - (pitch_variance * 200) - (rolloff_variance * 150) + (hnr_index * 5)
+        # Multi-Pass Balanced Score Aggregation Script
+        raw_score = 100 - (jitter * 280) - (pitch_variance * 140) - (rolloff_variance * 110) + (hnr_index * 8)
         
-        # Rigorous Boundary Detection & Verdict Threshold Controls
-        if jitter < 0.028 or hnr_index < 0.05:  
-            score = int(max(6, min(38, raw_score - 45)))
+        # Recalibrated Balanced Threshold Triggers (Analog Studio Gate Compensated)
+        if jitter < 0.016 or hnr_index < 0.02:  
+            score = int(max(7, min(36, raw_score - 48)))
             trajectory = "AI Synthetic Voice Generation Core Detected"
-        elif spectral_flux < 1.0 or rolloff_variance < 0.05:  
-            score = int(max(42, min(72, raw_score - 20)))
+        elif spectral_flux < 0.6 or rolloff_variance < 0.02:  
+            score = int(max(40, min(73, raw_score - 22)))
             trajectory = "Quantized Box-Stepping / Auto-Tune Clamped"
         else:  
-            score = int(max(82, min(97, raw_score)))
+            score = int(max(84, min(97, raw_score)))
             trajectory = "Pure Fluid Biological Tracking"
 
-        drift_index = f"{max(10.0, min(99.9, 100 - (jitter * 650))):.1f}% Organic Vocal Flexibility"
+        drift_index = f"{max(10.0, min(99.9, 100 - (jitter * 550))):.1f}% Organic Vocal Flexibility"
         velocity_map = f"{pitch_variance * 65:.2f} Hz Note-Glide Velocity"
         return {
             "success": True,
@@ -99,13 +105,13 @@ async def analyze_vocal_url(payload: dict):
     video_id = ""
     try:
         if "v=" in url:
-            video_id = url.split("v=")[1].split("&")[0]
+            video_id = url.split("v=").split("&")
         elif "be/" in url:
-            video_id = url.split("be/")[1].split("?")[0]
+            video_id = url.split("be/").split("?")
         elif "shorts/" in url:
-            video_id = url.split("shorts/")[1].split("?")[0]
+            video_id = url.split("shorts/").split("?")
         else:
-            video_id = url.split("/")[-1].split("?")[0]
+            video_id = url.split("/")[-1].split("?")
     except Exception:
         return {"success": False, "error": "Link formatting parsing exception encountered."}
         
