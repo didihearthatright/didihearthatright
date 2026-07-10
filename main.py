@@ -107,23 +107,6 @@ async def analyze_vocal_url(payload: dict):
     video_id = video_id_match.group(1)
     temp_filename = f"stream_{video_id}"
     
-    # Secure native execution bypass configuration
-    import subprocess
-        @app.post("/analyze-vocal-url")
-async def analyze_vocal_url(payload: dict):
-    """Native audio extractor securely pulling YouTube media blocks using yt-dlp."""
-    url = payload.get("url", "").strip()
-    if not url:
-        return {"success": False, "error": "No streaming link provided."}
-        
-    video_id_match = re.search(r'(?:v=|\/shorts\/|\/embed\/|\/v\/|youtu\.be\/|\/v=|^)([^#\&\?]*){11}', url)
-    if not video_id_match:
-        return {"success": False, "error": "Could not parse valid tracking ID from streaming link matrix."}
-        
-    video_id = video_id_match.group(1)
-    temp_filename = f"stream_{video_id}"
-    
-    # Perfectly aligned subprocess arguments with client impersonation filters
     import subprocess
     cmd = [
         "yt-dlp",
