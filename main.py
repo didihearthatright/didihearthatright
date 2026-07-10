@@ -95,7 +95,7 @@ async def analyze_vocal(file: UploadFile = File(...)):
 
 @app.post("/analyze-vocal-url")
 async def analyze_vocal_url(payload: dict):
-    """Surgically extracts YouTube audio blocks using robust regex pattern matching."""
+    """Native audio extractor securely pulling YouTube media blocks using yt-dlp."""
     url = payload.get("url", "").strip()
     if not url:
         return {"success": False, "error": "No streaming link provided."}
@@ -105,29 +105,37 @@ async def analyze_vocal_url(payload: dict):
         return {"success": False, "error": "Could not parse valid tracking ID from streaming link matrix."}
         
     video_id = video_id_match.group(1)
-    temp_filename = f"stream_{video_id}.mp3"
-    stream_provider = f"https://vevioz.com{video_id}"
+    temp_filename = f"stream_{video_id}"
+    
+    # Secure native execution bypass configuration
+    import subprocess
+    cmd = [
+        "yt-dlp",
+        "-x",
+        "--audio-format", "mp3",
+        "--audio-quality", "0",
+        "--max-filesize", "15M",
+        "-o", temp_filename + ".%(ext)s",
+        url
+    ]
     
     try:
-        import urllib.request
-        req = urllib.request.Request(
-            stream_provider, 
-            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0'}
-        )
+        # Direct subprocess shell lane fetching clean binary data nodes directly
+        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=25)
         
-        with urllib.request.urlopen(req, timeout=12) as response, open(temp_filename, 'wb') as out_file:
-            out_file.write(response.read())
+        target_path = temp_filename + ".mp3"
+        if not os.path.exists(target_path) or os.path.getsize(target_path) < 5000:
+            raise Exception(f"Native stream core returned zero payload bytes. Logs: {result.stderr}")
 
-        if not os.path.exists(temp_filename) or os.path.getsize(temp_filename) < 5000:
-            raise Exception("Mirror network extraction node returned empty payload data stream.")
-
-        results = run_forensic_math(temp_filename)
+        # Route the pristine audio block straight into your working 3.0 dynamic ratio
+        results = run_forensic_math(target_path)
         
-        if os.path.exists(temp_filename):
-            os.remove(temp_filename)
+        if os.path.exists(target_path):
+            os.remove(target_path)
         return results
         
     except Exception as e:
-        if os.path.exists(temp_filename):
-            os.remove(temp_filename)
-        return {"success": False, "error": f"Extraction Pipeline Node Offline: {str(e)}"}
+        target_path = temp_filename + ".mp3"
+        if os.path.exists(target_path):
+            os.remove(target_path)
+        return {"success": False, "error": f"Native Media Streaming Pipeline Intercept Exception: {str(e)}"}
