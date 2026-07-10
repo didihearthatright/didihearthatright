@@ -109,15 +109,17 @@ async def analyze_vocal_url(payload: dict):
     
     # Secure native execution bypass configuration
     import subprocess
-    cmd = [
+        cmd = [
         "yt-dlp",
         "-x",
         "--audio-format", "mp3",
         "--audio-quality", "0",
         "--max-filesize", "15M",
+        "--extractor-args", "youtube:player_client=ios,web",
         "-o", temp_filename + ".%(ext)s",
         url
     ]
+
     
     try:
         # Direct subprocess shell lane fetching clean binary data nodes directly
