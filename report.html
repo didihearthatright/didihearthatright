@@ -85,9 +85,18 @@
                     <span class="tooltip-bubble">INTEGRITY INDEX: The cumulative biological match percentage. It tracks whether the underlying vocal signal belongs to genuine human lungs or is an equation structure.</span>
                 </div>
                 <div id="reportScore" style="font-size: 3.5rem; font-weight: bold; color: #00fff2; margin: 10px 0;">--%</div>
-                <div style="background: #222b35; height: 10px; border-radius: 5px; overflow: hidden; margin: 15px auto 12px auto; width: 100%;">
+                
+                <!-- Main Progress Bar -->
+                <div style="background: #222b35; height: 10px; border-radius: 5px; overflow: hidden; margin: 15px auto 4px auto; width: 100%;">
                     <div id="reportMeterBar" style="background: #00fff2; height: 100%; width: 0%; transition: width 1s ease-out;"></div>
                 </div>
+                
+                <!-- Your Brand New Spectrum Text Boundary Anchors -->
+                <div style="display: flex; justify-content: space-between; font-family: monospace; font-size: 0.72rem; color: #555; font-weight: bold; letter-spacing: 1px; margin-bottom: 15px; padding: 0 2px;">
+                    <span>BINARY</span>
+                    <span>BIOLOGICAL</span>
+                </div>
+
                 <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; text-align: left; font-family: sans-serif;">
                     The cumulative fingerprint match. This index cross-references fast human throat micro-vibrations with macroscopic pitch choices. A high score means the wave structure flows with natural biology, while low scores isolate mathematical calculation grids.
                 </p>
@@ -134,29 +143,45 @@
                 </p>
             </div>
 
-            <!-- Block 5: Harmonic Density (HNR Profile) -->
+            <!-- Block 5: Harmonic Density Matrix (Active HNR) -->
             <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; font-family: monospace; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                     <div class="glossary-term" style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">
                         [BLOCK_05] // HARMONIC CONTOUR MATRIX<span class="tooltip-badge">?</span>
                         <span class="tooltip-bubble">HARMONIC CONTOUR: Acoustic tone richness from a physical room. Real space preserves layered resonances; synthetic generators lack authentic environment depths.</span>
                     </div>
-                    <div id="reportHnr" style="color: #28a745; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">COMPENSATED SATURATION NODE PASSIVE</div>
+                    <div id="reportHnr" style="color: #fff; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">AWAITING HNR INGESTION</div>
                 </div>
                 <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
                     Evaluates pure vocal overtone richness against background signal noise. Genuine physical recording rooms and high-end studio gear preserve detailed harmonic warmth, whereas AI generation artifacts create specific digital tracking erosion.
                 </p>
             </div>
 
-            <!-- Block 6: Summary Forensic Data Matrix -->
+            <!-- Block 6: Spectral Flux Analysis -->
+            <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; font-family: monospace; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div class="glossary-term" style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">
+                        [BLOCK_06] // SPECTRAL FLUX PROFILE<span class="tooltip-badge">?</span>
+                        <span class="tooltip-bubble">SPECTRAL FLUX: Measures shifts in frequency wave energy between consecutive frames. Sudden artificial spikes or frozen blocks flag synthetic sound splicing.</span>
+                    </div>
+                    <div id="reportFlux" style="color: #fff; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">AWAITING FLUX SWEEP</div>
+                </div>
+                <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
+                    Tracks how rapidly the energy spectrum changes from one audio frame to the next. Human performances shift organically due to breathing patterns and vocal envelope variations, while synthetic audio models possess flat spectral continuity boundaries.
+                </p>
+            </div>
+
+            <!-- Block 7: High-Frequency Rolloff & Forensic Data Matrix (Spans Full Width) -->
             <div style="grid-column: span 2; background-color: #0c0f12; padding: 25px; border-radius: 4px; border: 1px solid #222; text-align: center;">
-                <strong style="color: #ff4a4a; display: block; margin-bottom: 12px; text-transform: uppercase; font-family: monospace; font-size: 0.85rem; letter-spacing: 1px;">[BLOCK_06] // FORENSIC SUMMARY DATA MATRIX:</strong>
-                <span style="font-size: 1.05rem; font-weight: bold; color: #fff; display: block; line-height: 1.5; max-width: 90%; margin: 0 auto;">
-                    Continuous multi-track sweep parsing isolates raw wave properties directly from the source asset binary core.
+                <strong style="color: #ff4a4a; display: block; margin-bottom: 12px; text-transform: uppercase; font-family: monospace; font-size: 0.85rem; letter-spacing: 1px;">[BLOCK_07] // HIGH-FREQUENCY ROLLOFF PROFILE:</strong>
+                
+                <span id="reportRolloff" style="font-size: 1.25rem; font-weight: bold; color: #00fff2; display: block; line-height: 1.5; max-width: 90%; margin: 0 auto; font-family: monospace;">
+                    AWAITING ACCELERATION MAP INGESTION
                 </span>
-                <div style="height: 10px;"></div>
-                <p style="margin: 0 auto; font-size: 0.72rem; color: #666; line-height: 1.5; font-family: sans-serif; max-width: 92%;">
-                    By filtering out blank noise spaces and studio overlapping loops, this analytical framework evaluates micro-vocal fluctuations over continuous windows of time rather than static checkpoint calculations. This ensures maximum architectural separation when tracking human analog tracks against synthetic voice models.
+                
+                <div style="height: 12px;"></div>
+                <p style="margin: 0 auto; font-size: 0.72rem; color: #666; line-height: 1.5; font-family: sans-serif; max-width: 92%; text-align: left;">
+                    By filtering out blank noise spaces and studio overlapping loops, this final analytical framework maps the absolute frequency ceiling drop-off points. AI cloning models and modern compression rendering pipelines heavily alter this specific high-frequency window, leaving distinct structural indicators that easily stand out against raw, uncompressed microphone master recordings.
                 </p>
             </div>
 
@@ -175,6 +200,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const drift = localStorage.getItem("dihtr_drift");
     const velocity = localStorage.getItem("dihtr_velocity");
     const hnr = localStorage.getItem("dihtr_hnr");
+    const flux = localStorage.getItem("dihtr_flux");
+    const rolloff = localStorage.getItem("dihtr_rolloff");
 
     if (score && trajectory) {
         const scoreDisplay = document.getElementById("reportScore");
@@ -182,17 +209,17 @@ document.addEventListener("DOMContentLoaded", function() {
         const driftDisplay = document.getElementById("reportDrift");
         const velocityDisplay = document.getElementById("reportVelocity");
         const hnrDisplay = document.getElementById("reportHnr");
+        const fluxDisplay = document.getElementById("reportFlux");
+        const rolloffDisplay = document.getElementById("reportRolloff");
         const meterBar = document.getElementById("reportMeterBar");
 
         if (scoreDisplay) scoreDisplay.innerText = score + "%";
         if (trajectoryDisplay) trajectoryDisplay.innerText = trajectory.toUpperCase();
         if (driftDisplay) driftDisplay.innerText = drift.toUpperCase();
         if (velocityDisplay) velocityDisplay.innerText = velocity.toUpperCase();
-        
-        if (hnrDisplay && hnr) {
-            hnrDisplay.innerText = hnr.toUpperCase();
-            hnrDisplay.style.color = "#00fff2";
-        }
+        if (hnrDisplay && hnr) hnrDisplay.innerText = hnr.toUpperCase();
+        if (fluxDisplay && flux) fluxDisplay.innerText = flux.toUpperCase();
+        if (rolloffDisplay && rolloff) rolloffDisplay.innerText = rolloff.toUpperCase();
         
         if (meterBar) {
             meterBar.style.width = score + "%";
