@@ -254,6 +254,11 @@ window.runSimulation = function() {
         }
         
         if (data.success) {
+                        localStorage.setItem("dihtr_score", data.score);
+            localStorage.setItem("dihtr_trajectory", data.trajectory);
+            localStorage.setItem("dihtr_drift", data.drift_index);
+            localStorage.setItem("dihtr_velocity", data.velocity_map);
+
             if (statusContainer) {
                 statusContainer.style.textAlign = "left";
                 statusContainer.innerHTML = `
