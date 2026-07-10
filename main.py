@@ -50,7 +50,7 @@ def run_forensic_math(audio_path: str):
         spectral_flux = float(np.std(onset_env))
 
         # Dynamic Ratio Deviation Formula (Validates fluid human drift against rigid synthetic consistency)
-        vocal_fluidity_ratio = (pitch_variance * 10) / (jitter + hnr_index + 0.001)
+        vocal_fluidity_ratio = (pitch_variance * 10) / (max(0.01, jitter + hnr_index))
         
         # Honest Performance Scoring Matrix
         if vocal_fluidity_ratio < 0.015:
