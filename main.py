@@ -109,7 +109,23 @@ async def analyze_vocal_url(payload: dict):
     
     # Secure native execution bypass configuration
     import subprocess
-        cmd = [
+        @app.post("/analyze-vocal-url")
+async def analyze_vocal_url(payload: dict):
+    """Native audio extractor securely pulling YouTube media blocks using yt-dlp."""
+    url = payload.get("url", "").strip()
+    if not url:
+        return {"success": False, "error": "No streaming link provided."}
+        
+    video_id_match = re.search(r'(?:v=|\/shorts\/|\/embed\/|\/v\/|youtu\.be\/|\/v=|^)([^#\&\?]*){11}', url)
+    if not video_id_match:
+        return {"success": False, "error": "Could not parse valid tracking ID from streaming link matrix."}
+        
+    video_id = video_id_match.group(1)
+    temp_filename = f"stream_{video_id}"
+    
+    # Perfectly aligned subprocess arguments with client impersonation filters
+    import subprocess
+    cmd = [
         "yt-dlp",
         "-x",
         "--audio-format", "mp3",
@@ -119,17 +135,14 @@ async def analyze_vocal_url(payload: dict):
         "-o", temp_filename + ".%(ext)s",
         url
     ]
-
     
     try:
-        # Direct subprocess shell lane fetching clean binary data nodes directly
         result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=25)
         
         target_path = temp_filename + ".mp3"
         if not os.path.exists(target_path) or os.path.getsize(target_path) < 5000:
             raise Exception(f"Native stream core returned zero payload bytes. Logs: {result.stderr}")
 
-        # Route the pristine audio block straight into your working 3.0 dynamic ratio
         results = run_forensic_math(target_path)
         
         if os.path.exists(target_path):
