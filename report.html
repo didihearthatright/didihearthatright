@@ -141,7 +141,7 @@
                         [BLOCK_05] // HARMONIC CONTOUR MATRIX<span class="tooltip-badge">?</span>
                         <span class="tooltip-bubble">HARMONIC CONTOUR: Acoustic tone richness from a physical room. Real space preserves layered resonances; synthetic generators lack authentic environment depths.</span>
                     </div>
-                    <div style="color: #28a745; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">COMPENSATED SATURATION NODE PASSIVE</div>
+                    <div id="reportHnr" style="color: #28a745; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">COMPENSATED SATURATION NODE PASSIVE</div>
                 </div>
                 <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
                     Evaluates pure vocal overtone richness against background signal noise. Genuine physical recording rooms and high-end studio gear preserve detailed harmonic warmth, whereas AI generation artifacts create specific digital tracking erosion.
@@ -149,11 +149,14 @@
             </div>
 
             <!-- Block 6: Summary Forensic Data Matrix -->
-            <div style="grid-column: span 2; background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; text-align: left; font-size: 0.9rem; line-height: 1.6; color: #ccc;">
-                <strong style="color: #ff4a4a; display: block; margin-bottom: 5px; text-transform: uppercase; font-family: monospace; font-size: 0.75rem;">[BLOCK_06] // FORENSIC SUMMARY DATA MATRIX:</strong>
-                <span style="font-size: 0.85rem;">Continuous multi-track sweep parsing. This analytical layer isolates pure, un-gated vocal sections away from studio instrument mix overlaps to ensure baseline accuracy.</span>
-                <p style="margin: 10px 0 0 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
-                    By filtering out blank spaces and mix noise, this final layer tracks real dynamic fluctuations rather than static checkpoints, making it highly reliable for distinguishing genuine human masters from algorithmic clones.
+            <div style="grid-column: span 2; background-color: #0c0f12; padding: 25px; border-radius: 4px; border: 1px solid #222; text-align: center;">
+                <strong style="color: #ff4a4a; display: block; margin-bottom: 12px; text-transform: uppercase; font-family: monospace; font-size: 0.85rem; letter-spacing: 1px;">[BLOCK_06] // FORENSIC SUMMARY DATA MATRIX:</strong>
+                <span style="font-size: 1.05rem; font-weight: bold; color: #fff; display: block; line-height: 1.5; max-width: 90%; margin: 0 auto;">
+                    Continuous multi-track sweep parsing isolates raw wave properties directly from the source asset binary core.
+                </span>
+                <div style="height: 10px;"></div>
+                <p style="margin: 0 auto; font-size: 0.72rem; color: #666; line-height: 1.5; font-family: sans-serif; max-width: 92%;">
+                    By filtering out blank noise spaces and studio overlapping loops, this analytical framework evaluates micro-vocal fluctuations over continuous windows of time rather than static checkpoint calculations. This ensures maximum architectural separation when tracking human analog tracks against synthetic voice models.
                 </p>
             </div>
 
@@ -171,18 +174,25 @@ document.addEventListener("DOMContentLoaded", function() {
     const trajectory = localStorage.getItem("dihtr_trajectory");
     const drift = localStorage.getItem("dihtr_drift");
     const velocity = localStorage.getItem("dihtr_velocity");
+    const hnr = localStorage.getItem("dihtr_hnr");
 
     if (score && trajectory) {
         const scoreDisplay = document.getElementById("reportScore");
         const trajectoryDisplay = document.getElementById("reportTrajectory");
         const driftDisplay = document.getElementById("reportDrift");
         const velocityDisplay = document.getElementById("reportVelocity");
+        const hnrDisplay = document.getElementById("reportHnr");
         const meterBar = document.getElementById("reportMeterBar");
 
         if (scoreDisplay) scoreDisplay.innerText = score + "%";
         if (trajectoryDisplay) trajectoryDisplay.innerText = trajectory.toUpperCase();
         if (driftDisplay) driftDisplay.innerText = drift.toUpperCase();
         if (velocityDisplay) velocityDisplay.innerText = velocity.toUpperCase();
+        
+        if (hnrDisplay && hnr) {
+            hnrDisplay.innerText = hnr.toUpperCase();
+            hnrDisplay.style.color = "#00fff2";
+        }
         
         if (meterBar) {
             meterBar.style.width = score + "%";
