@@ -9,49 +9,80 @@
 
     <div style="max-width: 680px; width: 100%; box-sizing: border-box;">
         
-        <!-- Header Section -->
+        <!-- Header Frame -->
         <div style="text-align: center; border-bottom: 1px solid #222; padding-bottom: 25px; margin-bottom: 30px;">
             <h1 style="margin: 0 0 5px 0; font-size: 1.6rem; letter-spacing: 2px; color: #ff4a4a;">DEEP COCKPIT AUDIT LEDGER</h1>
             <p style="margin: 0; font-size: 0.8rem; color: #666; font-family: monospace;">TX_HASH ID: DIHTR-SECURE-AUDIT-PASS</p>
         </div>
 
-        <!-- Block 1: Resolved Integrity Index -->
-        <div style="background-color: #0c0f12; padding: 25px; border-radius: 4px; border: 1px solid #222; text-align: center; margin-bottom: 20px;">
-            <div style="font-size: 0.85rem; font-weight: bold; color: #888; letter-spacing: 1px; text-transform: uppercase;">RESOLVED INTEGRITY INDEX</div>
-            <div id="reportScore" style="font-size: 3rem; font-weight: bold; color: #00fff2; margin: 10px 0;">--%</div>
-            <div style="background: #222b35; height: 10px; border-radius: 5px; overflow: hidden; margin: 15px 0; width: 100%;">
-                <div id="reportMeterBar" style="background: #00fff2; height: 100%; width: 0%; transition: width 1s ease-out;"></div>
+        <!-- 2-Column Grid Layout for the 6 Forensic Blocks -->
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 25px;">
+            
+            <!-- Block 1: Resolved Integrity Index -->
+            <div style="grid-column: span 2; background-color: #0c0f12; padding: 25px; border-radius: 4px; border: 1px solid #222; text-align: center;">
+                <div style="font-size: 0.85rem; font-weight: bold; color: #888; letter-spacing: 1px; text-transform: uppercase; font-family: monospace;">[BLOCK_01] // RESOLVED INTEGRITY INDEX</div>
+                <div id="reportScore" style="font-size: 3.5rem; font-weight: bold; color: #00fff2; margin: 10px 0;">--%</div>
+                <div style="background: #222b35; height: 10px; border-radius: 5px; overflow: hidden; margin: 15px auto 12px auto; width: 100%;">
+                    <div id="reportMeterBar" style="background: #00fff2; height: 100%; width: 0%; transition: width 1s ease-out;"></div>
+                </div>
+                <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; text-align: left; font-family: sans-serif;">
+                    The cumulative fingerprint match. This index cross-references fast human throat micro-vibrations with macroscopic pitch choices. A high score means the wave structure flows with natural biology, while low scores isolate mathematical calculation grids.
+                </p>
             </div>
-        </div>
 
-        <!-- Block 2: Target Classification Trajectory -->
-        <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; text-align: left; margin-bottom: 20px; font-family: monospace; font-size: 0.85rem;">
-            <div style="color: #666; margin-bottom: 8px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_02] // CORE CLASSIFICATION TRAJECTORY</div>
-            <div id="reportTrajectory" style="color: #fff; font-weight: bold; font-size: 1rem;">AWAITING SECURITY INGESTION</div>
-        </div>
+            <!-- Block 2: Core Classification Trajectory -->
+            <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; font-family: monospace; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_02] // CLASSIFICATION TRAJECTORY</div>
+                    <div id="reportTrajectory" style="color: #fff; font-weight: bold; font-size: 0.95rem; line-height: 1.4; margin-bottom: 12px;">AWAITING SECURITY INGESTION</div>
+                </div>
+                <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
+                    The final sorting determination. This indicates whether the underlying recording follows organic muscle movements or shares the identical mathematical footprints of known synthetic voice generation algorithms.
+                </p>
+            </div>
 
-        <!-- Block 3: Organic Vocal Flexibility Index -->
-        <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; text-align: left; margin-bottom: 20px; font-family: monospace; font-size: 0.85rem;">
-            <div style="color: #666; margin-bottom: 8px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_03] // MICRO-TREMOR DEVIATION ANALYSIS</div>
-            <div id="reportDrift" style="color: #fff; font-weight: bold; font-size: 1rem;">0.0% ORGANIC VOCAL FLEXIBILITY</div>
-        </div>
+            <!-- Block 3: Organic Vocal Flexibility Index -->
+            <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; font-family: monospace; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_03] // MICRO-TREMOR DEVIATION</div>
+                    <div id="reportDrift" style="color: #fff; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">0.0% FLEXIBILITY INDEX</div>
+                </div>
+                <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
+                    Tracks tiny sample-to-sample vocal cord jitter. Human muscles cannot hold a perfectly dead-flat tone; they tremor naturally. AI models usually reveal themselves here because computer chips output numbers that are far too cleanly spaced.
+                </p>
+            </div>
 
-        <!-- Block 4: Fine-Tonal Note-Glide Velocity -->
-        <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; text-align: left; margin-bottom: 20px; font-family: monospace; font-size: 0.85rem;">
-            <div style="color: #666; margin-bottom: 8px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_04] // MACRO-TONAL NOTE-GLIDE VELOCITY MAP</div>
-            <div id="reportVelocity" style="color: #fff; font-weight: bold; font-size: 1rem;">0.00 HZ NOTE-GLIDE VELOCITY</div>
-        </div>
+            <!-- Block 4: Fine-Tonal Note-Glide Velocity -->
+            <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; font-family: monospace; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_04] // NOTE-GLIDE VELOCITY MAP</div>
+                    <div id="reportVelocity" style="color: #fff; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">0.00 HZ VELOCITY PROFILE</div>
+                </div>
+                <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
+                    Measures pitch transitions over time. Real singers glide seamlessly between notes like a violin string, sweeping through complex micro-frequencies. Clamped software tools or synthetic generations step between rigid pitch intervals like typewriter keys.
+                </p>
+            </div>
 
-        <!-- Block 5: Harmonic-to-Noise Ratio (HNR Profile) -->
-        <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; text-align: left; margin-bottom: 20px; font-family: monospace; font-size: 0.85rem;">
-            <div style="color: #666; margin-bottom: 8px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_05] // HARMONIC DENSITY & CONTOUR PROFILE</div>
-            <div style="color: #28a745; font-weight: bold; font-size: 0.95rem;">COMPENSATED ANALOG SATURATION NODE PASSIVE</div>
-        </div>
+            <!-- Block 5: Harmonic Density (HNR Profile) -->
+            <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; font-family: monospace; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_05] // HARMONIC CONTOUR MATRIX</div>
+                    <div style="color: #28a745; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">COMPENSATED SATURATION NODE PASSIVE</div>
+                </div>
+                <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
+                    Evaluates pure vocal overtone richness against background signal noise. Genuine physical recording rooms and high-end studio gear preserve detailed harmonic warmth, whereas AI generation artifacts create specific digital tracking erosion.
+                </p>
+            </div>
 
-        <!-- Block 6: Summary Forensic Data Matrix -->
-        <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; text-align: left; font-size: 0.9rem; line-height: 1.6; color: #ccc; margin-bottom: 25px;">
-            <strong style="color: #ff4a4a; display: block; margin-bottom: 5px; text-transform: uppercase; font-family: monospace; font-size: 0.75rem;">[BLOCK_06] // FORENSIC SUMMARY DATA MATRIX:</strong>
-            The tracking metrics mapped across this cockpit dashboard isolate authentic signal properties dynamically calculated directly from the acoustic source file binary core.
+            <!-- Block 6: Summary Forensic Data Matrix -->
+            <div style="grid-column: span 2; background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; text-align: left; font-size: 0.9rem; line-height: 1.6; color: #ccc;">
+                <strong style="color: #ff4a4a; display: block; margin-bottom: 5px; text-transform: uppercase; font-family: monospace; font-size: 0.75rem;">[BLOCK_06] // FORENSIC SUMMARY DATA MATRIX:</strong>
+                <span style="font-size: 0.85rem;">Continuous multi-track sweep parsing. This analytical layer isolates pure, un-gated vocal sections away from studio instrument mix overlaps to ensure baseline accuracy.</span>
+                <p style="margin: 10px 0 0 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
+                    By filtering out blank spaces and mix noise, this final layer tracks real dynamic fluctuations rather than static checkpoints, making it highly reliable for distinguishing genuine human masters from algorithmic clones.
+                </p>
+            </div>
+
         </div>
 
         <!-- Baseline Disclaimer Layer -->
