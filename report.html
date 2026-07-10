@@ -4,6 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIHTR // Deep Forensic Ledger</title>
+    <style>
+        /* Interactive Glossary Hover Tooltip Engine Core Styles */
+        .glossary-term {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            border-bottom: 1px dotted #444;
+        }
+        .tooltip-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            font-size: 9px;
+            font-weight: bold;
+            color: #00fff2;
+            background: #15191d;
+            border: 1px solid #333;
+            border-radius: 50%;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .tooltip-bubble {
+            visibility: hidden;
+            width: 230px;
+            background-color: #15191d;
+            color: #ccc;
+            text-align: left;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            font-family: sans-serif;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+        .tooltip-bubble::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+        .glossary-term:hover .tooltip-bubble {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 </head>
 <body style="background-color: #06080a; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 40px 20px; display: flex; justify-content: center;">
 
@@ -20,7 +80,10 @@
             
             <!-- Block 1: Resolved Integrity Index -->
             <div style="grid-column: span 2; background-color: #0c0f12; padding: 25px; border-radius: 4px; border: 1px solid #222; text-align: center;">
-                <div style="font-size: 0.85rem; font-weight: bold; color: #888; letter-spacing: 1px; text-transform: uppercase; font-family: monospace;">[BLOCK_01] // RESOLVED INTEGRITY INDEX</div>
+                <div class="glossary-term" style="font-size: 0.85rem; font-weight: bold; color: #888; letter-spacing: 1px; text-transform: uppercase; font-family: monospace;">
+                    [BLOCK_01] // RESOLVED INTEGRITY INDEX<span class="tooltip-badge">?</span>
+                    <span class="tooltip-bubble">INTEGRITY INDEX: The cumulative biological match percentage. It tracks whether the underlying vocal signal belongs to genuine human lungs or is an equation structure.</span>
+                </div>
                 <div id="reportScore" style="font-size: 3.5rem; font-weight: bold; color: #00fff2; margin: 10px 0;">--%</div>
                 <div style="background: #222b35; height: 10px; border-radius: 5px; overflow: hidden; margin: 15px auto 12px auto; width: 100%;">
                     <div id="reportMeterBar" style="background: #00fff2; height: 100%; width: 0%; transition: width 1s ease-out;"></div>
@@ -33,18 +96,23 @@
             <!-- Block 2: Core Classification Trajectory -->
             <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; font-family: monospace; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                    <div style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_02] // CLASSIFICATION TRAJECTORY</div>
+                    <div class="glossary-term" style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">
+                        [BLOCK_02] // CLASSIFICATION TRAJECTORY<span class="tooltip-badge">?</span>
+                        <span class="tooltip-bubble">TRAJECTORY: The final categorization group routing your file into an authentic biological pass versus a known artificial generator script.</span>
+                    </div>
                     <div id="reportTrajectory" style="color: #fff; font-weight: bold; font-size: 0.95rem; line-height: 1.4; margin-bottom: 12px;">AWAITING SECURITY INGESTION</div>
                 </div>
                 <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
                     The final sorting determination. This indicates whether the underlying recording follows organic muscle movements or shares the identical mathematical footprints of known synthetic voice generation algorithms.
                 </p>
             </div>
-
             <!-- Block 3: Organic Vocal Flexibility Index -->
             <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; font-family: monospace; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                    <div style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_03] // MICRO-TREMOR DEVIATION</div>
+                    <div class="glossary-term" style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">
+                        [BLOCK_03] // MICRO-TREMOR DEVIATION<span class="tooltip-badge">?</span>
+                        <span class="tooltip-bubble">MICRO-TREMOR: The involuntary micro-shivering human vocal cords naturally execute. Computers produce lines that are far too flatly perfect.</span>
+                    </div>
                     <div id="reportDrift" style="color: #fff; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">0.0% FLEXIBILITY INDEX</div>
                 </div>
                 <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
@@ -55,7 +123,10 @@
             <!-- Block 4: Fine-Tonal Note-Glide Velocity -->
             <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; font-family: monospace; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                    <div style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_04] // NOTE-GLIDE VELOCITY MAP</div>
+                    <div class="glossary-term" style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">
+                        [BLOCK_04] // NOTE-GLIDE VELOCITY MAP<span class="tooltip-badge">?</span>
+                        <span class="tooltip-bubble">NOTE-GLIDE: Pitch sweeping curves. Human voices glide smoothly across micro-tones like a violin string, while math models step rigidly.</span>
+                    </div>
                     <div id="reportVelocity" style="color: #fff; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">0.00 HZ VELOCITY PROFILE</div>
                 </div>
                 <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
@@ -66,7 +137,10 @@
             <!-- Block 5: Harmonic Density (HNR Profile) -->
             <div style="background-color: #0c0f12; padding: 20px; border-radius: 4px; border: 1px solid #222; font-family: monospace; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                    <div style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">[BLOCK_05] // HARMONIC CONTOUR MATRIX</div>
+                    <div class="glossary-term" style="color: #666; margin-bottom: 10px; text-transform: uppercase; font-size: 0.75rem;">
+                        [BLOCK_05] // HARMONIC CONTOUR MATRIX<span class="tooltip-badge">?</span>
+                        <span class="tooltip-bubble">HARMONIC CONTOUR: Acoustic tone richness from a physical room. Real space preserves layered resonances; synthetic generators lack authentic environment depths.</span>
+                    </div>
                     <div style="color: #28a745; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">COMPENSATED SATURATION NODE PASSIVE</div>
                 </div>
                 <p style="margin: 0; font-size: 0.75rem; color: #666; line-height: 1.4; font-family: sans-serif;">
