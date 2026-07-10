@@ -276,6 +276,7 @@ window.runSimulation = function() {
             localStorage.setItem("dihtr_trajectory", data.trajectory);
             localStorage.setItem("dihtr_drift", data.drift_index);
             localStorage.setItem("dihtr_velocity", data.velocity_map);
+            localStorage.setItem("dihtr_hnr", data.hnr_profile);
 
             if (statusContainer) {
                 statusContainer.style.textAlign = "left";
