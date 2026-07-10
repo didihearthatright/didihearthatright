@@ -4,6 +4,7 @@ import json
 import librosa
 import numpy as np
 import urllib.request
+import urllib.parse
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -19,8 +20,8 @@ app.add_middleware(
 
 def run_forensic_math(audio_path: str):
     """
-    Forensic Multi-Pass Acoustic Inspection Grid v3.0.
-    Evaluates Dynamic Ratio Deviation instead of relying on fragile static thresholds.
+    Forensic Multi-Pass Acoustic Inspection Grid v3.1.
+    Fully insulated denominators to prevent division by zero across all streaming file types.
     """
     try:
         # Load audio asset securely with a standardized time sample window
@@ -32,9 +33,10 @@ def run_forensic_math(audio_path: str):
             vocal_mask = np.ones_like(y, dtype=bool)
         vocal_core = y[vocal_mask]
         
-        # Extraction Horizon A: Sample Jitter & Frequency Transitions
+        # Extraction Horizon A: Sample Jitter & Frequency Transitions (Insulated Denominator)
         abs_diff = np.abs(np.diff(vocal_core))
-        jitter = float(np.mean(abs_diff) / (np.mean(np.abs(vocal_core)) + 0.001))
+        mean_vocal = float(np.mean(np.abs(vocal_core)))
+        jitter = float(np.mean(abs_diff) / max(0.01, mean_vocal))
         # Extraction Horizon B: Macro-Tonal Pitch Glide Paths
         pitches, magnitudes = librosa.piptrack(y=vocal_core, sr=sr)
         valid_pitches = pitches[pitches > 0]
@@ -49,20 +51,17 @@ def run_forensic_math(audio_path: str):
         onset_env = librosa.onset.onset_strength(y=vocal_core, sr=sr)
         spectral_flux = float(np.std(onset_env))
 
-        # Dynamic Ratio Deviation Formula (Validates fluid human drift against rigid synthetic consistency)
-        vocal_fluidity_ratio = (pitch_variance * 10) / (max(0.01, jitter + hnr_index))
+        # Fully insulated ratio tracking to physically prevent division zero crashes
+        vocal_fluidity_ratio = (pitch_variance * 10) / max(0.01, (jitter + hnr_index))
         
         # Honest Performance Scoring Matrix
         if vocal_fluidity_ratio < 0.015:
-            # Synthetic AI footprint detected via unvarying rigid mathematical ratios
             score = int(max(6, min(34, 15 + (vocal_fluidity_ratio * 800))))
             trajectory = "AI Synthetic Voice Generation Core Detected"
         elif spectral_flux < 0.3:
-            # Harsh hardware clamping or extreme step-quantization observed
             score = int(max(40, min(71, 35 + (spectral_flux * 100))))
             trajectory = "Quantized Box-Stepping / Auto-Tune Clamped"
         else:
-            # Genuine dynamic human note distribution and fluid biological tracking
             score = int(max(83, min(97, 75 + (vocal_fluidity_ratio * 40))))
             trajectory = "Pure Fluid Biological Tracking"
 
@@ -101,7 +100,6 @@ async def analyze_vocal_url(payload: dict):
     if not url:
         return {"success": False, "error": "No streaming link provided."}
         
-    # Standard regex extraction safely pulling the unique 11-character video ID
     video_id_match = re.search(r'(?:v=|\/shorts\/|\/embed\/|\/v\/|youtu\.be\/|\/v=|^)([^#\&\?]*){11}', url)
     if not video_id_match:
         return {"success": False, "error": "Could not parse valid tracking ID from streaming link matrix."}
