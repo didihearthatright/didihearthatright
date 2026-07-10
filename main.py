@@ -67,15 +67,16 @@ def run_forensic_math(audio_path: str):
 
         drift_index = f"{max(12.0, min(99.9, 100 - (jitter * 600))):.1f}% Organic Vocal Flexibility"
         velocity_map = f"{pitch_variance * 65:.2f} Hz Note-Glide Velocity"
-        return {
+                        return {
             "success": True,
             "score": score,
             "trajectory": trajectory,
             "drift_index": drift_index,
-            "velocity_map": velocity_map
+            "velocity_map": velocity_map,
+            "hnr_profile": f"{hnr_index:.2f} dB Harmonic Density"
         }
-    except Exception as e:
-        return {"success": False, "error": f"Mathematical calculation failure: {str(e)}"}
+
+
 
 @app.post("/analyze-vocal")
 async def analyze_vocal(file: UploadFile = File(...)):
