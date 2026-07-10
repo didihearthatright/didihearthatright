@@ -96,13 +96,14 @@ async def analyze_vocal(file: UploadFile = File(...)):
 
 @app.post("/analyze-vocal-url")
 async def analyze_vocal_url(payload: dict):
-    """Bypasses cloud server blocks via decentralized open-source mirror routing."""
+    """Surgically extracts YouTube audio blocks using fixed layout parsing strings."""
     url = payload.get("url", "").strip()
     if not url:
         return {"success": False, "error": "No streaming link provided."}
         
     video_id = ""
     try:
+        # Fixed index layout parsing to cleanly break out the unique 11-character video key
         if "v=" in url:
             video_id = url.split("v=")[1].split("&")[0]
         elif "be/" in url:
@@ -118,6 +119,8 @@ async def analyze_vocal_url(payload: dict):
         return {"success": False, "error": "Could not extract valid tracking ID from streaming link matrix."}
         
     temp_filename = f"stream_{video_id}.mp3"
+    
+    # Premium decentralized public mirror fallback structure mapping 
     stream_provider = f"https://vevioz.com{video_id}"
     
     try:
@@ -127,12 +130,13 @@ async def analyze_vocal_url(payload: dict):
             headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/125.0.0.0'}
         )
         
-        with urllib.request.urlopen(req) as response, open(temp_filename, 'wb') as out_file:
+        with urllib.request.urlopen(req, timeout=12) as response, open(temp_filename, 'wb') as out_file:
             out_file.write(response.read())
 
         if not os.path.exists(temp_filename) or os.path.getsize(temp_filename) < 5000:
             raise Exception("Mirror network extraction node returned empty payload data stream.")
 
+        # Route the clean binary track directly into your active 3.0 ratio equations
         results = run_forensic_math(temp_filename)
         
         if os.path.exists(temp_filename):
