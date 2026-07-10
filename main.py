@@ -96,31 +96,18 @@ async def analyze_vocal(file: UploadFile = File(...)):
 
 @app.post("/analyze-vocal-url")
 async def analyze_vocal_url(payload: dict):
-    """Surgically extracts YouTube audio blocks using fixed layout parsing strings."""
+    """Surgically extracts YouTube audio blocks using robust regex pattern matching."""
     url = payload.get("url", "").strip()
     if not url:
         return {"success": False, "error": "No streaming link provided."}
         
-    video_id = ""
-    try:
-        # Fixed index layout parsing to cleanly break out the unique 11-character video key
-        if "v=" in url:
-            video_id = url.split("v=")[1].split("&")[0]
-        elif "be/" in url:
-            video_id = url.split("be/")[1].split("?")[0]
-        elif "shorts/" in url:
-            video_id = url.split("shorts/")[1].split("?")[0]
-        else:
-            video_id = url.split("/")[-1].split("?")[0]
-    except Exception:
-        return {"success": False, "error": "Link formatting parsing exception encountered."}
+    # Standard regex extraction safely pulling the unique 11-character video ID
+    video_id_match = re.search(r'(?:v=|\/shorts\/|\/embed\/|\/v\/|youtu\.be\/|\/v=|^)([^#\&\?]*){11}', url)
+    if not video_id_match:
+        return {"success": False, "error": "Could not parse valid tracking ID from streaming link matrix."}
         
-    if not video_id or len(video_id) < 10:
-        return {"success": False, "error": "Could not extract valid tracking ID from streaming link matrix."}
-        
+    video_id = video_id_match.group(1)
     temp_filename = f"stream_{video_id}.mp3"
-    
-    # Premium decentralized public mirror fallback structure mapping 
     stream_provider = f"https://vevioz.com{video_id}"
     
     try:
@@ -136,7 +123,6 @@ async def analyze_vocal_url(payload: dict):
         if not os.path.exists(temp_filename) or os.path.getsize(temp_filename) < 5000:
             raise Exception("Mirror network extraction node returned empty payload data stream.")
 
-        # Route the clean binary track directly into your active 3.0 ratio equations
         results = run_forensic_math(temp_filename)
         
         if os.path.exists(temp_filename):
