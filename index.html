@@ -219,7 +219,7 @@
             const legendBox = document.getElementById('legendBox');
             const legendVocalType = document.getElementById('legendVocalType');
 
-            const seedSource = url ? url : (file.length ? file[0].name : "default.com");
+            const seedSource = url ? url : (file.length ? file.name : "default.com");
             let hash = 0;
             for (let i = 0; i < seedSource.length; i++) {
                 hash = seedSource.charCodeAt(i) + ((hash << 5) - hash);
@@ -242,17 +242,17 @@
             let descriptionText = "";
 
             if (pitchQuantization >= 75) {
-                classification = "HEAVILY QUANTIZED PERFORMANCE";
+                classification = "HEAVILY MODIFIED / AUTO-TUNED VOCAL";
                 classColor = "#ff4a4a";
-                descriptionText = "The audio profile shows extreme grid-locking. Pitch movements lack the micro-variations characteristic of natural human singing, pointing to severe hardware correction or pitch-quantizing software plugins.";
+                descriptionText = "This voice is locked tightly to a digital grid. It has lost the natural pitch slides and imperfections of a raw human voice, which confirms aggressive software correction or computer generation.";
             } else if (pitchQuantization >= 45) {
-                classification = "HYBRID ASSISTED TRACKING PROFILE";
+                classification = "PARTIALLY ASSISTED / POLISHED STUDIO VOCAL";
                 classColor = "#ffaa00";
-                descriptionText = "The vocal displays moderate human characteristics blended with targeted software corrections. Pitch leveling is active on sustained phrases, but natural physical transitions and slides remain evident.";
+                descriptionText = "A blend of human and machine. The singer's natural transitions and raw performance style are present, but steady pitch correction is actively helping smooth out longer notes.";
             } else {
-                classification = "HIGHLY ORGANIC NATURAL CAPTURE";
+                classification = "100% NATURAL / UNASSISTED HUMAN VOCAL";
                 classColor = "#00adb5";
-                descriptionText = "The vocal timeline contains high biological variability. Micro-tremors, raw note entries, and rich pitch variations are fully preserved, proving a completely authentic acoustic studio capture.";
+                descriptionText = "Completely authentic singing. The engine detected all the subtle imperfections, emotional tremors, and raw note changes that only a genuine human performance can produce.";
             }
 
             document.getElementById('inputGroupForm').style.display = 'none';
@@ -262,35 +262,59 @@
             legendVocalType.innerHTML = `Vocal Track Profile:<br><span style="color: ${classColor}; font-size: 1.1rem;">${classification}</span>`;
 
             statusContainer.innerHTML = `
-                <div style="background: #15191d; border: 2px solid #222b35; border-radius: 8px; padding: 25px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5); position: relative; overflow: hidden;">
+                <div style="background: #15191d; border: 2px solid #222b35; border-radius: 8px; padding: 25px; position: relative; overflow: hidden; box-sizing: border-box;">
                     <div style="text-align: center; margin-bottom: 20px;">
-                        <span style="font-size: 0.75rem; color: #666; font-family: monospace; display: block; margin-bottom: 4px;">ANALYSIS COMPLETE // SECURITY PASSED</span>
-                        <h2 style="margin: 0; font-size: 1.4rem; color: #fff; letter-spacing: 1px;">Forensic Audio Metric Report</h2>
+                        <span style="font-size: 0.75rem; color: #666; font-family: monospace; display: block; margin-bottom: 4px;">PRELIMINARY SCAN COMPLETE</span>
+                        <h2 style="margin: 0; font-size: 1.4rem; color: #fff; letter-spacing: 1px;">Vocal Authenticity Summary</h2>
                     </div>
 
+                    <!-- Free Layman Summary Block -->
                     <div style="background: #0c0f12; border-left: 4px solid ${classColor}; padding: 15px; border-radius: 4px; margin-bottom: 25px;">
-                        <span style="font-family: monospace; font-size: 0.75rem; color: ${classColor}; font-weight: bold; display: block; margin-bottom: 5px;">CORE EVALUATION SUMMARY:</span>
+                        <span style="font-family: monospace; font-size: 0.75rem; color: ${classColor}; font-weight: bold; display: block; margin-bottom: 5px;">INITIAL ASSESSMENT:</span>
                         <div style="font-size: 1.05rem; font-weight: bold; color: #fff; margin-bottom: 8px; line-height: 1.4;">${classification}</div>
-                        <p style="margin: 0; font-size: 0.8rem; color: #8a929a; line-height: 1.5;">${descriptionText}</p>
+                        <p style="margin: 0; font-size: 0.85rem; color: #8a929a; line-height: 1.5;">${descriptionText}</p>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; filter: blur(4px); pointer-events: none; opacity: 0.25;">
+                    <!-- 2 Free Unlocked Layman Metrics -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
                         <div style="background: #0c0f12; padding: 12px; border: 1px solid #1c2024; border-radius: 4px;">
-                            <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">ORGANIC FLEXIBILITY INDEX</span>
+                            <span style="display: block; font-size: 0.7rem; color: #00adb5; font-family: monospace; font-weight: bold;">NATURAL VOCAL FLEXIBILITY</span>
                             <div style="font-size: 1.3rem; font-weight: bold; color: #fff; margin: 4px 0;">${organicFlexibility}%</div>
+                            <div style="height: 4px; background: #222; border-radius: 2px;"><div style="background: #00adb5; width: ${organicFlexibility}%; height: 100%;"></div></div>
                         </div>
+
                         <div style="background: #0c0f12; padding: 12px; border: 1px solid #1c2024; border-radius: 4px;">
-                            <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">PITCH QUANTIZATION SCALE</span>
+                            <span style="display: block; font-size: 0.7rem; color: #ff4a4a; font-family: monospace; font-weight: bold;">DIGITAL GRID NOTE-LOCKING</span>
                             <div style="font-size: 1.3rem; font-weight: bold; color: #fff; margin: 4px 0;">${pitchQuantization}%</div>
+                            <div style="height: 4px; background: #222; border-radius: 2px;"><div style="background: #ff4a4a; width: ${pitchQuantization}%; height: 100%;"></div></div>
                         </div>
                     </div>
 
-                    <!-- $1.99 Premium Unlock Paywall Layer Overlay -->
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12, 15, 18, 0.85); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; text-align: center;">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🔒</div>
-                        <h3 style="margin: 0 0 10px 0; color: #fff; font-size: 1.2rem; letter-spacing: 1px;">Unlock Full Forensic Sheet</h3>
-                        <p style="margin: 0 0 20px 0; color: #8a929a; font-size: 0.85rem; max-width: 320px; line-height: 1.4;">Get the complete 6-core dynamic calculation report for this track instantly.</p>
-                        <button onclick="sessionStorage.setItem('dihtr_url', document.getElementById('streamUrl').value.trim()); sessionStorage.setItem('dihtr_file', document.getElementById('audioFile').files.length ? document.getElementById('audioFile').files[0].name : ''); window.location.href='report.html';" style="background: #ffaa00; color: #06080a; border: none; padding: 12px 30px; font-size: 0.95rem; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;">Unlock Report Now // $1.99</button>
+                    <!-- 4 Advanced Forensic Metrics Blurred Box -->
+                    <div style="background: #0c0f12; border: 1px dashed #1c2024; padding: 15px; border-radius: 6px; filter: blur(3.5px); opacity: 0.15; pointer-events: none; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div style="padding: 6px;">
+                            <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace;">FORMANT RESONANCE</span>
+                            <div style="font-size: 1.1rem; font-weight: bold; margin-top: 2px;">${formantConsistency}%</div>
+                        </div>
+                        <div style="padding: 6px;">
+                            <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace;">VIBRATO STABILITY</span>
+                            <div style="font-size: 1.1rem; font-weight: bold; margin-top: 2px;">${spectralVibrato}%</div>
+                        </div>
+                        <div style="padding: 6px;">
+                            <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace;">VOLUME DYNAMICS</span>
+                            <div style="font-size: 1.1rem; font-weight: bold; margin-top: 2px;">${dynamicRange} dB</div>
+                        </div>
+                        <div style="padding: 6px;">
+                            <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace;">DIGITAL ARTIFACTS</span>
+                            <div style="font-size: 1.1rem; font-weight: bold; margin-top: 2px;">${harmonicArtifacts}%</div>
+                        </div>
+                    </div>
+
+                    <!-- $1.99 Premium Unlock Paywall Overlaid Container -->
+                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; background: linear-gradient(to top, #111417 0%, #111417 75%, rgba(17,20,23,0) 100%); display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 20px; box-sizing: border-box; text-align: center;">
+                        <h3 style="margin: 0 0 4px 0; color: #fff; font-size: 1.1rem; letter-spacing: 0.5px;">🔒 Deep Audio Analysis Locked</h3>
+                        <p style="margin: 0 0 15px 0; color: #8a929a; font-size: 0.8rem; max-width: 400px; line-height: 1.3;">Uncover the 4 advanced forensic graphs and see where human expression ends.</p>
+                        <button onclick="sessionStorage.setItem('dihtr_url', document.getElementById('streamUrl').value.trim()); sessionStorage.setItem('dihtr_file', document.getElementById('audioFile').files.length ? document.getElementById('audioFile').files[0].name : ''); window.location.href='report.html';" style="background: #ffaa00; color: #06080a; border: none; padding: 12px 30px; font-size: 0.9rem; font-weight: bold; border-radius: 4px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 20px rgba(255,170,0,0.3);">Unlock Advanced Forensic Sheet // $1.99</button>
                     </div>
                 </div>
             `;
