@@ -219,7 +219,7 @@
             const legendBox = document.getElementById('legendBox');
             const legendVocalType = document.getElementById('legendVocalType');
 
-            const seedSource = url ? url : (file.length ? file.name : "default.com");
+            const seedSource = url ? url : (file.length ? file[0].name : "default.com");
             let hash = 0;
             for (let i = 0; i < seedSource.length; i++) {
                 hash = seedSource.charCodeAt(i) + ((hash << 5) - hash);
