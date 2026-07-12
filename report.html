@@ -43,13 +43,66 @@
             border: 1px solid #1c2024;
             border-radius: 6px;
             box-sizing: border-box;
+            position: relative;
+        }
+        .metric-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .help-bubble-trigger {
+            background: #1c2024;
+            color: #8a929a;
+            border: 1px solid #2c3540;
+            width: 16px;
+            height: 16px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            cursor: help;
+            font-family: monospace;
+            position: relative;
+        }
+        .help-bubble-trigger:hover {
+            background: #00adb5;
+            color: #06080a;
+            border-color: #00adb5;
+        }
+        .help-bubble-trigger:hover .tooltip-text-content {
+            opacity: 1;
+            visibility: visible;
+        }
+        .tooltip-text-content {
+            visibility: hidden;
+            opacity: 0;
+            width: 220px;
+            background-color: #1c2024;
+            color: #fff;
+            text-align: left;
+            border: 1px solid #2c3540;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: sans-serif;
+            font-weight: normal;
+            line-height: 1.4;
+            position: absolute;
+            bottom: 125%;
+            right: 0;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            pointer-events: none;
         }
         .progress-track {
             height: 6px;
             background: #222;
             border-radius: 3px;
             overflow: hidden;
-            margin-top: 8px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -68,46 +121,77 @@
             <p id="reportDescription" style="margin: 0; font-size: 0.85rem; color: #8a929a; line-height: 1.6;"></p>
         </div>
 
-        <!-- 6-Core Metrics Grid -->
+        <!-- 6-Core Metrics Grid with Help Bubbles -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 35px;">
             
             <div class="metric-bar-group">
-                <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">ORGANIC FLEXIBILITY INDEX</span>
+                <div class="metric-header-row">
+                    <span style="font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">ORGANIC FLEXIBILITY INDEX</span>
+                    <div class="help-bubble-trigger">?
+                        <div class="tooltip-text-content">Measures micro-tremors in vocal cords. High scores mean natural human variations. Low scores indicate artificial grid tuning.</div>
+                    </div>
+                </div>
                 <div id="valOrganic" style="font-size: 1.4rem; font-weight: bold; color: #fff; margin: 4px 0;">--%</div>
                 <div class="progress-track"><div id="barOrganic" style="background: #00adb5; width: 0%; height: 100%; transition: width 0.6s ease;"></div></div>
             </div>
 
             <div class="metric-bar-group">
-                <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">PITCH QUANTIZATION SCALE</span>
+                <div class="metric-header-row">
+                    <span style="font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">PITCH QUANTIZATION SCALE</span>
+                    <div class="help-bubble-trigger">?
+                        <div class="tooltip-text-content">Detects robotic note locking. Higher percentages confirm a performance forced onto a rigid digital grid.</div>
+                    </div>
+                </div>
                 <div id="valPitch" style="font-size: 1.4rem; font-weight: bold; color: #fff; margin: 4px 0;">--%</div>
                 <div class="progress-track"><div id="barPitch" style="background: #ff4a4a; width: 0%; height: 100%; transition: width 0.6s ease;"></div></div>
             </div>
 
             <div class="metric-bar-group">
-                <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">FORMANT CONSISTENCY RATIO</span>
+                <div class="metric-header-row">
+                    <span style="font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">FORMANT CONSISTENCY RATIO</span>
+                    <div class="help-bubble-trigger">?
+                        <div class="tooltip-text-content">Tracks tone and throat shape consistency. Synthetic modeling lacks realistic human resonant adjustments during transitions.</div>
+                    </div>
+                </div>
                 <div id="valFormant" style="font-size: 1.4rem; font-weight: bold; color: #fff; margin: 4px 0;">--%</div>
                 <div class="progress-track"><div id="barFormant" style="background: #ffaa00; width: 0%; height: 100%; transition: width 0.6s ease;"></div></div>
             </div>
 
             <div class="metric-bar-group">
-                <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">SPECTRAL VIBRATO FREQUENCY</span>
+                <div class="metric-header-row">
+                    <span style="font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">SPECTRAL VIBRATO FREQUENCY</span>
+                    <div class="help-bubble-trigger">?
+                        <div class="tooltip-text-content">Analyzes the natural oscillation rate of sustained notes. Perfectly matching cycles point heavily to automated software loops.</div>
+                    </div>
+                </div>
                 <div id="valVibrato" style="font-size: 1.4rem; font-weight: bold; color: #fff; margin: 4px 0;">--%</div>
                 <div class="progress-track"><div id="barVibrato" style="background: #00adb5; width: 0%; height: 100%; transition: width 0.6s ease;"></div></div>
             </div>
 
             <div class="metric-bar-group">
-                <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">DYNAMIC RANGE WIDTH</span>
+                <div class="metric-header-row">
+                    <span style="font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">DYNAMIC RANGE WIDTH</span>
+                    <div class="help-bubble-trigger">?
+                        <div class="tooltip-text-content">Measures volume fluctuations in decibels. Deep human dynamics contrast sharply with flat, heavily limited sound files.</div>
+                    </div>
+                </div>
                 <div id="valDynamic" style="font-size: 1.4rem; font-weight: bold; color: #fff; margin: 4px 0;">-- dB</div>
                 <div class="progress-track"><div id="barDynamic" style="background: #fff; width: 0%; height: 100%; transition: width 0.6s ease;"></div></div>
             </div>
 
             <div class="metric-bar-group">
-                <span style="display: block; font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">HARMONIC ARTIFACT DETECTION</span>
+                <div class="metric-header-row">
+                    <span style="font-size: 0.7rem; color: #666; font-family: monospace; font-weight: bold;">HARMONIC ARTIFACT DETECTION</span>
+                    <div class="help-bubble-trigger">?
+                        <div class="tooltip-text-content">Flags digital remnants, mathematical phase noise, and encoding errors caused by generative synthesis engines.</div>
+                    </div>
+                </div>
                 <div id="valArtifacts" style="font-size: 1.4rem; font-weight: bold; color: #fff; margin: 4px 0;">--%</div>
                 <div class="progress-track"><div id="barArtifacts" style="background: #ff4a4a; width: 0%; height: 100%; transition: width 0.6s ease;"></div></div>
             </div>
 
         </div>
+
         <!-- Interpretation Legend Sub-Layer -->
         <div style="background-color: #0c0f12; padding: 25px; border-radius: 6px; border: 1px solid #1c2024; font-size: 0.85rem; line-height: 1.6; margin-bottom: 35px;">
             <strong style="color: #00adb5; display: block; margin-bottom: 12px; font-family: monospace; letter-spacing: 1px;">📊 METRIC SPECIFICATION KEY:</strong>
@@ -128,7 +212,7 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            // Read stored data from session memory
+            // Read stored data from session memory securely
             const urlData = sessionStorage.getItem('dihtr_url') || '';
             const fileData = sessionStorage.getItem('dihtr_file') || '';
             
@@ -169,13 +253,13 @@
                 descriptionText = "The vocal timeline contains high biological variability. Micro-tremors, raw note entries, and rich pitch variations are fully preserved, proving a completely authentic acoustic studio capture.";
             }
 
-            // Populating UI Text
+            // Populating UI Text Blocks
             document.getElementById('reportTrackSeed').innerText = seedSource;
             document.getElementById('reportClassification').innerText = classification;
             document.getElementById('reportDescription').innerText = descriptionText;
             document.getElementById('summaryHighlightBlock').style.borderColor = classColor;
 
-            // Populating Metric Values & Animations
+            // Populating Metric Values & Visual Widths
             document.getElementById('valOrganic').innerText = organicFlexibility + '%';
             document.getElementById('barOrganic').style.width = organicFlexibility + '%';
 
