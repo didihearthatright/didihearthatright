@@ -23,6 +23,7 @@
             padding: 40px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.7);
             box-sizing: border-box;
+            position: relative;
         }
         .badge-verified {
             background: rgba(0, 173, 181, 0.15);
@@ -104,9 +105,47 @@
             overflow: hidden;
             margin-top: 10px;
         }
+        /* Sticky Floating Action Button Layout Framework */
+        .floating-home-link {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: #00adb5;
+            color: #06080a;
+            border: none;
+            padding: 14px 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            font-family: monospace;
+            text-decoration: none;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 173, 181, 0.4);
+            letter-spacing: 1px;
+            z-index: 100;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .floating-home-link:hover {
+            background: #00fff2;
+            box-shadow: 0 10px 35px rgba(0, 255, 242, 0.6);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 900px) {
+            .floating-home-link {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 16px;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Persistent Floating Return Dashboard Widget -->
+    <a href="index.html" class="floating-home-link">🎛️ COCKPIT</a>
+
     <div class="report-card-frame">
         <div style="text-align: center; margin-bottom: 35px; border-bottom: 1px solid #1c2024; padding-bottom: 30px;">
             <div class="badge-verified">OFFICIAL FORENSIC RECORD // DIHTR ARCHIVE</div>
